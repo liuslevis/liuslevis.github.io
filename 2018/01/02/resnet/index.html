@@ -95,20 +95,22 @@
 
 
 
-<meta name="description" content="MSRA 的 Kaiming He et. al. 在 CVPR15 发表了 ResNet [1]，即残差网络，在网络的输入层加入了残差函数，使得更深层神经网络优化更容易。用 152 层 ResNet （比 VGG 深 8 倍）学习 ImageNet 数据集，达到 3.57% 的错误率在 ILSVRC 2015 中名列第一。 在     He, Kaiming, et al. “Deep resi">
+<meta name="description" content="MSRA 的 Kaiming He et. al. 在 CVPR15 发表了 ResNet [1]，即残差网络，在网络的输入层加入了残差函数，使得更深层神经网络优化更容易。用 152 层 ResNet （比 VGG 深 8 倍）学习 ImageNet 数据集，达到 3.57% 的错误率在 ILSVRC 2015 中名列第一。 在 Deep CNN 中，随着网络加深，一个退化问题出现了：训练准确率不">
 <meta name="keywords" content="deep learning">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ResNet 学习笔记">
 <meta property="og:url" content="http://davidlau.me/2018/01/02/resnet/index.html">
 <meta property="og:site_name" content="davidlau&#39;s blog">
-<meta property="og:description" content="MSRA 的 Kaiming He et. al. 在 CVPR15 发表了 ResNet [1]，即残差网络，在网络的输入层加入了残差函数，使得更深层神经网络优化更容易。用 152 层 ResNet （比 VGG 深 8 倍）学习 ImageNet 数据集，达到 3.57% 的错误率在 ILSVRC 2015 中名列第一。 在     He, Kaiming, et al. “Deep resi">
+<meta property="og:description" content="MSRA 的 Kaiming He et. al. 在 CVPR15 发表了 ResNet [1]，即残差网络，在网络的输入层加入了残差函数，使得更深层神经网络优化更容易。用 152 层 ResNet （比 VGG 深 8 倍）学习 ImageNet 数据集，达到 3.57% 的错误率在 ILSVRC 2015 中名列第一。 在 Deep CNN 中，随着网络加深，一个退化问题出现了：训练准确率不">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://davidlau.me/2018/01/02/img/res1.png">
-<meta property="og:updated_time" content="2018-01-02T03:08:19.812Z">
+<meta property="og:image" content="http://davidlau.me/2018/01/02/img/resnet-fig-1.png">
+<meta property="og:image" content="http://davidlau.me/2018/01/02/img/resnet-fig-2.png">
+<meta property="og:image" content="http://davidlau.me/2018/01/02/img/resnet-fig-3.png">
+<meta property="og:updated_time" content="2018-01-02T08:41:13.783Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ResNet 学习笔记">
-<meta name="twitter:description" content="MSRA 的 Kaiming He et. al. 在 CVPR15 发表了 ResNet [1]，即残差网络，在网络的输入层加入了残差函数，使得更深层神经网络优化更容易。用 152 层 ResNet （比 VGG 深 8 倍）学习 ImageNet 数据集，达到 3.57% 的错误率在 ILSVRC 2015 中名列第一。 在     He, Kaiming, et al. “Deep resi">
-<meta name="twitter:image" content="http://davidlau.me/2018/01/02/img/res1.png">
+<meta name="twitter:description" content="MSRA 的 Kaiming He et. al. 在 CVPR15 发表了 ResNet [1]，即残差网络，在网络的输入层加入了残差函数，使得更深层神经网络优化更容易。用 152 层 ResNet （比 VGG 深 8 倍）学习 ImageNet 数据集，达到 3.57% 的错误率在 ILSVRC 2015 中名列第一。 在 Deep CNN 中，随着网络加深，一个退化问题出现了：训练准确率不">
+<meta name="twitter:image" content="http://davidlau.me/2018/01/02/img/resnet-fig-1.png">
 
 
 
@@ -344,8 +346,20 @@
 
       
         <p>MSRA 的 Kaiming He et. al. 在 CVPR15 发表了 ResNet <sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup>，即残差网络，在网络的输入层加入了残差函数，使得更深层神经网络优化更容易。用 152 层 ResNet （比 VGG 深 8 倍）学习 ImageNet 数据集，达到 3.57% 的错误率在 ILSVRC 2015 中名列第一。</p>
-<p>在</p>
-<p><img src="../img/res1.png" alt="res1"></p>
+<p>在 Deep CNN 中，随着网络加深，一个退化问题出现了：训练准确率不会随之改善，如 Figure1 所示。退化问题不是过拟合引起的，它意味着不是所有的神经网络都容易优化。</p>
+<p>对退化问题，有一个解决方法：构建更深的模型时，added layer 是 identity mapping，其他 layers 是从学习好的浅层模型复制过来。这种解决方法表明，更深的模型，相对于浅层的模型，不应该产生更高的训练误差。实验显示，目前 solver 无法很好地求解。</p>
+<p><img src="../img/resnet-fig-1.png" alt="fig1"></p>
+<p>在这篇论文中，提出了 deep residual learning framework 来解决这个退化问题。让每个 layer 拟合 residual mapping，而不是拟合 underlying mapping，如 Figure 2 所示。</p>
+<p><img src="../img/resnet-fig-2.png" alt="fig1"></p>
+<p>记 desired underlying mapping 为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi mathvariant="script">H</mi><mo>(</mo><mi mathvariant="bold">x</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">\mathcal H(\mathbf x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathcal" style="margin-right:0.00965em;">H</span><span class="mopen">(</span><span class="mord mathbf">x</span><span class="mclose">)</span></span></span></span>，记 stacked nonlinear layer mapping 为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi mathvariant="script">F</mi><mo>(</mo><mi mathvariant="bold">x</mi><mo>)</mo><mo>:</mo><mo>=</mo><mi mathvariant="script">H</mi><mo>(</mo><mi mathvariant="bold">x</mi><mo>)</mo><mo>−</mo><mi mathvariant="bold">x</mi></mrow><annotation encoding="application/x-tex">\mathcal F(\mathbf x) := \mathcal H(\mathbf x) - \mathbf x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathcal" style="margin-right:0.09931em;">F</span><span class="mopen">(</span><span class="mord mathbf">x</span><span class="mclose">)</span><span class="mrel">:</span><span class="mrel">=</span><span class="mord mathcal" style="margin-right:0.00965em;">H</span><span class="mopen">(</span><span class="mord mathbf">x</span><span class="mclose">)</span><span class="mbin">−</span><span class="mord mathbf">x</span></span></span></span> ，那么 origin mapping 为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi mathvariant="script">F</mi><mo>(</mo><mi mathvariant="bold">x</mi><mo>)</mo><mo>+</mo><mi mathvariant="bold">x</mi></mrow><annotation encoding="application/x-tex">\mathcal F(\mathbf x) + \mathbf x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathcal" style="margin-right:0.09931em;">F</span><span class="mopen">(</span><span class="mord mathbf">x</span><span class="mclose">)</span><span class="mbin">+</span><span class="mord mathbf">x</span></span></span></span> 。我们假设 residual mapping 比 original referenced mapping 更容易优化。极限情况下，如果 identity mapping 是最优的，那么把 residual push to zero 比拟合 identity mapping （stack of nonlinear layers） 更容易。</p>
+<p>其中为 identity <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi mathvariant="bold">x</mi></mrow><annotation encoding="application/x-tex">\mathbf x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.44444em;"></span><span class="strut bottom" style="height:0.44444em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathbf">x</span></span></span></span> 是 shortcut connection，它不增加模型的计算复杂度和参数，同时也容易用现有框架（Keras / Caffe）实现。</p>
+<p>论文的实验表明：</p>
+<ol>
+<li>Deep ResNet 容易优化，而 CNN 随着深度增加，train error 增加</li>
+<li>ResNet 比 CNN 更容易通过增加深度（500~1k 层）来提高准确率，参数更少，训练时间更快。</li>
+</ol>
+<p>网络结构如 Figure 3 所示：</p>
+<p><img src="../img/resnet-fig-3.png" alt="fig1"></p>
 <hr class="footnotes-sep">
 <section class="footnotes">
 <ol class="footnotes-list">

@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="default">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="https://cdn.bootcss.com/KaTeX/0.7.1/katex.min.css" rel="stylesheet">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="functional programming,swift," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="在文章SWIFT IS A LOT LIKE SCALA [1] 提到Swift和Scala有很大的相似之处，在某些特性甚至比Scala对函数式编程的支持更友好。笔者遂从Swift语言出发，学习函数式编程[2] [3]，并记录笔记如下。">
+<meta name="keywords" content="functional programming,swift">
+<meta property="og:type" content="article">
+<meta property="og:title" content="通过Swift学函数式编程">
+<meta property="og:url" content="http://davidlau.me/2015/05/11/learning-functional-programming-in-swift/index.html">
+<meta property="og:site_name" content="davidlau&#39;s blog">
+<meta property="og:description" content="在文章SWIFT IS A LOT LIKE SCALA [1] 提到Swift和Scala有很大的相似之处，在某些特性甚至比Scala对函数式编程的支持更友好。笔者遂从Swift语言出发，学习函数式编程[2] [3]，并记录笔记如下。">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-01-02T02:02:24.319Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="通过Swift学函数式编程">
+<meta name="twitter:description" content="在文章SWIFT IS A LOT LIKE SCALA [1] 提到Swift和Scala有很大的相似之处，在某些特性甚至比Scala对函数式编程的支持更友好。笔者遂从Swift语言出发，学习函数式编程[2] [3]，并记录笔记如下。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://davidlau.me/2015/05/11/learning-functional-programming-in-swift/"/>
+
+
+
+
+
+  <title>通过Swift学函数式编程 | davidlau's blog</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?1f9568aea795d9674618be7bae3ab784";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">davidlau's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2015/05/11/learning-functional-programming-in-swift/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="davidlau">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="davidlau's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">通过Swift学函数式编程</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-05-11T16:57:03+08:00">
+                2015-05-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Dev/" itemprop="url" rel="index">
+                    <span itemprop="name">Dev</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>在文章<a href="http://leverich.github.io/swiftislikescala/" target="_blank" rel="noopener">SWIFT IS A LOT LIKE SCALA</a> <sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup> 提到Swift和Scala有很大的相似之处，在某些特性甚至比Scala对函数式编程的支持更友好。笔者遂从Swift语言出发，学习函数式编程<sup class="footnote-ref"><a href="#fn2" id="fnref2">[2]</a></sup> <sup class="footnote-ref"><a href="#fn3" id="fnref3">[3]</a></sup>，并记录笔记如下。</p>
+<a id="more"></a>
+<h2 id="什么是函式编程"><a class="markdownIt-Anchor" href="#什么是函式编程"></a> 什么是函式编程</h2>
+<p>是一种编程范式，强调数学化的函数，不可变（immutable），expressiveness，尽量少地使用变量、状态。</p>
+<p>由这些特性带来的好处有：解耦，使App易于测试，易于并发、并行化。</p>
+<h2 id="map-reduce-filter"><a class="markdownIt-Anchor" href="#map-reduce-filter"></a> Map Reduce Filter</h2>
+<h3 id="array-filter"><a class="markdownIt-Anchor" href="#array-filter"></a> Array Filter</h3>
+<p>这些函式方法和Python很像，例子：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">isEven</span><span class="params">(number: Int)</span></span> -&gt; <span class="type">Bool</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> number % <span class="number">2</span> == <span class="number">0</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// First-class function， 函数作为变量看待</span></span><br><span class="line"><span class="keyword">let</span> evens1 = <span class="type">Array</span>(<span class="number">1</span>...<span class="number">10</span>).<span class="built_in">filter</span>(isEven)</span><br><span class="line"><span class="built_in">println</span>(evens1)</span><br><span class="line"></span><br><span class="line"><span class="comment">// Closure 闭包，匿名函数，即Python里面的Lambda</span></span><br><span class="line"><span class="keyword">let</span> evens2 = <span class="type">Array</span>(<span class="number">1</span>...<span class="number">10</span>).<span class="built_in">filter</span>&#123;</span><br><span class="line">    (number) <span class="keyword">in</span></span><br><span class="line">    number % <span class="number">2</span> == <span class="number">0</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="自制filter"><a class="markdownIt-Anchor" href="#自制filter"></a> 自制Filter</h3>
+<p>此处自定义了一个泛型函数Generic Function。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">myFilter</span>&lt;T&gt;<span class="params">(source: [T], predicate:<span class="params">(T)</span></span></span> -&gt; <span class="type">Bool</span>) -&gt; [<span class="type">T</span>] &#123;</span><br><span class="line">    <span class="keyword">var</span> result = [<span class="type">T</span>]()</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> source &#123;</span><br><span class="line">        <span class="keyword">if</span> predicate(i) &#123;</span><br><span class="line">            result.append(i)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="array-reduce"><a class="markdownIt-Anchor" href="#array-reduce"></a> Array Reduce</h3>
+<p>任务：取1…10的偶数求和</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> evenSum = <span class="type">Array</span>(<span class="number">1</span>...<span class="number">10</span>)</span><br><span class="line">    .<span class="built_in">filter</span> &#123; (number) <span class="keyword">in</span> number % <span class="number">2</span> == <span class="number">0</span> &#125;</span><br><span class="line">    .<span class="built_in">reduce</span>(<span class="number">0</span>) &#123; (total, number) <span class="keyword">in</span> total + number &#125;</span><br></pre></td></tr></table></figure>
+<p>或者简写</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> evenSum = <span class="type">Array</span>(<span class="number">1</span>...<span class="number">10</span>)</span><br><span class="line">    .<span class="built_in">filter</span> &#123; $<span class="number">0</span> % <span class="number">2</span> == <span class="number">0</span> &#125;</span><br><span class="line">    .<span class="built_in">reduce</span>(<span class="number">0</span>) &#123; $<span class="number">0</span> + $<span class="number">1</span> &#125;    </span><br><span class="line"></span><br><span class="line"><span class="built_in">println</span>(evenSum)</span><br></pre></td></tr></table></figure>
+<h3 id="自定义reduce"><a class="markdownIt-Anchor" href="#自定义reduce"></a> 自定义Reduce</h3>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">Array</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">myReduce</span>&lt;T,U&gt;<span class="params">(seed:U, combiner:<span class="params">(U,T)</span></span></span>-&gt;<span class="type">U</span>) -&gt; <span class="type">U</span> </span><br><span class="line">    &#123;</span><br><span class="line">    <span class="keyword">var</span> cur = seed</span><br><span class="line">    <span class="keyword">for</span> item <span class="keyword">in</span> <span class="keyword">self</span> &#123;</span><br><span class="line">        cur = combiner(cur, item <span class="keyword">as</span> <span class="type">T</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> cur</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> evenSum = <span class="type">Array</span>(<span class="number">1</span>...<span class="number">10</span>)</span><br><span class="line">    .<span class="built_in">filter</span> &#123; (number) <span class="keyword">in</span> number % <span class="number">2</span> == <span class="number">0</span> &#125;</span><br><span class="line">    .myReduce(<span class="number">0</span>) &#123; (total, number) <span class="keyword">in</span> total + number &#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">println</span>(evenSum)</span><br></pre></td></tr></table></figure>
+<h3 id="递归reduce"><a class="markdownIt-Anchor" href="#递归reduce"></a> 递归Reduce</h3>
+<p>需先声明Closure类型，再定义行为。参考<a href="https://developer.apple.com/videos/wwdc/2014/#404" target="_blank" rel="noopener">Advanced Swift at WWDC14</a> <sup class="footnote-ref"><a href="#fn4" id="fnref4">[4]</a></sup> 的视频。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> list: <span class="type">ArraySlice</span> = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>,<span class="number">10</span>]</span><br><span class="line"><span class="keyword">var</span> closure:((<span class="type">Int</span>, <span class="type">ArraySlice</span>&lt;<span class="type">Int</span>&gt;) -&gt; <span class="type">Int</span>)!</span><br><span class="line">closure = &#123; (memo, list) <span class="keyword">in</span></span><br><span class="line">    <span class="keyword">if</span> (list.<span class="built_in">count</span> == <span class="number">0</span>) &#123;</span><br><span class="line">        closure = <span class="literal">nil</span> <span class="comment">// remove retain cycle</span></span><br><span class="line">        <span class="keyword">return</span> memo</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> closure(memo + list[<span class="number">0</span>], list[<span class="number">1</span>..&lt;list.<span class="built_in">count</span>])</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> value = closure(<span class="number">0</span>, list)</span><br></pre></td></tr></table></figure>
+<h2 id="函数式编程练习建立字典索引"><a class="markdownIt-Anchor" href="#函数式编程练习建立字典索引"></a> 函数式编程练习：建立字典索引</h2>
+<p>输入如：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> words = [<span class="string">"Guinea Pig"</span>, <span class="string">"Mouse"</span>, <span class="string">"Monkey"</span>, </span><br><span class="line">            <span class="string">"Fish"</span>, <span class="string">"Dog"</span>, <span class="string">"cat"</span>, <span class="string">"chicken"</span>]</span><br></pre></td></tr></table></figure>
+<p>求输出：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> dict = [(<span class="type">C</span>, [<span class="type">Cat</span>, <span class="type">Chicken</span>]),</span><br><span class="line">            (<span class="type">F</span>, [fish]),</span><br><span class="line">            (<span class="type">D</span>, [<span class="type">Dog</span>]),</span><br><span class="line">            (<span class="type">M</span>, [<span class="type">Mouse</span>, monkey]),    </span><br><span class="line">            (<span class="type">G</span>, [<span class="type">Guinea</span> <span class="type">Pig</span>])]</span><br></pre></td></tr></table></figure>
+<p>思路1：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">String</span> </span>&#123;</span><br><span class="line">    <span class="keyword">subscript</span> (i: <span class="type">Int</span>) -&gt; <span class="type">Character</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">self</span>[<span class="built_in">advance</span>(<span class="keyword">self</span>.startIndex, i)]</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">firstCharacter</span><span class="params">()</span></span> -&gt; <span class="type">Character</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">self</span>[<span class="number">0</span>] <span class="keyword">as</span> <span class="type">Character</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typealias</span> <span class="type">WordList</span> = [<span class="type">String</span>]</span><br><span class="line"><span class="keyword">typealias</span> <span class="type">Entry</span> = (<span class="type">Character</span>, <span class="type">WordList</span>)</span><br><span class="line"><span class="keyword">typealias</span> <span class="type">Entries</span> = <span class="type">Array</span>&lt;<span class="type">Entry</span>&gt;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">buildIndexOf</span><span class="params">(words: WordList)</span></span> -&gt; <span class="type">Entries</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> words</span><br><span class="line">        .<span class="built_in">reduce</span>(<span class="type">Entries</span>()) &#123; (entries, word) <span class="keyword">in</span></span><br><span class="line">            <span class="comment">// 1</span></span><br><span class="line">            <span class="comment">// for each word in words</span></span><br><span class="line">            <span class="comment">// check if word.firstChar in entries</span></span><br><span class="line">            <span class="keyword">for</span> entry: <span class="type">Entry</span> <span class="keyword">in</span> entries <span class="keyword">as</span> <span class="type">Entries</span> &#123;</span><br><span class="line">                <span class="keyword">let</span> char: <span class="type">Character</span> = entry.<span class="number">0</span></span><br><span class="line">                <span class="keyword">let</span> word_list: <span class="type">WordList</span> = entry.<span class="number">1</span></span><br><span class="line">                <span class="comment">// 2</span></span><br><span class="line">                <span class="comment">// Indexed char: add word to word_list</span></span><br><span class="line">                <span class="keyword">if</span> char == word.uppercaseString.firstCharacter() &#123;</span><br><span class="line">                    <span class="keyword">let</span> new_entry = <span class="type">Entry</span>(char, word_list + [word])</span><br><span class="line">                    <span class="comment">// immutable entries, need to create new by append</span></span><br><span class="line">                    <span class="keyword">return</span> entries.<span class="built_in">filter</span>() &#123;$<span class="number">0.0</span> != char &#125; + [new_entry]</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 3</span></span><br><span class="line">            <span class="comment">// Unindexed char: create Entry</span></span><br><span class="line">            <span class="keyword">let</span> entry: <span class="type">Entry</span> = <span class="type">Entry</span>(word.uppercaseString.firstCharacter(), [word])</span><br><span class="line">            <span class="keyword">return</span> entries + [entry]</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> words = [<span class="string">"Guinea Pig"</span>, <span class="string">"Mouse"</span>, <span class="string">"Monkey"</span>,</span><br><span class="line">    <span class="string">"Fish"</span>, <span class="string">"Dog"</span>, <span class="string">"cat"</span>, <span class="string">"chicken"</span>]</span><br><span class="line"><span class="built_in">println</span>(buildIndexOf(words))</span><br></pre></td></tr></table></figure>
+<p>思路2：（参见[2] ）</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">buildIndexOf</span><span class="params">(words: WordList)</span></span> -&gt; <span class="type">Entries</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> distinctIndex: [<span class="type">Character</span>] = words.<span class="built_in">reduce</span>([<span class="type">Character</span>]()) &#123;</span><br><span class="line">        (char, word) <span class="keyword">in</span></span><br><span class="line">        <span class="keyword">if</span> !<span class="built_in">contains</span>(char, word.uppercaseString.firstCharacter()) &#123;</span><br><span class="line">            <span class="keyword">return</span> char + [word.uppercaseString.firstCharacter()]</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> char</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// distinctIndex = ['A','F','G',...]</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// add word into index</span></span><br><span class="line">    <span class="keyword">let</span> entries: <span class="type">Entries</span> = distinctIndex.<span class="built_in">map</span> &#123;</span><br><span class="line">        char -&gt; <span class="type">Entry</span> <span class="keyword">in</span> <span class="comment">// -&gt; Entry</span></span><br><span class="line">        <span class="keyword">return</span> <span class="type">Entry</span>(char, words.<span class="built_in">filter</span>() &#123; char == $<span class="number">0</span>.uppercaseString.firstCharacter() &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> entries</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> words = [<span class="string">"Guinea Pig"</span>, <span class="string">"Mouse"</span>, <span class="string">"Monkey"</span>,</span><br><span class="line">    <span class="string">"Fish"</span>, <span class="string">"Dog"</span>, <span class="string">"cat"</span>, <span class="string">"chicken"</span>]</span><br><span class="line"></span><br><span class="line"><span class="built_in">println</span>(buildIndexOf(words))</span><br></pre></td></tr></table></figure>
+<h2 id="尾递归-tail-recursion"><a class="markdownIt-Anchor" href="#尾递归-tail-recursion"></a> 尾递归 Tail-Recursion</h2>
+<hr class="footnotes-sep">
+<section class="footnotes">
+<ol class="footnotes-list">
+<li id="fn1" class="footnote-item"><p><a href="http://leverich.github.io/swiftislikescala/" target="_blank" rel="noopener">http://leverich.github.io/swiftislikescala/</a> <a href="#fnref1" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn2" class="footnote-item"><p><a href="http://www.raywenderlich.com/82599/swift-functional-programming-tutorial" target="_blank" rel="noopener">http://www.raywenderlich.com/82599/swift-functional-programming-tutorial</a> <a href="#fnref2" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn3" class="footnote-item"><p><a href="http://jamesonquave.com/blog/functional-programming-in-swift/" target="_blank" rel="noopener">http://jamesonquave.com/blog/functional-programming-in-swift/</a> <a href="#fnref3" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn4" class="footnote-item"><p><a href="https://developer.apple.com/videos/wwdc/2014/#404" target="_blank" rel="noopener">https://developer.apple.com/videos/wwdc/2014/#404</a> <a href="#fnref4" class="footnote-backref">↩︎</a></p>
+</li>
+</ol>
+</section>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>本文有帮助？</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/img/wechatpay.png" alt="davidlau WeChat Pay"/>
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/functional-programming/" rel="tag"># functional programming</a>
+          
+            <a href="/tags/swift/" rel="tag"># swift</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/05/11/notes-on-The-Free-Launch-Is-Over/" rel="next" title="笔记：软件开发的转折——并发化">
+                <i class="fa fa-chevron-left"></i> 笔记：软件开发的转折——并发化
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/05/28/learn-SCIP/" rel="prev" title="SCIP学习笔记">
+                SCIP学习笔记 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="davidlau" />
+          <p class="site-author-name" itemprop="name">davidlau</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">36</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">categories</span>
+              
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">tags</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是函式编程"><span class="nav-number">1.</span> <span class="nav-text"> 什么是函式编程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#map-reduce-filter"><span class="nav-number">2.</span> <span class="nav-text"> Map Reduce Filter</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#array-filter"><span class="nav-number">2.1.</span> <span class="nav-text"> Array Filter</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自制filter"><span class="nav-number">2.2.</span> <span class="nav-text"> 自制Filter</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#array-reduce"><span class="nav-number">2.3.</span> <span class="nav-text"> Array Reduce</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自定义reduce"><span class="nav-number">2.4.</span> <span class="nav-text"> 自定义Reduce</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#递归reduce"><span class="nav-number">2.5.</span> <span class="nav-text"> 递归Reduce</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数式编程练习建立字典索引"><span class="nav-number">3.</span> <span class="nav-text"> 函数式编程练习：建立字典索引</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#尾递归-tail-recursion"><span class="nav-number">4.</span> <span class="nav-text"> 尾递归 Tail-Recursion</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">davidlau</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

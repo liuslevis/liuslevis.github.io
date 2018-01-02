@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="default">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="https://cdn.bootcss.com/KaTeX/0.7.1/katex.min.css" rel="stylesheet">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="cold-start,recommend system," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="引言 微信读书 App 中的书籍推荐系统，逐渐开始在运营活动中（每周热榜、新手卡片）使用，尝试从技术侧帮助运营侧提高转活动的化率。 对微信读书的活跃用户，我们根据其读书时长、点评书等用户行为，做书籍推荐。对微信读书新增用户，由于缺少用户行为数据，无法使用这种方法做推荐，此类问题常被称为推荐系统冷启动问题。 然而，我们发现微信用户画像，比如基础属性（年龄、城市、性别等）和公众号阅读兴趣等，与微信读">
+<meta name="keywords" content="cold-start,recommend system">
+<meta property="og:type" content="article">
+<meta property="og:title" content="微信读书冷启动用户书籍推荐初探：一个借助微信用户画像的方法">
+<meta property="og:url" content="http://davidlau.me/2016/10/15/cold-start-recommendations/index.html">
+<meta property="og:site_name" content="davidlau&#39;s blog">
+<meta property="og:description" content="引言 微信读书 App 中的书籍推荐系统，逐渐开始在运营活动中（每周热榜、新手卡片）使用，尝试从技术侧帮助运营侧提高转活动的化率。 对微信读书的活跃用户，我们根据其读书时长、点评书等用户行为，做书籍推荐。对微信读书新增用户，由于缺少用户行为数据，无法使用这种方法做推荐，此类问题常被称为推荐系统冷启动问题。 然而，我们发现微信用户画像，比如基础属性（年龄、城市、性别等）和公众号阅读兴趣等，与微信读">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-01-02T02:02:24.309Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="微信读书冷启动用户书籍推荐初探：一个借助微信用户画像的方法">
+<meta name="twitter:description" content="引言 微信读书 App 中的书籍推荐系统，逐渐开始在运营活动中（每周热榜、新手卡片）使用，尝试从技术侧帮助运营侧提高转活动的化率。 对微信读书的活跃用户，我们根据其读书时长、点评书等用户行为，做书籍推荐。对微信读书新增用户，由于缺少用户行为数据，无法使用这种方法做推荐，此类问题常被称为推荐系统冷启动问题。 然而，我们发现微信用户画像，比如基础属性（年龄、城市、性别等）和公众号阅读兴趣等，与微信读">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://davidlau.me/2016/10/15/cold-start-recommendations/"/>
+
+
+
+
+
+  <title>微信读书冷启动用户书籍推荐初探：一个借助微信用户画像的方法 | davidlau's blog</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?1f9568aea795d9674618be7bae3ab784";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">davidlau's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2016/10/15/cold-start-recommendations/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="davidlau">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="davidlau's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">微信读书冷启动用户书籍推荐初探：一个借助微信用户画像的方法</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-10-15T13:53:04+08:00">
+                2016-10-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithm/" itemprop="url" rel="index">
+                    <span itemprop="name">Algorithm</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="引言"><a class="markdownIt-Anchor" href="#引言"></a> 引言</h2>
+<p>微信读书 App 中的书籍推荐系统，逐渐开始在运营活动中（每周热榜、新手卡片）使用，尝试从技术侧帮助运营侧提高转活动的化率。</p>
+<p>对微信读书的活跃用户，我们根据其读书时长、点评书等用户行为，做书籍推荐。对微信读书新增用户，由于缺少用户行为数据，无法使用这种方法做推荐，此类问题常被称为推荐系统冷启动问题。</p>
+<p>然而，我们发现微信用户画像，比如基础属性（年龄、城市、性别等）和公众号阅读兴趣等，与微信读书用户的阅读兴趣相关。借助微信用户画像进行书籍推荐，准确率较随机推荐提升约 1 倍。</p>
+<a id="more"></a>
+<h2 id="分析建模"><a class="markdownIt-Anchor" href="#分析建模"></a> 分析建模</h2>
+<p>如何评估微信用户画像与微信读书用户阅读兴趣是否相关？</p>
+<p>我们建立预测模型进行初步验证，步骤如下：</p>
+<ol>
+<li>准备数据集：微信读书n本热门书籍，把热门书架加入书架的用户及其微信画像</li>
+<li>预测模型：把问题化简成 n 分类的问题，输入微信画像、输出预测书1 ~ n</li>
+<li>假设：微信读书用户加书架的行为，可以反映其阅读偏好</li>
+<li>在数据集基础上建立的预测模型，可以衡量用户画像和加书架的相关性。结合假设，该模型可以衡量用户画像和阅读偏好的相关性</li>
+</ol>
+<p>如果有相关性，那么我们得到的预测模型就可以用于冷启动书籍推荐。</p>
+<h3 id="分析数据"><a class="markdownIt-Anchor" href="#分析数据"></a> 分析数据</h3>
+<h4 id="微信用户画像基础属性"><a class="markdownIt-Anchor" href="#微信用户画像基础属性"></a> 微信用户画像基础属性</h4>
+<p>基础属性包括：城市，年龄，性别等。</p>
+<p>其中，城市属性可以转化为 n 线城市作为属性。猜测城市、年龄、性别等属性，与阅读偏好的关联较大。</p>
+<h4 id="微信用户画像扩展属性公众号阅读兴趣"><a class="markdownIt-Anchor" href="#微信用户画像扩展属性公众号阅读兴趣"></a> 微信用户画像扩展属性：公众号阅读兴趣</h4>
+<p>包括一级分类如：如育儿、饮食、旅游、金融财经、时尚美容、养生培训等。</p>
+<p>其中，每个用户每月都有一个阅读兴趣记录，由偏好类别、权重组成。比如：用户A 201608 养生健康0.8 教育培训0.1 时尚美容0.1。</p>
+<p>选取四本书，抽取加书架的用户，统计这些用户的公众号阅读兴趣的人数累加和，按人数降序排列结果如下：</p>
+<p><em>《囚徒健身：用失传的技艺练就强大的生存实力 保罗·威德 谷红岩译》</em></p>
+<table>
+<thead>
+<tr>
+<th>兴趣标签</th>
+<th style="text-align:center">有对应兴趣标签的人数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>健身运动</td>
+<td style="text-align:center">388</td>
+</tr>
+<tr>
+<td>养生健康</td>
+<td style="text-align:center">259</td>
+</tr>
+<tr>
+<td>教育培训</td>
+<td style="text-align:center">238</td>
+</tr>
+<tr>
+<td>旅游</td>
+<td style="text-align:center">235</td>
+</tr>
+<tr>
+<td>…</td>
+<td style="text-align:center">…</td>
+</tr>
+</tbody>
+</table>
+<p><em>《逆龄养颜术（我最想要的美肌能量书）》梅切尔·沙尔</em></p>
+<table>
+<thead>
+<tr>
+<th>兴趣标签</th>
+<th style="text-align:center">有对应兴趣标签的人数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>养生健康</td>
+<td style="text-align:center">652</td>
+</tr>
+<tr>
+<td>教育培训</td>
+<td style="text-align:center">437</td>
+</tr>
+<tr>
+<td>时尚美容</td>
+<td style="text-align:center">418</td>
+</tr>
+<tr>
+<td>旅游</td>
+<td style="text-align:center">306</td>
+</tr>
+<tr>
+<td>…</td>
+<td style="text-align:center">…</td>
+</tr>
+</tbody>
+</table>
+<p><em>《信用卡，从卡奴到卡神（简七理财010）》简七理财</em></p>
+<table>
+<thead>
+<tr>
+<th>兴趣标签</th>
+<th style="text-align:center">有对应兴趣标签的人数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>金融财经</td>
+<td style="text-align:center">400</td>
+</tr>
+<tr>
+<td>养生健康</td>
+<td style="text-align:center">385</td>
+</tr>
+<tr>
+<td>教育培训</td>
+<td style="text-align:center">338</td>
+</tr>
+<tr>
+<td>旅游</td>
+<td style="text-align:center">272</td>
+</tr>
+<tr>
+<td>…</td>
+<td style="text-align:center">…</td>
+</tr>
+</tbody>
+</table>
+<p><em>《轻断食：正在横扫全球的瘦身革命》 麦克尔·莫斯利 咪咪·史宾赛</em></p>
+<table>
+<thead>
+<tr>
+<th>兴趣标签</th>
+<th style="text-align:center">有对应兴趣标签的人数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>养生健康</td>
+<td style="text-align:center">784</td>
+</tr>
+<tr>
+<td>教育培训</td>
+<td style="text-align:center">505</td>
+</tr>
+<tr>
+<td>旅游</td>
+<td style="text-align:center">491</td>
+</tr>
+<tr>
+<td>时尚美容</td>
+<td style="text-align:center">305</td>
+</tr>
+<tr>
+<td>…</td>
+<td style="text-align:center">…</td>
+</tr>
+</tbody>
+</table>
+<p>猜测此属性与阅读偏好强相关。</p>
+<h3 id="特征选取"><a class="markdownIt-Anchor" href="#特征选取"></a> 特征选取</h3>
+<p>我们分别取微信用户基础属性、公众号阅读兴趣属性、基础属性+阅读兴趣作为特征。</p>
+<h3 id="准备数据集"><a class="markdownIt-Anchor" href="#准备数据集"></a> 准备数据集</h3>
+<ol>
+<li>随机选取 n 本书，找出曾经加书架的用户（采样确保每本书籍用户数相等，且每个用户书架只有 n 本中的一本），获取用户的微信画像属性 x</li>
+<li>将 n 本书编号 1~n</li>
+<li>提取出标签（书籍编号） y 和属性 x，把样本按 6:4 划分成训练集、测试集</li>
+</ol>
+<h3 id="模型选择"><a class="markdownIt-Anchor" href="#模型选择"></a> 模型选择</h3>
+<p>使用 Spark mllib 提供的 Random Forest 算法。</p>
+<p>在该模型中，输入用户画像 x，输出预测书籍标签 y。</p>
+<p>选择 Random Forest 的原因有：</p>
+<ol>
+<li>
+<p>训练结果为决策树，容易解读和实现</p>
+</li>
+<li>
+<p>能够处理高维数据，不用做特征选择，适应性强</p>
+</li>
+</ol>
+<p>将数据划分为训练集和测试集，使用训练集训练模型，最后得到随机森林，即多颗决策树。树节点是决策的过程，树叶是决策结果；权衡多颗树的决策，最终得到模型的预测结果。取其中一颗举为例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">例 Tree0:</span><br><span class="line">     If (男)</span><br><span class="line">       If ( 微信好友 &lt;= 294.0)</span><br><span class="line">         If ( n线城市 &lt;= 2.0)</span><br><span class="line">           推荐《罗辑思维》</span><br><span class="line">         Else ( n线城市 &gt; 2.0)</span><br><span class="line">           《看见》</span><br><span class="line">       Else ( 微信好友 &gt; 294.0)</span><br><span class="line">         If ( n线城市 &lt;= 1.0)</span><br><span class="line">           《罗辑思维》</span><br><span class="line">         Else ( n线城市 &gt; 1.0)</span><br><span class="line">           《罗辑思维》</span><br><span class="line">     Else (女)</span><br><span class="line">       If ( 微信好友 &lt;= 417.0)</span><br><span class="line">         If ( 微信好友 &lt;= 230.0)</span><br><span class="line">           《如果你曾奋不顾身爱上一个人》</span><br><span class="line">         Else ( 微信好友 &gt; 230.0)</span><br><span class="line">           《如果你曾奋不顾身爱上一个人》</span><br><span class="line">       Else ( 微信好友 &gt; 417.0)</span><br><span class="line">         If ( 微信好友 &lt;= 1150.0)</span><br><span class="line">           《如果你曾奋不顾身爱上一个人》</span><br><span class="line">         Else ( 微信好友 &gt; 1150.0)</span><br><span class="line">           《罗辑思维》</span><br></pre></td></tr></table></figure>
+<h3 id="训练模型"><a class="markdownIt-Anchor" href="#训练模型"></a> 训练模型</h3>
+<p>将数据集按 6：4 分为训练集、测试集。</p>
+<p>使用训练集训练模型，得到模型参数w。</p>
+<h3 id="测试模型"><a class="markdownIt-Anchor" href="#测试模型"></a> 测试模型</h3>
+<p>在测试集上，使用模型和参数 w，验证准确率。</p>
+<h3 id="验证模型"><a class="markdownIt-Anchor" href="#验证模型"></a> 验证模型</h3>
+<p>实验数据集来自加书架的用户属性，假设『微信读书用户加书架的行为，可以反映其阅读偏好』，模型准确率高，可以推论微信画像与微信读书用户阅读偏好相关。</p>
+<p>然而，我们希望这个推荐算法能够用与运营活动的书籍推荐，因此需要进行 A/B 测试，来验证随机森林推荐算法的有效性。</p>
+<h2 id="效果评估"><a class="markdownIt-Anchor" href="#效果评估"></a> 效果评估</h2>
+<p>在 4 本书选择 1 本进行推荐的任务中：</p>
+<p>（随机推荐准确率的期望是25%）</p>
+<table>
+<thead>
+<tr>
+<th>特征</th>
+<th style="text-align:center">训练集</th>
+<th style="text-align:center">测试集</th>
+<th style="text-align:center">测试集准确率</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>微信基础属性</td>
+<td style="text-align:center">7907</td>
+<td style="text-align:center">5432</td>
+<td style="text-align:center">39.96%</td>
+</tr>
+<tr>
+<td>公众号阅读兴趣</td>
+<td style="text-align:center">8038</td>
+<td style="text-align:center">5301</td>
+<td style="text-align:center">32.35%</td>
+</tr>
+<tr>
+<td>微信基础属性+公众号阅读兴趣</td>
+<td style="text-align:center">8025</td>
+<td style="text-align:center">5314</td>
+<td style="text-align:center">38.85%</td>
+</tr>
+</tbody>
+</table>
+<p>在 10 本书选择 1 本进行推荐的任务中：</p>
+<p>（随机推荐准确率的期望是 10%）</p>
+<table>
+<thead>
+<tr>
+<th>特征</th>
+<th style="text-align:center">训练集</th>
+<th style="text-align:center">测试集</th>
+<th style="text-align:center">测试集准确率</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>微信基础属性</td>
+<td style="text-align:center">19175</td>
+<td style="text-align:center">12662</td>
+<td style="text-align:center">19.00%</td>
+</tr>
+<tr>
+<td>公众号阅读兴趣</td>
+<td style="text-align:center">19126</td>
+<td style="text-align:center">12711</td>
+<td style="text-align:center">16.38%</td>
+</tr>
+<tr>
+<td>微信基础属性+公众号阅读兴趣</td>
+<td style="text-align:center">19137</td>
+<td style="text-align:center">12700</td>
+<td style="text-align:center">19.00%</td>
+</tr>
+</tbody>
+</table>
+<p>在 20 本书选择 1 本进行推荐的任务中：</p>
+<p>（随机推荐准确率的期望是 5%）</p>
+<table>
+<thead>
+<tr>
+<th>特征</th>
+<th style="text-align:center">训练集</th>
+<th style="text-align:center">测试集</th>
+<th style="text-align:center">测试集准确率</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>微信基础属性</td>
+<td style="text-align:center">34131</td>
+<td style="text-align:center">23112</td>
+<td style="text-align:center">11.04%</td>
+</tr>
+<tr>
+<td>公众号阅读兴趣</td>
+<td style="text-align:center">34275</td>
+<td style="text-align:center">22968</td>
+<td style="text-align:center">9.13%</td>
+</tr>
+<tr>
+<td>微信基础属性+公众号阅读兴趣</td>
+<td style="text-align:center">34319</td>
+<td style="text-align:center">22924</td>
+<td style="text-align:center">10.78%</td>
+</tr>
+</tbody>
+</table>
+<p>在 50 本书选择 1 本进行推荐的任务中：</p>
+<p>（随机推荐准确率的期望是 2%）</p>
+<table>
+<thead>
+<tr>
+<th>特征</th>
+<th style="text-align:center">训练集</th>
+<th style="text-align:center">测试集</th>
+<th style="text-align:center">测试集准确率</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>微信基础属性</td>
+<td style="text-align:center">79575</td>
+<td style="text-align:center">52704</td>
+<td style="text-align:center">5.02%</td>
+</tr>
+<tr>
+<td>公众号阅读兴趣</td>
+<td style="text-align:center">79424</td>
+<td style="text-align:center">52855</td>
+<td style="text-align:center">4.66%</td>
+</tr>
+<tr>
+<td>微信基础属性+公众号阅读兴趣</td>
+<td style="text-align:center">79188</td>
+<td style="text-align:center">53091</td>
+<td style="text-align:center">5.30%</td>
+</tr>
+</tbody>
+</table>
+<p>在 100 本书选择 1 本进行推荐的任务中：</p>
+<p>（随机推荐准确率的期望是 1%）</p>
+<table>
+<thead>
+<tr>
+<th>特征</th>
+<th style="text-align:center">训练集</th>
+<th style="text-align:center">测试集</th>
+<th style="text-align:center">测试集准确率</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>微信基础属性</td>
+<td style="text-align:center">127688</td>
+<td style="text-align:center">85649</td>
+<td style="text-align:center">2.86%</td>
+</tr>
+<tr>
+<td>公众号阅读兴趣</td>
+<td style="text-align:center">128132</td>
+<td style="text-align:center">85205</td>
+<td style="text-align:center">2.54%</td>
+</tr>
+<tr>
+<td>微信基础属性+公众号阅读兴趣</td>
+<td style="text-align:center">127927</td>
+<td style="text-align:center">85410</td>
+<td style="text-align:center">3.05%</td>
+</tr>
+</tbody>
+</table>
+<p>在 200 本书选择 1 本进行推荐的任务中：</p>
+<p>（随机推荐准确率的期望是 0.5%）</p>
+<table>
+<thead>
+<tr>
+<th>特征</th>
+<th style="text-align:center">训练集</th>
+<th style="text-align:center">测试集</th>
+<th style="text-align:center">测试集准确率</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>微信基础属性</td>
+<td style="text-align:center">146692</td>
+<td style="text-align:center">97783</td>
+<td style="text-align:center">2.81%</td>
+</tr>
+<tr>
+<td>公众号阅读兴趣</td>
+<td style="text-align:center">146142</td>
+<td style="text-align:center">98333</td>
+<td style="text-align:center">2.62%</td>
+</tr>
+<tr>
+<td>微信基础属性+公众号阅读兴趣</td>
+<td style="text-align:center">146641</td>
+<td style="text-align:center">97834</td>
+<td style="text-align:center">2.94%</td>
+</tr>
+</tbody>
+</table>
+<h2 id="总结"><a class="markdownIt-Anchor" href="#总结"></a> 总结</h2>
+<p>根据结果，我们发现微信基础属性与微信读书用户阅读偏好的相关性最高，尤其是年龄、性别、n 线城市、好友数等属性。</p>
+<p>其次，用户公众号阅读兴趣与推荐书籍相关，但没有基础属性的显著，可作为推荐策略的考量因素。</p>
+<p>在 n 本书推荐 1 本的任务中，结合微信用户画像的先验信息推荐，与随机推荐相比，准确率增加约一倍。</p>
+<p>因此，对于微信读书的冷启动用户，运营侧可以考虑结合微信用户画像进行运营活动的书籍推荐（人为设定推荐规则或者使用随机森林），以提高转化率。应用随机森林进行推荐时，需做 A/B 测试以验证模型的有效性。</p>
+<h2 id="引用"><a class="markdownIt-Anchor" href="#引用"></a> 引用</h2>
+<p>TODO</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>本文有帮助？</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/img/wechatpay.png" alt="davidlau WeChat Pay"/>
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/cold-start/" rel="tag"># cold-start</a>
+          
+            <a href="/tags/recommend-system/" rel="tag"># recommend system</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/05/20/ios-launch-crash-protection/" rel="next" title="iOS 启动连续闪退保护方案">
+                <i class="fa fa-chevron-left"></i> iOS 启动连续闪退保护方案
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/10/15/scuba-diving/" rel="prev" title="初学潜水">
+                初学潜水 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="davidlau" />
+          <p class="site-author-name" itemprop="name">davidlau</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">36</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">categories</span>
+              
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">tags</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#引言"><span class="nav-number">1.</span> <span class="nav-text"> 引言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分析建模"><span class="nav-number">2.</span> <span class="nav-text"> 分析建模</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#分析数据"><span class="nav-number">2.1.</span> <span class="nav-text"> 分析数据</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#微信用户画像基础属性"><span class="nav-number">2.1.1.</span> <span class="nav-text"> 微信用户画像基础属性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#微信用户画像扩展属性公众号阅读兴趣"><span class="nav-number">2.1.2.</span> <span class="nav-text"> 微信用户画像扩展属性：公众号阅读兴趣</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#特征选取"><span class="nav-number">2.2.</span> <span class="nav-text"> 特征选取</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#准备数据集"><span class="nav-number">2.3.</span> <span class="nav-text"> 准备数据集</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模型选择"><span class="nav-number">2.4.</span> <span class="nav-text"> 模型选择</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#训练模型"><span class="nav-number">2.5.</span> <span class="nav-text"> 训练模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#测试模型"><span class="nav-number">2.6.</span> <span class="nav-text"> 测试模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#验证模型"><span class="nav-number">2.7.</span> <span class="nav-text"> 验证模型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#效果评估"><span class="nav-number">3.</span> <span class="nav-text"> 效果评估</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text"> 总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#引用"><span class="nav-number">5.</span> <span class="nav-text"> 引用</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">davidlau</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

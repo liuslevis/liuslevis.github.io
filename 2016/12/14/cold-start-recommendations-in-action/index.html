@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="default">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="https://cdn.bootcss.com/KaTeX/0.7.1/katex.min.css" rel="stylesheet">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="cold-start,recommend system," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="引言 在文章《微信读书冷启动书籍推荐初探：一个借助微信用户画像的方法 》1，我们发现用户的阅读偏好与用户属性（性别、年龄、n 线城市、公众号阅读偏好）相关。基于这个发现，我们利用用户属性，给冷启动的新注册用户做个性化推荐，效果较编辑推荐提升约 50%。">
+<meta name="keywords" content="cold-start,recommend system">
+<meta property="og:type" content="article">
+<meta property="og:title" content="微信读书冷启动推荐实战：一种基于用户属性的方法">
+<meta property="og:url" content="http://davidlau.me/2016/12/14/cold-start-recommendations-in-action/index.html">
+<meta property="og:site_name" content="davidlau&#39;s blog">
+<meta property="og:description" content="引言 在文章《微信读书冷启动书籍推荐初探：一个借助微信用户画像的方法 》1，我们发现用户的阅读偏好与用户属性（性别、年龄、n 线城市、公众号阅读偏好）相关。基于这个发现，我们利用用户属性，给冷启动的新注册用户做个性化推荐，效果较编辑推荐提升约 50%。">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://davidlau.me/img/newcard_push_add.png">
+<meta property="og:image" content="http://davidlau.me/img/newcard_conv_rates.png">
+<meta property="og:updated_time" content="2018-01-02T02:02:24.309Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="微信读书冷启动推荐实战：一种基于用户属性的方法">
+<meta name="twitter:description" content="引言 在文章《微信读书冷启动书籍推荐初探：一个借助微信用户画像的方法 》1，我们发现用户的阅读偏好与用户属性（性别、年龄、n 线城市、公众号阅读偏好）相关。基于这个发现，我们利用用户属性，给冷启动的新注册用户做个性化推荐，效果较编辑推荐提升约 50%。">
+<meta name="twitter:image" content="http://davidlau.me/img/newcard_push_add.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://davidlau.me/2016/12/14/cold-start-recommendations-in-action/"/>
+
+
+
+
+
+  <title>微信读书冷启动推荐实战：一种基于用户属性的方法 | davidlau's blog</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?1f9568aea795d9674618be7bae3ab784";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">davidlau's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2016/12/14/cold-start-recommendations-in-action/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="davidlau">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="davidlau's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">微信读书冷启动推荐实战：一种基于用户属性的方法</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-12-14T23:49:09+08:00">
+                2016-12-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithm/" itemprop="url" rel="index">
+                    <span itemprop="name">Algorithm</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="引言"><a class="markdownIt-Anchor" href="#引言"></a> 引言</h2>
+<p>在文章《微信读书冷启动书籍推荐初探：一个借助微信用户画像的方法<br>
+》<a href="http://davidlau.me/2016/10/15/cold-start-recommendations/">1</a>，我们发现用户的阅读偏好与用户属性（性别、年龄、n 线城市、公众号阅读偏好）相关。基于这个发现，我们利用用户属性，给冷启动的新注册用户做个性化推荐，效果较编辑推荐提升约 50%。</p>
+<p><img src="/img/newcard_push_add.png" alt="说明图片"></p>
+<a id="more"></a>
+<h2 id="思路"><a class="markdownIt-Anchor" href="#思路"></a> 思路</h2>
+<p>假设具有相似用户属性的用户，有相似的阅读偏好。</p>
+<p>我们可以把相同性别、相同年龄段、相同 n 线城市的微信读书用户划分成群体，统计每个群体的用户最喜欢的书；对新注册的用户，它的阅读偏好很可能与他所在群体的用户相似。因此根据这个先验知识，可以把他所在群体最喜欢的书籍推荐给他。</p>
+<h2 id="ab-测试设计"><a class="markdownIt-Anchor" href="#ab-测试设计"></a> A/B 测试设计</h2>
+<p>微信读书搭建了书籍推荐 A/B 测试的基础设施，通过如下方法统计不同推荐策略的转化率：</p>
+<ol>
+<li>在推荐书籍时，后台记录日志：『用户 推荐书籍 推荐策略 推荐位置标识符 时间』</li>
+<li>在用户把书籍加入书架时，前端上报日志：『用户 推荐书籍 推荐位置标识符 时间』</li>
+<li>统计时，给定推荐策略、推荐位置标识符、时间范围，可通过 Spark 脚本统计推荐/加书架转化率</li>
+</ol>
+<p>本次实验把有属性的用户随机分成两组：</p>
+<ul>
+<li>个性化推荐组（实验组）</li>
+<li>编辑推荐组（对照组）</li>
+</ul>
+<p>对个性化推荐组的用户，把用户所在群体热门书单推荐给他们。编辑推荐组，沿用以往的固定书单策略。二者在 App 界面的表现形式没有任何差异，只是书籍的不同。</p>
+<h2 id="推荐算法实现"><a class="markdownIt-Anchor" href="#推荐算法实现"></a> 推荐算法实现</h2>
+<ol>
+<li>把用户按属性（性别、年龄、n 线城市）划分成多个群体</li>
+<li>对每个群体，统计群体用户最喜欢的书籍，按热度排序，做成推荐书单</li>
+<li>对于每个新注册的用户，根据用户属性找出他所属的群体对应的推荐书单，以新手卡片的形式展示</li>
+</ol>
+<h2 id="效果评估"><a class="markdownIt-Anchor" href="#效果评估"></a> 效果评估</h2>
+<p>统计新手卡片前十本书推送/加书架转化率，得到表格：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">日期</th>
+<th style="text-align:left">个性化推荐</th>
+<th style="text-align:left">编辑推荐</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">20161210</td>
+<td style="text-align:left">1.56%</td>
+<td style="text-align:left">0.97%</td>
+</tr>
+<tr>
+<td style="text-align:left">20161211</td>
+<td style="text-align:left">1.58%</td>
+<td style="text-align:left">1.02%</td>
+</tr>
+<tr>
+<td style="text-align:left">20161212</td>
+<td style="text-align:left">1.56%</td>
+<td style="text-align:left">1.10%</td>
+</tr>
+</tbody>
+</table>
+<p><img src="/img/newcard_conv_rates.png" alt="转化率统计图片"></p>
+<p>可以看到，个性化推荐的转化率，比编辑推荐提升了约 50%。</p>
+<h2 id="未来工作"><a class="markdownIt-Anchor" href="#未来工作"></a> 未来工作</h2>
+<ul>
+<li>
+<p>可以探索使用其他用户属性，来划分用户群体，使推荐书籍更精准。</p>
+</li>
+<li>
+<p>本次实验使用的热门的书的定义，是用户感兴趣的书（阅读了 10 分钟且超过了 30% 或者评分大于60分）。未来可以调整热门的定义，如用户评分最高的书，评论最多的书，或者加权综合，来提高转化率。</p>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>本文有帮助？</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/img/wechatpay.png" alt="davidlau WeChat Pay"/>
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/cold-start/" rel="tag"># cold-start</a>
+          
+            <a href="/tags/recommend-system/" rel="tag"># recommend system</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/12/09/learn-cf-in-python/" rel="next" title="学习协同过滤推荐 \w 100行Python代码">
+                <i class="fa fa-chevron-left"></i> 学习协同过滤推荐 \w 100行Python代码
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/03/06/word2vec-collaborative-filtering/" rel="prev" title="基于word2vec协同过滤推荐">
+                基于word2vec协同过滤推荐 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="davidlau" />
+          <p class="site-author-name" itemprop="name">davidlau</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">36</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">categories</span>
+              
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">tags</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#引言"><span class="nav-number">1.</span> <span class="nav-text"> 引言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#思路"><span class="nav-number">2.</span> <span class="nav-text"> 思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ab-测试设计"><span class="nav-number">3.</span> <span class="nav-text"> A/B 测试设计</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#推荐算法实现"><span class="nav-number">4.</span> <span class="nav-text"> 推荐算法实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#效果评估"><span class="nav-number">5.</span> <span class="nav-text"> 效果评估</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#未来工作"><span class="nav-number">6.</span> <span class="nav-text"> 未来工作</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">davidlau</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="default">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="https://cdn.bootcss.com/KaTeX/0.7.1/katex.min.css" rel="stylesheet">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="functional programming,haskell," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="—— Notes on CH8 Haskell, Seven Languages in Seven Weeks by Bruce A. Tate  引言 Haskell不同于Scala，是一门纯函数式语言，它强制使用者使用函数式语法而没有妥协。   是一门强类型定义的静态类型语言。它的**类型模型基于推断理论（in-ferred）**并被公认为是函数语言中最高效的类型系统之一。你会发现该类型系统支">
+<meta name="keywords" content="functional programming,haskell">
+<meta property="og:type" content="article">
+<meta property="og:title" content="learn-haskell">
+<meta property="og:url" content="http://davidlau.me/2015/06/16/learn-haskell/index.html">
+<meta property="og:site_name" content="davidlau&#39;s blog">
+<meta property="og:description" content="—— Notes on CH8 Haskell, Seven Languages in Seven Weeks by Bruce A. Tate  引言 Haskell不同于Scala，是一门纯函数式语言，它强制使用者使用函数式语法而没有妥协。   是一门强类型定义的静态类型语言。它的**类型模型基于推断理论（in-ferred）**并被公认为是函数语言中最高效的类型系统之一。你会发现该类型系统支">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://davidlau.me/img/HaskellClassRelation.png">
+<meta property="og:updated_time" content="2018-01-02T02:02:24.319Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="learn-haskell">
+<meta name="twitter:description" content="—— Notes on CH8 Haskell, Seven Languages in Seven Weeks by Bruce A. Tate  引言 Haskell不同于Scala，是一门纯函数式语言，它强制使用者使用函数式语法而没有妥协。   是一门强类型定义的静态类型语言。它的**类型模型基于推断理论（in-ferred）**并被公认为是函数语言中最高效的类型系统之一。你会发现该类型系统支">
+<meta name="twitter:image" content="http://davidlau.me/img/HaskellClassRelation.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://davidlau.me/2015/06/16/learn-haskell/"/>
+
+
+
+
+
+  <title>learn-haskell | davidlau's blog</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?1f9568aea795d9674618be7bae3ab784";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">davidlau's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2015/06/16/learn-haskell/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="davidlau">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="davidlau's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">learn-haskell</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-06-16T14:58:02+08:00">
+                2015-06-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Dev/" itemprop="url" rel="index">
+                    <span itemprop="name">Dev</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>—— Notes on CH8 Haskell, <em>Seven Languages in Seven Weeks</em> by Bruce A. Tate</p>
+<h2 id="引言"><a class="markdownIt-Anchor" href="#引言"></a> 引言</h2>
+<p>Haskell不同于Scala，是一门纯函数式语言，它强制使用者使用函数式语法而没有妥协。</p>
+<ul>
+<li>
+<p>是一门<strong>强类型</strong>定义的<strong>静态类型</strong>语言。它的**类型模型基于推断理论（in-ferred）**并被公认为是函数语言中最高效的类型系统之一。你会发现该类型系统支持多态语义并有助于人们作出十分整洁清晰的设计。</p>
+</li>
+<li>
+<p>支持Erlang风格的模式匹配（pattern matching）和哨兵表达式。你也能在Haskell中发现Clojure风格的惰性求值（lazyevaluation）以及与Clojure和Erlang相同的列表推导语法。</p>
+</li>
+<li>
+<p>无副作用，通过monad概念保存状态：一个Haskell函数可以返回一个有副作用并且会被延迟执行的结果.</p>
+</li>
+</ul>
+<a id="more"></a>
+<h2 id="day1-逻辑"><a class="markdownIt-Anchor" href="#day1-逻辑"></a> Day1 逻辑</h2>
+<p>在OS X下安装Haskell环境：<code>brew install haskell-platform</code></p>
+<p>通过命令启动交互式环境：<code>ghci</code></p>
+<h3 id="基本类型"><a class="markdownIt-Anchor" href="#基本类型"></a> 基本类型</h3>
+<figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&#123;- basic type -&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="type">Prelude</span>&gt; <span class="number">4</span> * (<span class="number">5</span> + <span class="number">1</span>)</span><br><span class="line"><span class="number">24</span></span><br><span class="line"></span><br><span class="line"><span class="type">Prelude</span>&gt; <span class="string">"hello"</span> ++ <span class="string">" world"</span></span><br><span class="line"><span class="string">"hello world"</span></span><br><span class="line"></span><br><span class="line"><span class="type">Prelude</span>&gt; ['a', 'b'] <span class="comment">--list</span></span><br><span class="line"><span class="string">"ab"</span></span><br><span class="line">['a', 'b'] :: [<span class="type">Char</span>]</span><br><span class="line"></span><br><span class="line"><span class="type">Prelude</span>&gt; (<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>) <span class="comment">--tuple</span></span><br><span class="line">(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>) :: (<span class="type">Num</span> t, <span class="type">Num</span> t1, <span class="type">Num</span> t2) =&gt; (t, t1, t2)</span><br><span class="line"></span><br><span class="line"><span class="type">Prelude</span>&gt; <span class="keyword">if</span> (<span class="number">5</span> == <span class="number">5</span>) <span class="keyword">then</span> <span class="string">"true"</span> <span class="keyword">else</span> <span class="string">"false"</span><span class="string">"true"</span></span><br><span class="line"><span class="string">"true"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&#123;- var accessing -&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="title">fst</span> tuple</span><br><span class="line"><span class="title">snd</span> tuple</span><br><span class="line"><span class="title">head</span> list</span><br><span class="line"><span class="title">last</span> list</span><br><span class="line"><span class="title">tail</span> list</span><br><span class="line"><span class="title">let</span> (h:t) = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>] 	<span class="comment">&#123;- h=1, t=[2,3,4] -&#125;</span></span><br><span class="line"><span class="number">1</span>:[<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>] 					<span class="comment">&#123;- [1,2,3,4] -&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&#123;- verbose type info -&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="type">Prelude</span>&gt; :set +t  	</span><br><span class="line"></span><br><span class="line"><span class="type">Prelude</span>&gt; :t <span class="number">2</span></span><br><span class="line"><span class="number">2</span> :: <span class="type">Num</span> a =&gt; a</span><br><span class="line"></span><br><span class="line"><span class="type">Prelude</span>&gt; (<span class="number">5</span> == (<span class="number">2</span> + <span class="number">3</span>))</span><br><span class="line"><span class="type">True</span></span><br><span class="line"><span class="title">it</span> :: <span class="type">Bool</span></span><br></pre></td></tr></table></figure>
+<h3 id="d2-函数"><a class="markdownIt-Anchor" href="#d2-函数"></a> D2 函数</h3>
+<h4 id="定义"><a class="markdownIt-Anchor" href="#定义"></a> 定义</h4>
+<figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&#123;- let binding -&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="type">Prelude</span>&gt; <span class="keyword">let</span> x = <span class="number">10</span></span><br><span class="line"><span class="title">x</span> :: <span class="type">Integer</span></span><br><span class="line"></span><br><span class="line"><span class="type">Prelude</span>&gt; <span class="keyword">let</span> double x = x * <span class="number">2</span></span><br><span class="line"><span class="title">double</span> :: <span class="type">Num</span> a =&gt; a -&gt; a</span><br><span class="line"></span><br><span class="line"><span class="comment">&#123;- dot notation -&#125;</span></span><br><span class="line"><span class="type">Prelude</span>&gt; <span class="keyword">let</span> second = f . g</span><br><span class="line"><span class="type">Prelude</span>&gt; <span class="keyword">let</span> second list = f (g list)</span><br><span class="line"></span><br><span class="line"><span class="title">second</span> :: [a] -&gt; a</span><br></pre></td></tr></table></figure>
+<figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&#123;- ./double.hs -&#125;</span></span><br><span class="line"><span class="keyword">module</span> Main <span class="keyword">where</span></span><br><span class="line">    <span class="comment">&#123;- without type def -&#125;</span></span><br><span class="line">    double x = x + x</span><br><span class="line"></span><br><span class="line">    <span class="comment">&#123;- with type def -&#125;</span></span><br><span class="line">    double_int :: <span class="type">Integer</span> -&gt; <span class="type">Integer</span></span><br><span class="line">    double_int x = x + x</span><br><span class="line">    </span><br><span class="line"><span class="comment">&#123;- load .hs in GHCi -&#125;</span></span><br><span class="line"></span><br><span class="line">*<span class="type">Main</span>&gt; :load double.hs</span><br><span class="line">*<span class="type">Main</span>&gt; double <span class="number">2</span></span><br><span class="line"><span class="number">4</span></span><br></pre></td></tr></table></figure>
+<h3 id="递归"><a class="markdownIt-Anchor" href="#递归"></a> 递归</h3>
+<figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Prelude</span>&gt; <span class="keyword">let</span> fact x = <span class="keyword">if</span> x == <span class="number">0</span> <span class="keyword">then</span> <span class="number">1</span> <span class="keyword">else</span> fact (x - <span class="number">1</span>) * x</span><br><span class="line"></span><br><span class="line"><span class="comment">&#123;- ./fact_with_guards.hs -&#125;</span></span><br><span class="line"><span class="keyword">module</span> Main <span class="keyword">where</span></span><br><span class="line">	fact :: <span class="type">Integer</span> -&gt; <span class="type">Integer</span></span><br><span class="line">	fact x</span><br><span class="line">		| x &gt; <span class="number">1</span> = x * fact(x - <span class="number">1</span>)  <span class="comment">&#123;- sentinel -&#125;</span></span><br><span class="line">		| otherwise = <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<h3 id="使用tuple"><a class="markdownIt-Anchor" href="#使用tuple"></a> 使用Tuple</h3>
+<figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&#123;- ./fib_recusive.hs -&#125;</span></span><br><span class="line"><span class="keyword">module</span> Main <span class="keyword">where</span></span><br><span class="line">    fib :: <span class="type">Integer</span> -&gt; <span class="type">Integer</span></span><br><span class="line">    fib <span class="number">0</span> = <span class="number">1</span></span><br><span class="line">    fib <span class="number">1</span> = <span class="number">1</span></span><br><span class="line">    fib x = fib(x - <span class="number">1</span>) + fib(x - <span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&#123;- ./fib_tuple.hs -&#125;</span></span><br><span class="line"><span class="keyword">module</span> Main <span class="keyword">where</span></span><br><span class="line">    fibFast :: <span class="type">Integer</span> -&gt; <span class="type">Integer</span></span><br><span class="line">    fibFast x = fibResult(fibTuple(<span class="number">0</span>,<span class="number">1</span>,x))</span><br><span class="line"></span><br><span class="line">    fibTuple :: (<span class="type">Integer</span>, <span class="type">Integer</span>, <span class="type">Integer</span>) -&gt; (<span class="type">Integer</span>, <span class="type">Integer</span>, <span class="type">Integer</span>)</span><br><span class="line">    fibTuple (x, y, <span class="number">0</span>) = (x, y, <span class="number">0</span>)</span><br><span class="line">    fibTuple (x, y, index) = fibTuple (y, x + y, index - <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    fibResult ::  (<span class="type">Integer</span>, <span class="type">Integer</span>, <span class="type">Integer</span>) -&gt; <span class="type">Integer</span></span><br><span class="line">    fibResult (x,y,z) = x</span><br></pre></td></tr></table></figure>
+<figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&#123;- ./fib_pair.hs -&#125;</span></span><br><span class="line"><span class="keyword">module</span> Main <span class="keyword">where</span></span><br><span class="line">    <span class="comment">&#123;- using Tuple-&#125;</span></span><br><span class="line">    fibFast :: <span class="type">Integer</span> -&gt; <span class="type">Integer</span></span><br><span class="line">    fibFast = fst . fibNthPair</span><br><span class="line"></span><br><span class="line">    fibNextPair :: (<span class="type">Integer</span>, <span class="type">Integer</span>) -&gt; (<span class="type">Integer</span>, <span class="type">Integer</span>)</span><br><span class="line">    fibNextPair (x, y) = fibNextPair (y, x + y)</span><br><span class="line"></span><br><span class="line">    fibNthPair :: <span class="type">Integer</span> -&gt; (<span class="type">Integer</span>, <span class="type">Integer</span>)</span><br><span class="line">    fibNthPair <span class="number">1</span> = (<span class="number">1</span>,<span class="number">1</span>)</span><br><span class="line">    fibNthPair x = fibNextPair(fibNthPair(x<span class="number">-1</span>))</span><br></pre></td></tr></table></figure>
+<h3 id="遍历列表"><a class="markdownIt-Anchor" href="#遍历列表"></a> 遍历列表</h3>
+<p>通过<code>let (h:t) = list</code></p>
+<figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&#123;- ./fib_pair.hs -&#125;</span></span><br><span class="line"><span class="keyword">module</span> Main <span class="keyword">where</span></span><br><span class="line">    size [] = <span class="number">0</span></span><br><span class="line">    size (h:t) = <span class="number">1</span> + size (t)</span><br><span class="line"></span><br><span class="line">    prod [] = <span class="number">1</span></span><br><span class="line">    prod (h:t) = h * prod (t)</span><br></pre></td></tr></table></figure>
+<h3 id="生成列表"><a class="markdownIt-Anchor" href="#生成列表"></a> 生成列表</h3>
+<p><code>1:[2,3,4] -&gt; [1,2,3,4]</code></p>
+<h4 id="偶数列表"><a class="markdownIt-Anchor" href="#偶数列表"></a> 偶数列表</h4>
+<figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">module</span> Main <span class="keyword">where</span></span><br><span class="line">    allEven :: [<span class="type">Integer</span>] -&gt; [<span class="type">Integer</span>]</span><br><span class="line">    allEven [] = []</span><br><span class="line">    allEven (h:t) = <span class="keyword">if</span> even h <span class="keyword">then</span> h:allEven t <span class="keyword">else</span> allEven t</span><br></pre></td></tr></table></figure>
+<h4 id="range"><a class="markdownIt-Anchor" href="#range"></a> Range</h4>
+<figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">1.</span><span class="number">.10</span>]</span><br><span class="line">[<span class="number">10</span>, <span class="number">8</span> .. <span class="number">4</span>]</span><br><span class="line"><span class="title">take</span> <span class="number">5</span> [<span class="number">0</span>, <span class="number">2</span> ..]</span><br></pre></td></tr></table></figure>
+<h4 id="list-derivation-like-python"><a class="markdownIt-Anchor" href="#list-derivation-like-python"></a> List Derivation (like python)</h4>
+<figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[x * <span class="number">2</span> | x &lt;- [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]]</span><br><span class="line">[(y,x+<span class="number">1</span>) | (x,y) &lt;-[(<span class="number">1</span>,<span class="number">2</span>),(<span class="number">2</span>,<span class="number">3</span>),(<span class="number">3</span>,<span class="number">4</span>)]]</span><br><span class="line"><span class="title">let</span> crew = [<span class="string">"Spock"</span>, <span class="string">"Kirk"</span>, <span class="string">"McCoy"</span>]</span><br><span class="line">[(a,b) | a &lt;- crew, b &lt;- crew, a/=b] <span class="comment">&#123;- /= means not equal -&#125;</span></span><br></pre></td></tr></table></figure>
+<h4 id="练习-乘法表"><a class="markdownIt-Anchor" href="#练习-乘法表"></a> 练习 乘法表</h4>
+<figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">module</span> Main <span class="keyword">where</span></span><br><span class="line">    mulTable :: <span class="type">Integer</span> -&gt; [(<span class="type">Integer</span>,<span class="type">Integer</span>,<span class="type">Integer</span>)]</span><br><span class="line">    mulTable <span class="number">1</span> = mulTableRow <span class="number">1</span></span><br><span class="line">    mulTable n = (mulTableRow n) ++ (mulTable (n<span class="number">-1</span>))</span><br><span class="line"></span><br><span class="line">    mulTableRow :: <span class="type">Integer</span> -&gt; [(<span class="type">Integer</span>,<span class="type">Integer</span>,<span class="type">Integer</span>)]</span><br><span class="line">    mulTableRow n = [(x,y,x*y) | x &lt;- [n], y&lt;-[<span class="number">1.</span>.n]]</span><br><span class="line"></span><br><span class="line"><span class="comment">&#123;-</span></span><br><span class="line"><span class="comment">*Main&gt; mulTable 2</span></span><br><span class="line"><span class="comment">[(2,1,2),(2,2,4),(1,1,1)]</span></span><br><span class="line"><span class="comment">-&#125;</span></span><br></pre></td></tr></table></figure>
+<h2 id="day2"><a class="markdownIt-Anchor" href="#day2"></a> Day2</h2>
+<h3 id="高阶函数"><a class="markdownIt-Anchor" href="#高阶函数"></a> 高阶函数</h3>
+<h4 id="匿名函数"><a class="markdownIt-Anchor" href="#匿名函数"></a> 匿名函数</h4>
+<figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(\param1.. paramn -&gt;function_body)</span><br></pre></td></tr></table></figure>
+<h5 id="map"><a class="markdownIt-Anchor" href="#map"></a> map</h5>
+<figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">map</span> (\x -&gt; x * x) [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</span><br></pre></td></tr></table></figure>
+<h5 id="filter-foldl和foldr-reduce"><a class="markdownIt-Anchor" href="#filter-foldl和foldr-reduce"></a> filter、foldl和foldr (reduce)</h5>
+<figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Prelude</span>&gt; filter odd [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>]</span><br><span class="line">[<span class="number">1</span>,<span class="number">3</span>,<span class="number">5</span>]</span><br><span class="line"></span><br><span class="line"><span class="type">Prelude</span>&gt; foldl (\x carryOver -&gt; carryOver + x) <span class="number">0</span> [<span class="number">1</span> .. <span class="number">10</span>]</span><br><span class="line"><span class="number">55</span></span><br><span class="line"></span><br><span class="line"><span class="type">Prelude</span>&gt; foldl1 (+) [<span class="number">1</span> .. <span class="number">3</span>]</span><br><span class="line"><span class="number">6</span></span><br></pre></td></tr></table></figure>
+<h5 id="where"><a class="markdownIt-Anchor" href="#where"></a> where</h5>
+<figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&#123;- haskell/map.hsmodule -&#125;</span></span><br><span class="line"><span class="keyword">module</span> Main <span class="keyword">where</span></span><br><span class="line">    squareAllPlusOne list = map squarePlusOne list</span><br><span class="line">        <span class="keyword">where</span> </span><br><span class="line">            squarePlusOne x = x * x + a</span><br><span class="line">            <span class="keyword">let</span> a = <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<h4 id="柯里化"><a class="markdownIt-Anchor" href="#柯里化"></a> 柯里化</h4>
+<p>把多参数函数，拆分成多个只有一个参数的函数</p>
+<figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Prelude</span>&gt; double x = x * x</span><br><span class="line"><span class="title">double</span> :: <span class="type">Num</span> a =&gt; a -&gt; a</span><br><span class="line"></span><br><span class="line"><span class="type">Prelude</span>&gt; <span class="keyword">let</span> prod x y = x * y</span><br><span class="line"><span class="title">prod</span> :: <span class="type">Num</span> a =&gt; a -&gt; a -&gt; a</span><br><span class="line"></span><br><span class="line"><span class="type">Prelude</span>&gt;  <span class="keyword">let</span> double = prod <span class="number">2</span></span><br><span class="line"><span class="title">double</span> :: <span class="type">Integer</span> -&gt; <span class="type">Integer</span></span><br></pre></td></tr></table></figure>
+<h4 id="惰性求值"><a class="markdownIt-Anchor" href="#惰性求值"></a> 惰性求值</h4>
+<h5 id="一个无尽序列"><a class="markdownIt-Anchor" href="#一个无尽序列"></a> 一个无尽序列</h5>
+<figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&#123;- my_range.hs -&#125;</span></span><br><span class="line"><span class="keyword">module</span> Main <span class="keyword">where</span></span><br><span class="line">     myRange start step = start:(myRange (start + step) step)</span><br></pre></td></tr></table></figure>
+<h5 id="惰性-fib-数列"><a class="markdownIt-Anchor" href="#惰性-fib-数列"></a> 惰性 Fib 数列</h5>
+<figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&#123;- lazy_fib.hs -&#125;</span></span><br><span class="line"><span class="keyword">module</span> Main <span class="keyword">where</span></span><br><span class="line">    lazyFib x y = x:(lazyFib y (x + y))</span><br><span class="line"></span><br><span class="line">    fib = lazyFib <span class="number">1</span> <span class="number">1</span></span><br><span class="line">    </span><br><span class="line">    fibNth x = head (drop (x - <span class="number">1</span>) (take (x) fib))</span><br></pre></td></tr></table></figure>
+<h2 id="day3"><a class="markdownIt-Anchor" href="#day3"></a> Day3</h2>
+<h3 id="类与类型"><a class="markdownIt-Anchor" href="#类与类型"></a> 类与类型</h3>
+<h4 id="自定义类型"><a class="markdownIt-Anchor" href="#自定义类型"></a> 自定义类型</h4>
+<figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&#123;- cards.hs -&#125;</span></span><br><span class="line"><span class="keyword">module</span> Main <span class="keyword">where</span></span><br><span class="line">    <span class="class"><span class="keyword">data</span> <span class="type">Suit</span> = <span class="type">Spades</span> | <span class="type">Hearts</span> <span class="keyword">deriving</span> (<span class="type">Show</span>)</span></span><br><span class="line">    <span class="class"><span class="keyword">data</span> <span class="type">Rank</span> = <span class="type">Ten</span> | <span class="type">Jack</span> | <span class="type">Queen</span> | <span class="type">King</span> | <span class="type">Ace</span> <span class="keyword">deriving</span> (<span class="type">Show</span>)</span></span><br><span class="line">    <span class="class"><span class="keyword">type</span> <span class="type">Card</span> = (<span class="type">Rank</span>, <span class="type">Suit</span>)</span></span><br><span class="line">    <span class="class"><span class="keyword">type</span> <span class="type">Hand</span> = [<span class="type">Card</span>]</span></span><br><span class="line">    </span><br><span class="line">    value :: <span class="type">Rank</span> -&gt; <span class="type">Integer</span></span><br><span class="line">    value <span class="type">Ten</span> = <span class="number">1</span></span><br><span class="line">    value <span class="type">Jack</span> = <span class="number">2</span></span><br><span class="line">    value <span class="type">Queen</span> = <span class="number">3</span></span><br><span class="line">    value <span class="type">King</span> = <span class="number">4</span></span><br><span class="line">    value <span class="type">Ace</span> = <span class="number">5</span></span><br><span class="line"></span><br><span class="line">    cardValue :: <span class="type">Card</span> -&gt; <span class="type">Integer</span></span><br><span class="line">    cardValue (rank, suit) = value rank</span><br><span class="line"><span class="comment">--</span></span><br><span class="line">*<span class="type">Main</span>&gt; cardValue (<span class="type">Ten</span>, <span class="type">Hearts</span>)</span><br><span class="line"><span class="number">1</span></span><br></pre></td></tr></table></figure>
+<h4 id="多态函数"><a class="markdownIt-Anchor" href="#多态函数"></a> 多态函数</h4>
+<figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">backwards</span> :: [a] -&gt; [a]</span><br><span class="line"><span class="title">backwards</span> [] = []</span><br><span class="line"><span class="title">backwards</span> (h:t) = backwards t ++ [h]</span><br></pre></td></tr></table></figure>
+<h4 id="多态数据类型"><a class="markdownIt-Anchor" href="#多态数据类型"></a> 多态数据类型</h4>
+<h5 id="类型相同的三元组"><a class="markdownIt-Anchor" href="#类型相同的三元组"></a> 类型相同的三元组</h5>
+<figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">module</span> Main <span class="keyword">where</span>    </span><br><span class="line">	<span class="class"><span class="keyword">data</span> <span class="type">Triplet</span> a = <span class="type">Trio</span> a a a <span class="keyword">deriving</span> (<span class="type">Show</span>)</span></span><br><span class="line"><span class="comment">--</span></span><br><span class="line">*<span class="type">Main</span>&gt; :t <span class="type">Trio</span></span><br><span class="line"><span class="type">Trio</span> :: a -&gt; a -&gt; a -&gt; <span class="type">Triplet</span> a</span><br></pre></td></tr></table></figure>
+<h5 id="树"><a class="markdownIt-Anchor" href="#树"></a> 树</h5>
+<figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">module</span> Main <span class="keyword">where</span></span><br><span class="line">    <span class="class"><span class="keyword">data</span> <span class="type">Tree</span> a = <span class="type">Children</span> [<span class="type">Tree</span> a] | <span class="type">Leaf</span> a <span class="keyword">deriving</span> (<span class="type">Show</span>)</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">-- 计算高度 --</span></span><br><span class="line">    depth (<span class="type">Leaf</span> _) = <span class="number">1</span></span><br><span class="line">    depth (<span class="type">Children</span> c) = <span class="number">1</span> + maximum (map depth c)</span><br><span class="line"><span class="comment">--</span></span><br><span class="line">*<span class="type">Main</span>&gt; <span class="keyword">let</span> leaf1 = <span class="type">Leaf</span> <span class="number">11</span></span><br><span class="line">*<span class="type">Main</span>&gt; <span class="keyword">let</span> leaf2 = <span class="type">Leaf</span> <span class="number">22</span></span><br><span class="line">*<span class="type">Main</span>&gt; <span class="keyword">let</span> tree = <span class="type">Children</span>[<span class="type">Leaf</span> <span class="number">1</span>, <span class="type">Leaf</span> <span class="number">2</span>]</span><br><span class="line">*<span class="type">Main</span>&gt; tree</span><br><span class="line"><span class="type">Children</span> [<span class="type">Leaf</span> <span class="number">1</span>,<span class="type">Leaf</span> <span class="number">2</span>]</span><br></pre></td></tr></table></figure>
+<h4 id="类"><a class="markdownIt-Anchor" href="#类"></a> 类</h4>
+<p>非面向对象的类概念，它不涉及数据，可以精细控制重载和多态。</p>
+<p>以下是 Eq 类的定义：</p>
+<figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span>  <span class="type">Eq</span> a  <span class="keyword">where</span></span>   </span><br><span class="line">	(==), (/=) :: a -&gt; a -&gt; <span class="type">Bool</span></span><br><span class="line">	<span class="comment">-- Minimal complete definition:       </span></span><br><span class="line">	<span class="comment">--			(==) or (/=)   </span></span><br><span class="line">	x /= y     =  not (x == y)   </span><br><span class="line">	x == y     =  not (x /= y)</span><br></pre></td></tr></table></figure>
+<p>类支持继承：</p>
+<p><img src="/img/HaskellClassRelation.png" alt="Haskell Class Relation"></p>
+<h3 id="monad"><a class="markdownIt-Anchor" href="#monad"></a> Monad</h3>
+<h4 id="海盗寻宝问题"><a class="markdownIt-Anchor" href="#海盗寻宝问题"></a> 海盗寻宝问题</h4>
+<h5 id="python-approach"><a class="markdownIt-Anchor" href="#python-approach"></a> Python Approach</h5>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">treasure_map</span><span class="params">(v)</span>:</span></span><br><span class="line">    v = stagger(v)</span><br><span class="line">    v = stagger(v)</span><br><span class="line">    v = crawl(v)</span><br><span class="line">    <span class="keyword">return</span> v</span><br></pre></td></tr></table></figure>
+<h5 id="functional-approach"><a class="markdownIt-Anchor" href="#functional-approach"></a> Functional Approach</h5>
+<figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">module</span> Main <span class="keyword">where</span></span><br><span class="line">	stagger :: (<span class="type">Num</span> t) =&gt; t -&gt; t</span><br><span class="line">	stagger d = d + <span class="number">2</span></span><br><span class="line">	crawl d = d + <span class="number">1</span></span><br><span class="line">	</span><br><span class="line">	treasureMap d =    </span><br><span class="line">		crawl (stagger (stagger d))</span><br></pre></td></tr></table></figure>
+<h5 id="let-in-approach"><a class="markdownIt-Anchor" href="#let-in-approach"></a> Let-in Approach</h5>
+<figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">module</span> Main <span class="keyword">where</span></span><br><span class="line">    letTreasureMap (v,d) = </span><br><span class="line">        <span class="keyword">let</span> d1 = stagger d</span><br><span class="line">            d2 = stagger d1</span><br><span class="line">            d3 = crawl d2</span><br><span class="line">        <span class="keyword">in</span> d3</span><br></pre></td></tr></table></figure>
+<h5 id="monad-approach"><a class="markdownIt-Anchor" href="#monad-approach"></a> Monad Approach</h5>
+<figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">module</span> Main <span class="keyword">where</span></span><br><span class="line">    <span class="class"><span class="keyword">data</span> <span class="type">Position</span> t = <span class="type">Position</span> t <span class="keyword">deriving</span> (<span class="type">Show</span>)</span></span><br><span class="line">    stagger (<span class="type">Position</span> d) = <span class="type">Position</span> (d + <span class="number">2</span>)</span><br><span class="line">    crawl (<span class="type">Position</span> d) = <span class="type">Position</span> (d + <span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">    rtn x = x			<span class="comment">-- packaging monad</span></span><br><span class="line">    x &gt;&gt;== f = f x	<span class="comment">-- bind</span></span><br><span class="line">    </span><br><span class="line">    treasureMap pos = pos &gt;&gt;==</span><br><span class="line">                      stagger &gt;&gt;==</span><br><span class="line">                      stagger &gt;&gt;==</span><br><span class="line">                      crawl &gt;&gt;==</span><br><span class="line">                      rtn      </span><br><span class="line"><span class="comment">--</span></span><br><span class="line">*<span class="type">Main</span>&gt; treasureMap (<span class="type">Position</span> <span class="number">0</span>)</span><br><span class="line"><span class="number">5</span></span><br></pre></td></tr></table></figure>
+<h4 id="more-monad"><a class="markdownIt-Anchor" href="#more-monad"></a> More Monad</h4>
+<h5 id="do-sugar-syntax"><a class="markdownIt-Anchor" href="#do-sugar-syntax"></a> <strong>do</strong> Sugar Syntax</h5>
+<figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">module</span> Main <span class="keyword">where</span></span><br><span class="line">    tryIo = <span class="keyword">do</span> </span><br><span class="line">        putStr <span class="string">"Enter your name: "</span> ;</span><br><span class="line">        line &lt;- getLine ;</span><br><span class="line">        <span class="keyword">let</span> &#123; backwards = reverse line&#125; ;</span><br><span class="line">        return (<span class="string">"Hello. Your backwards is "</span> ++ backwards)</span><br></pre></td></tr></table></figure>
+<h5 id="definitions-of-return-and-bind"><a class="markdownIt-Anchor" href="#definitions-of-return-and-bind"></a> Definitions of <strong>return</strong> and <strong>bind(&gt;&gt;==)</strong></h5>
+<figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">instance</span> <span class="type">Monad</span> [] <span class="keyword">where</span></span></span><br><span class="line">    m &gt;&gt;= f  = concatMap f m</span><br><span class="line">    return x = [x]</span><br></pre></td></tr></table></figure>
+<h4 id="crack-password"><a class="markdownIt-Anchor" href="#crack-password"></a> Crack Password</h4>
+<figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">module</span> Main <span class="keyword">where</span></span><br><span class="line">    crack = <span class="keyword">do</span> </span><br><span class="line">        x &lt;- ['a'..'c']; y &lt;- ['a'..'c']; z &lt;- ['a'..'c'];</span><br><span class="line">        <span class="keyword">let</span> &#123;password = [x,y,z]&#125;;</span><br><span class="line">        <span class="keyword">if</span> attempt password</span><br><span class="line">            <span class="keyword">then</span> return (password, <span class="type">True</span>)</span><br><span class="line">            <span class="keyword">else</span> return (password, <span class="type">False</span>)</span><br><span class="line"></span><br><span class="line">    attempt pw = <span class="keyword">if</span> pw == <span class="string">"cab"</span> <span class="keyword">then</span> <span class="type">True</span> <span class="keyword">else</span> <span class="type">False</span></span><br></pre></td></tr></table></figure>
+<h4 id="maybe-monad"><a class="markdownIt-Anchor" href="#maybe-monad"></a> Maybe Monad</h4>
+<p>Maybe 能够解决一些函数返回失败，如数据库、网络、文件I/O等函数。</p>
+<p>下面是 Just 定义：</p>
+<figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&#123;- Just 类似 Swift 的 Optional-&#125;</span></span><br><span class="line"><span class="type">Prelude</span>&gt; <span class="type">Just</span> <span class="string">"some string"</span></span><br><span class="line"><span class="type">Just</span> <span class="string">"some string"</span></span><br><span class="line"><span class="type">Prelude</span>&gt; <span class="type">Just</span> <span class="type">Nothing</span></span><br><span class="line"><span class="type">Just</span> <span class="type">Nothing</span></span><br><span class="line"><span class="type">Prelude</span>&gt; :t <span class="type">Just</span></span><br><span class="line"><span class="type">Just</span> :: a -&gt; <span class="type">Maybe</span> a</span><br><span class="line"><span class="type">Prelude</span>&gt; :t <span class="type">Nothing</span></span><br><span class="line"><span class="type">Nothing</span> :: <span class="type">Maybe</span> a</span><br><span class="line"></span><br><span class="line"><span class="comment">&#123;- Def. of HTML handler -&#125;</span></span><br><span class="line"><span class="title">paragraph</span> xmlDoc -&gt; xmlDoc</span><br><span class="line"><span class="title">body</span> xmlDoc -&gt; xmlDoc</span><br><span class="line"><span class="title">html</span> xmlDoc -&gt; xmlDoc</span><br></pre></td></tr></table></figure>
+<p>进入正题，处理HTML文档，不用 Maybe Monad 时需要处理每层（paragraph / html / body）的 Nothing 异常：</p>
+<figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&#123;- Without Maybe Usage-&#125;</span></span><br><span class="line"><span class="title">paragraph</span> body (html xmldoc)</span><br><span class="line"></span><br><span class="line"><span class="comment">&#123;- Without Maybe Implementation (trival in handling exception)-&#125;</span></span><br><span class="line"><span class="title">case</span> (html doc) <span class="keyword">of</span></span><br><span class="line">	<span class="type">Nothing</span> -&gt; <span class="type">Nothing</span></span><br><span class="line">	<span class="type">Just</span> x  -&gt; <span class="keyword">case</span> body x <span class="keyword">of</span></span><br><span class="line">		<span class="type">Nothing</span> -&gt; <span class="type">Nothing</span></span><br><span class="line">		<span class="type">Just</span> y  -&gt; paragraph <span class="number">2</span> y</span><br></pre></td></tr></table></figure>
+<p>用 Maybe Monad ：</p>
+<figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&#123;- Maybe Usage-&#125;</span></span><br><span class="line"><span class="type">Just</span> someWebPage &gt;&gt;== html &gt;&gt;= body &gt;&gt;== paragraph &gt;&gt;== return</span><br><span class="line"></span><br><span class="line"><span class="comment">&#123;- Def. of Maybe Monad -&#125;</span></span><br><span class="line"><span class="class"><span class="keyword">data</span> <span class="type">Maybe</span> a = <span class="type">Nothing</span> | <span class="type">Just</span> a</span></span><br><span class="line"><span class="class"><span class="keyword">instance</span> <span class="type">Monad</span> <span class="type">Maybe</span> <span class="keyword">where</span></span></span><br><span class="line">    return         = <span class="type">Just</span></span><br><span class="line">    <span class="type">Nothing</span>  &gt;&gt;= f = <span class="type">Nothing</span></span><br><span class="line">    (<span class="type">Just</span> x) &gt;&gt;= f = f x</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>本文有帮助？</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/img/wechatpay.png" alt="davidlau WeChat Pay"/>
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/functional-programming/" rel="tag"># functional programming</a>
+          
+            <a href="/tags/haskell/" rel="tag"># haskell</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/05/30/conspiracism/" rel="next" title="五毛和阴谋论">
+                <i class="fa fa-chevron-left"></i> 五毛和阴谋论
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/06/30/notes-on-7-concurrency-model-in-7-weeks/" rel="prev" title="notes-on-7-concurrency-model-in-7-weeks">
+                notes-on-7-concurrency-model-in-7-weeks <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="davidlau" />
+          <p class="site-author-name" itemprop="name">davidlau</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">36</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">categories</span>
+              
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">tags</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#引言"><span class="nav-number">1.</span> <span class="nav-text"> 引言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#day1-逻辑"><span class="nav-number">2.</span> <span class="nav-text"> Day1 逻辑</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本类型"><span class="nav-number">2.1.</span> <span class="nav-text"> 基本类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#d2-函数"><span class="nav-number">2.2.</span> <span class="nav-text"> D2 函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#定义"><span class="nav-number">2.2.1.</span> <span class="nav-text"> 定义</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#递归"><span class="nav-number">2.3.</span> <span class="nav-text"> 递归</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用tuple"><span class="nav-number">2.4.</span> <span class="nav-text"> 使用Tuple</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#遍历列表"><span class="nav-number">2.5.</span> <span class="nav-text"> 遍历列表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#生成列表"><span class="nav-number">2.6.</span> <span class="nav-text"> 生成列表</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#偶数列表"><span class="nav-number">2.6.1.</span> <span class="nav-text"> 偶数列表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#range"><span class="nav-number">2.6.2.</span> <span class="nav-text"> Range</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#list-derivation-like-python"><span class="nav-number">2.6.3.</span> <span class="nav-text"> List Derivation (like python)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#练习-乘法表"><span class="nav-number">2.6.4.</span> <span class="nav-text"> 练习 乘法表</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#day2"><span class="nav-number">3.</span> <span class="nav-text"> Day2</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#高阶函数"><span class="nav-number">3.1.</span> <span class="nav-text"> 高阶函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#匿名函数"><span class="nav-number">3.1.1.</span> <span class="nav-text"> 匿名函数</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#map"><span class="nav-number">3.1.1.1.</span> <span class="nav-text"> map</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#filter-foldl和foldr-reduce"><span class="nav-number">3.1.1.2.</span> <span class="nav-text"> filter、foldl和foldr (reduce)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#where"><span class="nav-number">3.1.1.3.</span> <span class="nav-text"> where</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#柯里化"><span class="nav-number">3.1.2.</span> <span class="nav-text"> 柯里化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#惰性求值"><span class="nav-number">3.1.3.</span> <span class="nav-text"> 惰性求值</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#一个无尽序列"><span class="nav-number">3.1.3.1.</span> <span class="nav-text"> 一个无尽序列</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#惰性-fib-数列"><span class="nav-number">3.1.3.2.</span> <span class="nav-text"> 惰性 Fib 数列</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#day3"><span class="nav-number">4.</span> <span class="nav-text"> Day3</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#类与类型"><span class="nav-number">4.1.</span> <span class="nav-text"> 类与类型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#自定义类型"><span class="nav-number">4.1.1.</span> <span class="nav-text"> 自定义类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#多态函数"><span class="nav-number">4.1.2.</span> <span class="nav-text"> 多态函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#多态数据类型"><span class="nav-number">4.1.3.</span> <span class="nav-text"> 多态数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#类型相同的三元组"><span class="nav-number">4.1.3.1.</span> <span class="nav-text"> 类型相同的三元组</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#树"><span class="nav-number">4.1.3.2.</span> <span class="nav-text"> 树</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#类"><span class="nav-number">4.1.4.</span> <span class="nav-text"> 类</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#monad"><span class="nav-number">4.2.</span> <span class="nav-text"> Monad</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#海盗寻宝问题"><span class="nav-number">4.2.1.</span> <span class="nav-text"> 海盗寻宝问题</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#python-approach"><span class="nav-number">4.2.1.1.</span> <span class="nav-text"> Python Approach</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#functional-approach"><span class="nav-number">4.2.1.2.</span> <span class="nav-text"> Functional Approach</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#let-in-approach"><span class="nav-number">4.2.1.3.</span> <span class="nav-text"> Let-in Approach</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#monad-approach"><span class="nav-number">4.2.1.4.</span> <span class="nav-text"> Monad Approach</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#more-monad"><span class="nav-number">4.2.2.</span> <span class="nav-text"> More Monad</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#do-sugar-syntax"><span class="nav-number">4.2.2.1.</span> <span class="nav-text"> do Sugar Syntax</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#definitions-of-return-and-bind"><span class="nav-number">4.2.2.2.</span> <span class="nav-text"> Definitions of return and bind(&gt;&gt;==)</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#crack-password"><span class="nav-number">4.2.3.</span> <span class="nav-text"> Crack Password</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#maybe-monad"><span class="nav-number">4.2.4.</span> <span class="nav-text"> Maybe Monad</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">davidlau</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

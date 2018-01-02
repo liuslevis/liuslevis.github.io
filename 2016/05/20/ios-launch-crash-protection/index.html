@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="default">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="https://cdn.bootcss.com/KaTeX/0.7.1/katex.min.css" rel="stylesheet">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="iOS," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="引言  “如果某个实体表现出以下任何一种特性，它就具备自主性：自我修复、自我保护、自我维护、对目标的自我控制、自我改进。” —— 凯文·凯利  iOS App 有时可能遇到启动必 crash 的绝境：每次打开 App 都闪退，无法正常使用App。 为了尝试解决这个问题，微信读书开发了 iOS 连续闪退保护工具：GYBootingProtection，检测连续闪退，在连续闪退出现时，尝试自修复 A">
+<meta name="keywords" content="iOS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS 启动连续闪退保护方案">
+<meta property="og:url" content="http://davidlau.me/2016/05/20/ios-launch-crash-protection/index.html">
+<meta property="og:site_name" content="davidlau&#39;s blog">
+<meta property="og:description" content="引言  “如果某个实体表现出以下任何一种特性，它就具备自主性：自我修复、自我保护、自我维护、对目标的自我控制、自我改进。” —— 凯文·凯利  iOS App 有时可能遇到启动必 crash 的绝境：每次打开 App 都闪退，无法正常使用App。 为了尝试解决这个问题，微信读书开发了 iOS 连续闪退保护工具：GYBootingProtection，检测连续闪退，在连续闪退出现时，尝试自修复 A">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://davidlau.me/img/GYBootingProtectionIntro.png">
+<meta property="og:image" content="http://davidlau.me/img/GYBootingProtectionCrashDetect.png">
+<meta property="og:image" content="http://davidlau.me/img/GYBootingProtectionTimer.png">
+<meta property="og:image" content="http://davidlau.me/img/GYBootingProtection.png">
+<meta property="og:image" content="http://davidlau.me/img/GYBootingProtectionTips.png">
+<meta property="og:image" content="http://davidlau.me/img/GYBootingProtectionAfter.png">
+<meta property="og:updated_time" content="2018-01-02T02:02:24.316Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="iOS 启动连续闪退保护方案">
+<meta name="twitter:description" content="引言  “如果某个实体表现出以下任何一种特性，它就具备自主性：自我修复、自我保护、自我维护、对目标的自我控制、自我改进。” —— 凯文·凯利  iOS App 有时可能遇到启动必 crash 的绝境：每次打开 App 都闪退，无法正常使用App。 为了尝试解决这个问题，微信读书开发了 iOS 连续闪退保护工具：GYBootingProtection，检测连续闪退，在连续闪退出现时，尝试自修复 A">
+<meta name="twitter:image" content="http://davidlau.me/img/GYBootingProtectionIntro.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://davidlau.me/2016/05/20/ios-launch-crash-protection/"/>
+
+
+
+
+
+  <title>iOS 启动连续闪退保护方案 | davidlau's blog</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?1f9568aea795d9674618be7bae3ab784";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">davidlau's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2016/05/20/ios-launch-crash-protection/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="davidlau">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="davidlau's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">iOS 启动连续闪退保护方案</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-05-20T16:09:42+08:00">
+                2016-05-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Dev/" itemprop="url" rel="index">
+                    <span itemprop="name">Dev</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="引言"><a class="markdownIt-Anchor" href="#引言"></a> 引言</h2>
+<blockquote>
+<p>“如果某个实体表现出以下任何一种特性，它就具备自主性：自我修复、自我保护、自我维护、对目标的自我控制、自我改进。” —— 凯文·凯利</p>
+</blockquote>
+<p>iOS App 有时可能遇到启动必 crash 的绝境：每次打开 App 都闪退，无法正常使用App。</p>
+<p>为了尝试解决这个问题，微信读书开发了 iOS 连续闪退保护工具：<a href="https://github.com/liuslevis/GYBootingProtection" target="_blank" rel="noopener">GYBootingProtection</a>，检测连续闪退，在连续闪退出现时，尝试自修复 App：</p>
+<p><img src="/img/GYBootingProtectionIntro.png" alt="img"></p>
+<p>本文探讨了连续闪退问题的产生原因、检测、修复机制，以及如何在你的项目中引入、测试和使用 <a href="https://github.com/liuslevis/GYBootingProtection" target="_blank" rel="noopener">GYBootingProtection</a>。</p>
+<a id="more"></a>
+<h2 id="连续闪退检测"><a class="markdownIt-Anchor" href="#连续闪退检测"></a> 连续闪退检测</h2>
+<p>首先要检测用户 App 出现了连续闪退的情况，有两种检测方法，捕获异常和计时器。</p>
+<h4 id="1-捕获异常"><a class="markdownIt-Anchor" href="#1-捕获异常"></a> 1. 捕获异常</h4>
+<p>检测连续闪退，可以通过捕获异常来实现，异常有以下种类：</p>
+<ul>
+<li>Mach 异常：EXC_CRASH</li>
+<li>UNIX 信号：SIGABRT</li>
+<li>NSException 异常：应用层，通过 NSUncaughtExceptionHandler 捕获</li>
+</ul>
+<p>在念茜的<a href="http://mp.weixin.qq.com/s?__biz=MjM5NTIyNTUyMQ==&amp;mid=208483273&amp;idx=1&amp;sn=37ee88e06e7426f59f3074c536370317&amp;scene=21" target="_blank" rel="noopener">漫谈 iOS Crash 收集框架</a>一文中详细介绍了 Mach 异常和 Unix 信号捕获 crash 的机制。简单来说，异常一般产生自 iOS 的微内核 Mach，然后在 BSD 层转换成 UNIX SIGABRT 信号，以标准 POSIX 信号的形式提供给用户。NSException 是使用者在处理 App 逻辑时，用编程的方法抛出。</p>
+<h5 id="如何捕获异常"><a class="markdownIt-Anchor" href="#如何捕获异常"></a> 如何捕获异常</h5>
+<p>通过以下方法捕获异常：</p>
+<ul>
+<li>利用 Mach API 捕获 Mach 异常</li>
+<li>通过 POSIX API 注册 signal(SIGSEGV,signalHandler) 来捕获 UNIX 异常信号</li>
+<li>注册 NSUncaughtExceptionHandler 来捕获应用级异常</li>
+</ul>
+<p>Crash 上报工具如 PLCrashReporter 通过注册 Mach 异常 + UNIX信号 的 handler 达到检测的目的，对用户提供了处理异常的接口。</p>
+<h5 id="如何检测"><a class="markdownIt-Anchor" href="#如何检测"></a> 如何检测</h5>
+<p>可以利用 PLCrashReporter 这类工具来检测连续闪退：</p>
+<ol>
+<li>首先维护一个计数变量，表示连续闪退次数</li>
+<li>在 PLCrashReporter 的 crash handler 中加入逻辑：如果启动 5s 内 crash 使计数器加一</li>
+<li>每次启动时，如果连续闪退计数 &gt; n，则检测到了连续闪退</li>
+<li>启动后，执行一个定时任务，在 5s 后重置计数（如果 App 连续闪退则不会重置）</li>
+</ol>
+<h5 id="流程图"><a class="markdownIt-Anchor" href="#流程图"></a> 流程图</h5>
+<p><img src="/img/GYBootingProtectionCrashDetect.png" alt="img"></p>
+<h5 id="优缺点"><a class="markdownIt-Anchor" href="#优缺点"></a> 优缺点</h5>
+<p>通过 Mach 异常、Unix 信号、NSException 异常来检测闪退，能获得更多的 crash 上下文，但由于 crash 收集框架多使用这些方法，可能会有这样的风险：与第三方 crash 收集框架冲突导致漏检测。另外，可能会与 App 已有的异常处理代码产生耦合。</p>
+<h4 id="2-计时器方法"><a class="markdownIt-Anchor" href="#2-计时器方法"></a> 2. 计时器方法</h4>
+<p>除了通过捕获异常的方式检测连续闪退，还可以通过计数器方法来检测：</p>
+<ol>
+<li>维护一个计数变量，用于表示连续闪退的次数</li>
+<li>在启动 application:didFinishLaunchingWithOptions: 后使计数加一</li>
+<li>接着使用 dispatch_after 方法在 5s 后清零计数，如果 App 活不过 5 秒计数就不会被清零</li>
+<li>如果发现计数变量 &gt; n，表明 App 连续 n 次连续闪退，启动保护流程，重置计数。</li>
+<li>当保护流程完成后，进入 App 正常启动流程</li>
+</ol>
+<h5 id="流程图-2"><a class="markdownIt-Anchor" href="#流程图-2"></a> 流程图</h5>
+<p><img src="/img/GYBootingProtectionTimer.png" alt="img"></p>
+<h5 id="优缺点-2"><a class="markdownIt-Anchor" href="#优缺点-2"></a> 优缺点</h5>
+<p>而计数器方法逻辑简单，与原有的代码耦合小。虽然有误报可能（在启动后立即被 kill 掉，误认为 crash），但是可以通过设置阈值来减小误报的误报率。</p>
+<p>综上权衡，我们使用计时器方法检测连续闪退。</p>
+<p>如果你的项目使用了 crash 收集框架，把源代码中的 <code>[GYBootingProtection addCrashCount]</code> 移动到 <code>crash handler</code>，即可实现捕获异常方法计数。</p>
+<h2 id="连续闪退修复"><a class="markdownIt-Anchor" href="#连续闪退修复"></a> 连续闪退修复</h2>
+<p>检测到连续闪退后，接下来要尝试对闪退进行修复，这里先分析可能的闪退原因，再结合微信读书的例子说明修复流程。</p>
+<h3 id="闪退原因"><a class="markdownIt-Anchor" href="#闪退原因"></a> 闪退原因</h3>
+<p>连续闪退，可能是 App 启动关键路径中执行了必 crash 的代码，原因可能有：</p>
+<ol>
+<li>数据库损坏：在日常使用如异常退出、断电，或者错误的操作（参考：<a href="http://blog.systoolsgroup.com/sqlite-corruption-causes.html" target="_blank" rel="noopener">sqlite corruption causes</a>）。</li>
+<li>文件损坏：处理文件时如果没有 <code>@try...catch</code>，损坏文件会抛出 <code>NSException</code> 导致 crash</li>
+<li>网络返回数据处理异常：比如预期返回数组，但实际返回了字典，对字典对象执行 <code>-objectAtIndex</code> 方法会产生 <code>crash： unknow selector send to object；</code>，或返回破损的 Tar 包，在解压失败导致 crash。</li>
+<li>代码 bug：当必 crash 的代码出现在启动关键路径中，就会导致连续闪退。</li>
+</ol>
+<p>针对 1，可以通过工具修复数据库，或者删除 DB。针对2，可以删除文件来进行修复。对于 3 和 4，我们需要具体地分析 crash 案例，通过 JSPatch 来进行修复。</p>
+<h3 id="微信读书的修复流程"><a class="markdownIt-Anchor" href="#微信读书的修复流程"></a> 微信读书的修复流程</h3>
+<p>为了应对上述导致连续闪退的原因，微信读书的修复流程为：</p>
+<ol>
+<li>进入 didFinishLaunch 时检查是否有连续闪退，无则执行 5</li>
+<li>弹 Toast 提示用户是否修复，轻触『修复』执行2，否则执行 5</li>
+<li>尝试下载并执行 JSPatch 补丁</li>
+</ol>
+<p>这里是为了解决上述第4点 - 代码 bug 导致的闪退，使用 JSPatch <a href="https://github.com/bang590/JSPatch" target="_blank" rel="noopener">[github]</a>可以进行热修复。在 didFinishLaunching 时，会卡住界面发请求检查是否有可用的 JSPatch 脚本，如果有则加载执行，解决代码 bug 导致的闪退。</p>
+<ol start="3">
+<li>尝试删除 <code>Documents</code> / <code>Library</code> / <code>Caches</code> 目录下的所有文件</li>
+</ol>
+<p>这里直接删除了所有用户数据，适用于微信读书这种所有数据都在云端，删除后可以完全从云端恢复。如果你的 App 不属于这种场景，那么应该在 repairBlock 中自定义修复逻辑，比如：</p>
+<p>a. 不删除文件，只修复数据库<br>
+b. 修复前把用户数据备份到云端<br>
+c. 收集 crash 样本，查明原因，定制 JSPatch 修复补丁并下发</p>
+<ol start="4">
+<li>退出微信读书登录状态</li>
+<li>进入原 didFinishLaunch</li>
+</ol>
+<p>连续闪退检测 + 保护流程如图所示：</p>
+<p><img src="/img/GYBootingProtection.png" alt="img"></p>
+<h2 id="实现"><a class="markdownIt-Anchor" href="#实现"></a> 实现</h2>
+<p>检测和连续 crash 并修复需要修改原 <code>-application:didFinishLaunchingWithOptions:</code> 逻辑，有几种方法：</p>
+<ol>
+<li>直接修改 <code>-application:didFinishLaunchingWithOptions:</code> 方法。</li>
+<li>新建一个 <code>SubAppDelegate</code> 类来继承 <code>AppDelegate</code>，覆盖 <code>-application:didFinishLaunchingWithOptions:</code> 方法，然后把 <code>main()</code> 函数中的 <code>AppDelegate</code> 替换为 <code>SubAppDelegate</code></li>
+<li>新建一个 <code>AppDelegate</code> 扩展，然后用 method swizzle 的方法替换 <code>-application:didFinishLaunchingWithOptions:</code> 方法。</li>
+</ol>
+<p>上述三种方案，对现有项目改动代价是 1 &gt; 2 &gt; 3。因此，我们使用对源码修改代价最小的方案 3 来替换 <code>-application:didFinishLaunchingWithOptions:</code>。</p>
+<p>检测的逻辑 GYBootingProtection 已经处理好，修复的处理预留了接口，可以由用户自定义，把自定义的修复流程传入 repairBlock 即可。</p>
+<h2 id="使用"><a class="markdownIt-Anchor" href="#使用"></a> 使用</h2>
+<h3 id="引入项目"><a class="markdownIt-Anchor" href="#引入项目"></a> 引入项目</h3>
+<ol>
+<li>
+<p>下载 <a href="https://github.com/liuslevis/GYBootingProtection" target="_blank" rel="noopener">(github)</a> 源码 ，将 <code>src</code> 目录下所有文件拖拽到你的 Xcode 项目</p>
+</li>
+<li>
+<p>在 <code>AppDelegate+GYBootingProtection.m</code> 的 <code>onBeforeBootingProtection</code> 方法中添加检测前需要执行的代码，比如设置crash上报：</p>
+</li>
+</ol>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">- (void)onBeforeBootingProtection &#123;</span><br><span class="line">  [GYBootingProtection setLogger:^(NSString *msg) &#123;</span><br><span class="line">      // setup logger</span><br><span class="line">      NSLog(@&quot;%@&quot;, msg);</span><br><span class="line">  &#125;];</span><br><span class="line">  </span><br><span class="line">  [GYBootingProtection setReportBlock:^(NSInteger crashCounts) &#123;</span><br><span class="line">      // setup crash report</span><br><span class="line">  &#125;];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>
+<p>在 <code>onBootingProtection</code> 方法中添加修复逻辑，比如删除文件：</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">- (void)onBootingProtection &#123;</span><br><span class="line">	// 检查 JSPatch 更新</span><br><span class="line">	...</span><br><span class="line">	// 删除 Documents Library Caches 目录下所有文件</span><br><span class="line">	[GYBootingProtection deleteAllFilesUnderDocumentsLibraryCaches];</span><br><span class="line">   	...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如需执行异步的修复逻辑，在 <code>onBootingProtectionWithCompletion:</code> 方法添加修复逻辑，并在完成修复后调用 completion ：</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">- (void)onBootingProtectionWithCompletion:(BoolCompletionBlock)completion &#123;</span><br><span class="line">  		[self onBootingProtection];</span><br><span class="line">   	// 异步修复</span><br><span class="line">  		[self asyncRepairWithCompletion:^(void) &#123;</span><br><span class="line">    	// 正常启动流程</span><br><span class="line">  			if (completion) completion();</span><br><span class="line">  		&#125;];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="测试与使用"><a class="markdownIt-Anchor" href="#测试与使用"></a> 测试与使用</h3>
+<ol>
+<li>首先制造连续闪退场景：</li>
+</ol>
+<p>启动后 5 秒内，双击 Home 通过上划手势 kill 掉 App，重复多次。（也可以在代码里人为制造crash）</p>
+<ol start="2">
+<li>当连续闪退超过 5 次时，会提示用户修复：</li>
+</ol>
+<p><img src="/img/GYBootingProtectionTips.png" alt="img"></p>
+<ol start="3">
+<li>用户轻触修复，App 重置初始状态，连续闪退问题解决：</li>
+</ol>
+<p><img src="/img/GYBootingProtectionAfter.png" alt="img"></p>
+<h2 id="源码"><a class="markdownIt-Anchor" href="#源码"></a> 源码</h2>
+<p><a href="https://github.com/liuslevis/GYBootingProtection" target="_blank" rel="noopener">https://github.com/liuslevis/GYBootingProtection</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>本文有帮助？</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/img/wechatpay.png" alt="davidlau WeChat Pay"/>
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/iOS/" rel="tag"># iOS</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/05/20/typesetter-testing-autmation/" rel="next" title="微信读书排版引擎自动化测试">
+                <i class="fa fa-chevron-left"></i> 微信读书排版引擎自动化测试
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/10/15/cold-start-recommendations/" rel="prev" title="微信读书冷启动用户书籍推荐初探：一个借助微信用户画像的方法">
+                微信读书冷启动用户书籍推荐初探：一个借助微信用户画像的方法 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="davidlau" />
+          <p class="site-author-name" itemprop="name">davidlau</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">36</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">categories</span>
+              
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">tags</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#引言"><span class="nav-number">1.</span> <span class="nav-text"> 引言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#连续闪退检测"><span class="nav-number">2.</span> <span class="nav-text"> 连续闪退检测</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-捕获异常"><span class="nav-number">2.0.1.</span> <span class="nav-text"> 1. 捕获异常</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#如何捕获异常"><span class="nav-number">2.0.1.1.</span> <span class="nav-text"> 如何捕获异常</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#如何检测"><span class="nav-number">2.0.1.2.</span> <span class="nav-text"> 如何检测</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#流程图"><span class="nav-number">2.0.1.3.</span> <span class="nav-text"> 流程图</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#优缺点"><span class="nav-number">2.0.1.4.</span> <span class="nav-text"> 优缺点</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-计时器方法"><span class="nav-number">2.0.2.</span> <span class="nav-text"> 2. 计时器方法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#流程图-2"><span class="nav-number">2.0.2.1.</span> <span class="nav-text"> 流程图</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#优缺点-2"><span class="nav-number">2.0.2.2.</span> <span class="nav-text"> 优缺点</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#连续闪退修复"><span class="nav-number">3.</span> <span class="nav-text"> 连续闪退修复</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#闪退原因"><span class="nav-number">3.1.</span> <span class="nav-text"> 闪退原因</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#微信读书的修复流程"><span class="nav-number">3.2.</span> <span class="nav-text"> 微信读书的修复流程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现"><span class="nav-number">4.</span> <span class="nav-text"> 实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用"><span class="nav-number">5.</span> <span class="nav-text"> 使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#引入项目"><span class="nav-number">5.1.</span> <span class="nav-text"> 引入项目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#测试与使用"><span class="nav-number">5.2.</span> <span class="nav-text"> 测试与使用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#源码"><span class="nav-number">6.</span> <span class="nav-text"> 源码</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">davidlau</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

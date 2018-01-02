@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="default">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="https://cdn.bootcss.com/KaTeX/0.7.1/katex.min.css" rel="stylesheet">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="引言 微信读书的书籍个性化推荐包括：   冷启动用户的书籍推荐，如发现 tab – 新手卡片，为新注册用户推荐书籍，方法参见文章 微信读书冷启动用户书籍推荐初探：一个借助微信用户画像的方法 微信读书冷启动推荐实战：一种基于用户属性的方法 。   基于协同过滤（Item-CF / Word2vec）的书籍推荐，如于书城 – 搜索 – 猜你喜欢，为老用户推荐书籍。   为提升 2 的效果，本文设计了">
+<meta property="og:type" content="article">
+<meta property="og:title" content="尝试改进微信读书个性化推荐：一个基于 CTR 预估的方法">
+<meta property="og:url" content="http://davidlau.me/2017/07/07/weread-book-recommend-via-ctr/index.html">
+<meta property="og:site_name" content="davidlau&#39;s blog">
+<meta property="og:description" content="引言 微信读书的书籍个性化推荐包括：   冷启动用户的书籍推荐，如发现 tab – 新手卡片，为新注册用户推荐书籍，方法参见文章 微信读书冷启动用户书籍推荐初探：一个借助微信用户画像的方法 微信读书冷启动推荐实战：一种基于用户属性的方法 。   基于协同过滤（Item-CF / Word2vec）的书籍推荐，如于书城 – 搜索 – 猜你喜欢，为老用户推荐书籍。   为提升 2 的效果，本文设计了">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://davidlau.me/img/table.png">
+<meta property="og:image" content="http://davidlau.me/img/table.png">
+<meta property="og:updated_time" content="2018-01-02T02:02:24.388Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="尝试改进微信读书个性化推荐：一个基于 CTR 预估的方法">
+<meta name="twitter:description" content="引言 微信读书的书籍个性化推荐包括：   冷启动用户的书籍推荐，如发现 tab – 新手卡片，为新注册用户推荐书籍，方法参见文章 微信读书冷启动用户书籍推荐初探：一个借助微信用户画像的方法 微信读书冷启动推荐实战：一种基于用户属性的方法 。   基于协同过滤（Item-CF / Word2vec）的书籍推荐，如于书城 – 搜索 – 猜你喜欢，为老用户推荐书籍。   为提升 2 的效果，本文设计了">
+<meta name="twitter:image" content="http://davidlau.me/img/table.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://davidlau.me/2017/07/07/weread-book-recommend-via-ctr/"/>
+
+
+
+
+
+  <title>尝试改进微信读书个性化推荐：一个基于 CTR 预估的方法 | davidlau's blog</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?1f9568aea795d9674618be7bae3ab784";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">davidlau's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2017/07/07/weread-book-recommend-via-ctr/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="davidlau">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="davidlau's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">尝试改进微信读书个性化推荐：一个基于 CTR 预估的方法</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-07-07T17:30:49+08:00">
+                2017-07-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Dev/" itemprop="url" rel="index">
+                    <span itemprop="name">Dev</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="引言"><a class="markdownIt-Anchor" href="#引言"></a> 引言</h2>
+<p>微信读书的书籍个性化推荐包括：</p>
+<ol>
+<li>
+<p>冷启动用户的书籍推荐，如发现 tab – 新手卡片，为新注册用户推荐书籍，方法参见文章 <a href="http://davidlau.me/2016/10/15/cold-start-recommendations/">微信读书冷启动用户书籍推荐初探：一个借助微信用户画像的方法</a> <a href="http://davidlau.me/2016/12/14/cold-start-recommendations-in-action/">微信读书冷启动推荐实战：一种基于用户属性的方法<br>
+</a>。</p>
+</li>
+<li>
+<p>基于协同过滤（Item-CF / Word2vec）的书籍推荐，如于书城 – 搜索 – 猜你喜欢，为老用户推荐书籍。</p>
+</li>
+</ol>
+<p>为提升 2 的效果，本文设计了一个离线实验，用  CTR 预估方法做书籍个性化推荐，发现效果（准确率、召回率）较现网方法（Word2vec）提升接近一倍。</p>
+<p><img src="/img/table.png" alt=""></p>
+<a id="more"></a>
+<h2 id="实验设计"><a class="markdownIt-Anchor" href="#实验设计"></a> 实验设计</h2>
+<h3 id="实验对象"><a class="markdownIt-Anchor" href="#实验对象"></a> 实验对象</h3>
+<p>随机取 2017 年 1～4 月有加书架行为的 500 名用户。</p>
+<h3 id="推荐任务"><a class="markdownIt-Anchor" href="#推荐任务"></a> 推荐任务</h3>
+<p>对每个用户，根据 1～3 月的用户行为，预测 3～4 月被加入书架的 topN 本书，作为推荐结果。topN 取 200。</p>
+<h3 id="评估指标"><a class="markdownIt-Anchor" href="#评估指标"></a> 评估指标</h3>
+<p>TopN 准确率（查全率）：推荐命中次数／推荐次数</p>
+<p>TopN 召回率（查准率）：推荐命中次数／加书架次数</p>
+<h3 id="推荐算法"><a class="markdownIt-Anchor" href="#推荐算法"></a> 推荐算法</h3>
+<h4 id="对照组word2vec"><a class="markdownIt-Anchor" href="#对照组word2vec"></a> 对照组：Word2vec</h4>
+<p>微信读书的猜你喜欢使用 Item-CF 和 Word2vec 两种算法，二者转化率相近。在本次实验中用 Word2vec 作为对照组。</p>
+<p><a href="https://www.zybuluo.com/Dounm/note/591752" target="_blank" rel="noopener">Word2vec</a> 是一个语言模型，能够从语料中学习到词汇的向量表示，向量可以用于衡量词汇间的相似度。Word2vec 也可用于个性化推荐，能够学习到物品、用户间的相似度，是一种协同过滤的推荐方法。</p>
+<p>具体地说，我们把书籍 ID 当成 word，把每个用户加书架的书籍 ID 序列当成 sentence，把 1～3 月用户的加书架行为当成训练语料，输入 Word2vec，得到每个书籍 ID 的向量表示。两本书籍间的向量距离，可以表示两本书的相似度。</p>
+<p>对每个用户，把他 1～3 月读的近 15 本书作为种子，寻找向量距离最相近的 topN 本书，作为推荐结果。</p>
+<p>微信读书现网 word2vec 的训练语料把用户感兴趣的书作为 word，而在本次实验中简单处理，把用户加书架的书籍作为 word。</p>
+<h4 id="实验组ctr-预估方法"><a class="markdownIt-Anchor" href="#实验组ctr-预估方法"></a> 实验组：CTR 预估方法</h4>
+<p>CTR 预估方法，即利用点击率预测模型，对候选集的 user-item 特征，预测点击率，然后重新排序生成推荐结果。</p>
+<p>利用 CTR 预估方法做推荐，一般步骤是：</p>
+<ol>
+<li>生成候选集：利用协同过滤方法（Word2vec）产生的 topN * 3 个推荐结果作为候选集。</li>
+<li>训练点击率预估模型：以 1～4 月非实验对象用户数据作为训练集，根据用户在 1～3 月的微信属性、阅读行为和书籍的特征（详见附录），预测用户在  4月加书架的概率。常见的模型有：LR / GBDT / GBDT+LR / FM 等，可参考 <a href="https://www.qcloud.com/community/article/701728" target="_blank" rel="noopener">3</a></li>
+<li>点击率预估，对候选集重排序：对每个用户，用 LR 模型预测他把候选集书籍加入书架的概率，然后排序取 topN 作为推荐结果。</li>
+</ol>
+<p>其中，GBDT 算法可以自动选择特征，LR 需要特征筛选以提高准确率，具体过程略，可参考 <a href="https://zr9558.com/2016/01/26/feature_engineering_introduction/" target="_blank" rel="noopener">4</a></p>
+<h2 id="总结"><a class="markdownIt-Anchor" href="#总结"></a> 总结</h2>
+<p><img src="/img/table.png" alt=""></p>
+<table>
+<thead>
+<tr>
+<th>效果  \  推荐方法</th>
+<th>Word2vec（现网）</th>
+<th>CTR LR</th>
+<th>CTR GBDT</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>召回率（查全率）</td>
+<td>0.061116</td>
+<td>0.103632</td>
+<td>0.102746</td>
+</tr>
+<tr>
+<td>准确率（查准率）</td>
+<td>0.001202</td>
+<td>0.002614</td>
+<td>0.002592</td>
+</tr>
+</tbody>
+</table>
+<p>从实验结果可以发现，CTR 预估方法较 Word2vec 方法在推荐效果上有近一倍的提升。</p>
+<p>提升的原因，可能是 Word2vec 方法利用单一的用户加书架的信息进行训练；而 CTR 预估方法利用了更丰富信息进行训练，如用户属性、用户行为、书籍属性等，更好地学习用户的阅读偏好，从而作出更精准的推荐。</p>
+<p>而且随着更多有效特征的加入，如用户-书籍的点赞评论特征、价格特征、对语音节目偏好特征，CTR 预估方法能够学习到更全面、更具体的用户阅读偏好，以进一步提升个性化推荐效果。</p>
+<p>此外，CTR 预估方法也可用于读书电台等听书栏目，通过个性化推荐，提升用户体验。</p>
+<h2 id="参考"><a class="markdownIt-Anchor" href="#参考"></a> 参考</h2>
+<p>1 <a href="http://tech.meituan.com/mt-recommend-practice.html" target="_blank" rel="noopener">美团推荐算法实践</a></p>
+<p>2 <a href="http://bourneli.github.io/ml/fm/2017/07/02/fm-remove-combine-features-by-yourself.html" target="_blank" rel="noopener">因子分解机FM-高效的组合高阶特征模型</a></p>
+<p>3 <a href="https://www.qcloud.com/community/article/701728" target="_blank" rel="noopener">CTR预估模型(点击率预测模型)的进化之路</a></p>
+<p>4 <a href="https://zr9558.com/2016/01/26/feature_engineering_introduction/" target="_blank" rel="noopener">特征工程简介</a></p>
+<p>5 <a href="https://www.zybuluo.com/Dounm/note/591752" target="_blank" rel="noopener">Word2Vec-知其然知其所以然</a></p>
+<p>6 <a href="https://en.wikipedia.org/wiki/Logistic_regression" target="_blank" rel="noopener">LR, 逻辑回归</a></p>
+<h2 id="附录"><a class="markdownIt-Anchor" href="#附录"></a> 附录</h2>
+<h3 id="ctr-预估模型特征"><a class="markdownIt-Anchor" href="#ctr-预估模型特征"></a> CTR 预估模型特征</h3>
+<table>
+<thead>
+<tr>
+<th>特征</th>
+<th>name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>用户性别</td>
+<td>user_sex</td>
+</tr>
+<tr>
+<td>用户年龄</td>
+<td>user_age</td>
+</tr>
+<tr>
+<td>用户n线城市</td>
+<td>user_city</td>
+</tr>
+<tr>
+<td>用户性别哑变量</td>
+<td>user_sex_0</td>
+</tr>
+<tr>
+<td></td>
+<td>user_sex_1</td>
+</tr>
+<tr>
+<td></td>
+<td>user_sex_2</td>
+</tr>
+<tr>
+<td></td>
+<td>user_sex_3</td>
+</tr>
+<tr>
+<td>用户年龄哑变量</td>
+<td>user_age_0</td>
+</tr>
+<tr>
+<td></td>
+<td>user_age_1</td>
+</tr>
+<tr>
+<td></td>
+<td>user_age_2</td>
+</tr>
+<tr>
+<td></td>
+<td>user_age_3</td>
+</tr>
+<tr>
+<td></td>
+<td>user_age_4</td>
+</tr>
+<tr>
+<td>用户城市哑变量</td>
+<td>user_city_0</td>
+</tr>
+<tr>
+<td></td>
+<td>user_city_1</td>
+</tr>
+<tr>
+<td></td>
+<td>user_city_2</td>
+</tr>
+<tr>
+<td></td>
+<td>user_city_3</td>
+</tr>
+<tr>
+<td></td>
+<td>user_city_4</td>
+</tr>
+<tr>
+<td>用户最近加书架书的标签和此书标签的交集数</td>
+<td>past_tag_num</td>
+</tr>
+<tr>
+<td>物品被具有某特征用户加书架转化率</td>
+<td>item_sex_0_ctr</td>
+</tr>
+<tr>
+<td></td>
+<td>item_sex_1_ctr</td>
+</tr>
+<tr>
+<td></td>
+<td>item_sex_2_ctr</td>
+</tr>
+<tr>
+<td></td>
+<td>item_sex_3_ctr</td>
+</tr>
+<tr>
+<td></td>
+<td>item_age_0_ctr</td>
+</tr>
+<tr>
+<td></td>
+<td>item_age_1_ctr</td>
+</tr>
+<tr>
+<td></td>
+<td>item_age_2_ctr</td>
+</tr>
+<tr>
+<td></td>
+<td>item_age_3_ctr</td>
+</tr>
+<tr>
+<td></td>
+<td>item_age_4_ctr</td>
+</tr>
+<tr>
+<td></td>
+<td>item_city_0_ctr</td>
+</tr>
+<tr>
+<td></td>
+<td>item_city_1_ctr</td>
+</tr>
+<tr>
+<td></td>
+<td>item_city_2_ctr</td>
+</tr>
+<tr>
+<td></td>
+<td>item_city_3_ctr</td>
+</tr>
+<tr>
+<td></td>
+<td>item_city_4_ctr</td>
+</tr>
+</tbody>
+</table>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>本文有帮助？</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/img/wechatpay.png" alt="davidlau WeChat Pay"/>
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/07/07/ios-launch-crash-monitor/" rel="next" title="iOS App 启动必 crash 监控">
+                <i class="fa fa-chevron-left"></i> iOS App 启动必 crash 监控
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/08/07/mf/" rel="prev" title="Matrix Factorization">
+                Matrix Factorization <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="davidlau" />
+          <p class="site-author-name" itemprop="name">davidlau</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">36</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">categories</span>
+              
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">tags</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#引言"><span class="nav-number">1.</span> <span class="nav-text"> 引言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实验设计"><span class="nav-number">2.</span> <span class="nav-text"> 实验设计</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#实验对象"><span class="nav-number">2.1.</span> <span class="nav-text"> 实验对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#推荐任务"><span class="nav-number">2.2.</span> <span class="nav-text"> 推荐任务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#评估指标"><span class="nav-number">2.3.</span> <span class="nav-text"> 评估指标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#推荐算法"><span class="nav-number">2.4.</span> <span class="nav-text"> 推荐算法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#对照组word2vec"><span class="nav-number">2.4.1.</span> <span class="nav-text"> 对照组：Word2vec</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#实验组ctr-预估方法"><span class="nav-number">2.4.2.</span> <span class="nav-text"> 实验组：CTR 预估方法</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text"> 总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">4.</span> <span class="nav-text"> 参考</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#附录"><span class="nav-number">5.</span> <span class="nav-text"> 附录</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ctr-预估模型特征"><span class="nav-number">5.1.</span> <span class="nav-text"> CTR 预估模型特征</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">davidlau</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

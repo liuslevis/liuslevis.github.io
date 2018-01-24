@@ -95,14 +95,21 @@
 
 
 
+<meta name="description" content="Bi-CNN  细粒度的分类问题，fine-grained image classification，如花的品种识别，十分困难。 一种解决方法称为 part-based，是定位特征区域，如花瓣，然后用 CNN 分类，这种方法的缺点是标注成本高。 另一种解决方法 feature-based，是用鲁棒的特征：VLAD，Fisher + SIFT。这种方法不依赖训练数据，但是效果不如 part-bas">
 <meta property="og:type" content="article">
-<meta property="og:title" content="thai-photos">
-<meta property="og:url" content="http://davidlau.me/2016/10/23/thai-photos/index.html">
+<meta property="og:title" content="CNN：细粒度分类">
+<meta property="og:url" content="http://davidlau.me/2018/01/21/cnn-fine-grained-classification/index.html">
 <meta property="og:site_name" content="davidlau&#39;s blog">
+<meta property="og:description" content="Bi-CNN  细粒度的分类问题，fine-grained image classification，如花的品种识别，十分困难。 一种解决方法称为 part-based，是定位特征区域，如花瓣，然后用 CNN 分类，这种方法的缺点是标注成本高。 另一种解决方法 feature-based，是用鲁棒的特征：VLAD，Fisher + SIFT。这种方法不依赖训练数据，但是效果不如 part-bas">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-01-02T02:02:24.325Z">
+<meta property="og:image" content="http://davidlau.me/2018/01/21/img/cnn-variant-bcnn-fig1.png">
+<meta property="og:image" content="http://davidlau.me/2018/01/21/img/cnn-variant-bcnn-fig2.png">
+<meta property="og:image" content="http://davidlau.me/2018/01/21/img/cnn-variant-bcnn-fig3.png">
+<meta property="og:updated_time" content="2018-01-24T09:49:22.451Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="thai-photos">
+<meta name="twitter:title" content="CNN：细粒度分类">
+<meta name="twitter:description" content="Bi-CNN  细粒度的分类问题，fine-grained image classification，如花的品种识别，十分困难。 一种解决方法称为 part-based，是定位特征区域，如花瓣，然后用 CNN 分类，这种方法的缺点是标注成本高。 另一种解决方法 feature-based，是用鲁棒的特征：VLAD，Fisher + SIFT。这种方法不依赖训练数据，但是效果不如 part-bas">
+<meta name="twitter:image" content="http://davidlau.me/2018/01/21/img/cnn-variant-bcnn-fig1.png">
 
 
 
@@ -131,13 +138,13 @@
 
 
 
-  <link rel="canonical" href="http://davidlau.me/2016/10/23/thai-photos/"/>
+  <link rel="canonical" href="http://davidlau.me/2018/01/21/cnn-fine-grained-classification/"/>
 
 
 
 
 
-  <title>thai-photos | davidlau's blog</title>
+  <title>CNN：细粒度分类 | davidlau's blog</title>
   
 
 
@@ -270,7 +277,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2016/10/23/thai-photos/">
+    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2018/01/21/cnn-fine-grained-classification/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="davidlau">
@@ -287,7 +294,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">thai-photos</h1>
+          <h1 class="post-title" itemprop="name headline">CNN：细粒度分类</h1>
         
 
         <div class="post-meta">
@@ -299,8 +306,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-10-23T15:25:31+08:00">
-                2016-10-23
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-01-21T17:44:59+08:00">
+                2018-01-21
               </time>
             
 
@@ -309,28 +316,6 @@
             
           </span>
 
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Life/" itemprop="url" rel="index">
-                    <span itemprop="name">Life</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
           
 
           
@@ -359,17 +344,20 @@
       
 
       
-        
-<a id="more"></a>
-
-
-
-
-
-
-
-
-
+        <h2 id="bi-cnn"><a class="markdownIt-Anchor" href="#bi-cnn"></a> Bi-CNN</h2>
+<p><img src="../img/cnn-variant-bcnn-fig1.png" alt="bcnn"></p>
+<p>细粒度的分类问题，fine-grained image classification，如花的品种识别，十分困难。</p>
+<p>一种解决方法称为 part-based，是定位特征区域，如花瓣，然后用 CNN 分类，这种方法的缺点是标注成本高。</p>
+<p>另一种解决方法 feature-based，是用鲁棒的特征：VLAD，Fisher + SIFT。这种方法不依赖训练数据，但是效果不如 part-based 方法。</p>
+<p>Lin et. al. 提出的 Bi-CNN [1]，克服以上两种方法的缺点，可以更好的解决细粒度分类问题。同时，这种结构和人类认知的 ventral stream (what pathway) &amp; dorsal stream (where pathway) 相似。</p>
+<p>实验中，B-CNN 效果比 FC-CNN 高出10% 左右。其中 w/ ft 表示识别 localization 后的图像。</p>
+<p><img src="../img/cnn-variant-bcnn-fig2.png" alt="bcnn"></p>
+<p>找出最大化激活 filter 的图片区域，发现 B-CNN 能够学习到不同部位的特征，以完成 fine-grained 图像分类任务：</p>
+<p><img src="../img/cnn-variant-bcnn-fig3.png" alt="bcnn"></p>
+<h2 id="scda"><a class="markdownIt-Anchor" href="#scda"></a> SCDA</h2>
+<h2 id="dcgan"><a class="markdownIt-Anchor" href="#dcgan"></a> DCGAN</h2>
+<h2 id="reference"><a class="markdownIt-Anchor" href="#reference"></a> Reference</h2>
+<p>[1] Lin, Tsung-Yu, Aruni RoyChowdhury, and Subhransu Maji. “Bilinear cnn models for fine-grained visual recognition.” Proceedings of the IEEE International Conference on Computer Vision. 2015. <a href="http://www.cv-foundation.org/openaccess/content_iccv_2015/papers/Lin_Bilinear_CNN_Models_ICCV_2015_paper.pdf" target="_blank" rel="noopener">PDF</a></p>
 
       
     </div>
@@ -418,8 +406,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/10/15/scuba-diving/" rel="next" title="初学潜水">
-                <i class="fa fa-chevron-left"></i> 初学潜水
+              <a href="/2018/01/18/backprop/" rel="next" title="Backprop">
+                <i class="fa fa-chevron-left"></i> Backprop
               </a>
             
           </div>
@@ -428,8 +416,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/12/09/learn-cf-in-python/" rel="prev" title="学习协同过滤推荐 \w 100行Python代码">
-                学习协同过滤推荐 \w 100行Python代码 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/01/22/cnn-object-detection/" rel="prev" title="CNN：目标检测">
+                CNN：目标检测 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -482,8 +470,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.gif"
@@ -545,6 +542,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#bi-cnn"><span class="nav-number">1.</span> <span class="nav-text"> Bi-CNN</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#scda"><span class="nav-number">2.</span> <span class="nav-text"> SCDA</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dcgan"><span class="nav-number">3.</span> <span class="nav-text"> DCGAN</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#reference"><span class="nav-number">4.</span> <span class="nav-text"> Reference</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

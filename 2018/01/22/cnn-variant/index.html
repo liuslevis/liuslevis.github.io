@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="default">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="https://cdn.bootcss.com/KaTeX/0.7.1/katex.min.css" rel="stylesheet">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="MachineLearning," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="Bi-CNN  细粒度的分类问题，fine-grained image classification，如花的品种识别，十分困难。 一种解决方法称为 part-based，是定位特征区域，如花瓣，然后用 CNN 分类，这种方法的缺点是标注成本高。 另一种解决方法 feature-based，是用鲁棒的特征：VLAD，Fisher + SIFT。这种方法不依赖训练数据，但是效果不如 part-bas">
+<meta name="keywords" content="MachineLearning">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CNN Variant">
+<meta property="og:url" content="http://davidlau.me/2018/01/22/cnn-variant/index.html">
+<meta property="og:site_name" content="davidlau&#39;s blog">
+<meta property="og:description" content="Bi-CNN  细粒度的分类问题，fine-grained image classification，如花的品种识别，十分困难。 一种解决方法称为 part-based，是定位特征区域，如花瓣，然后用 CNN 分类，这种方法的缺点是标注成本高。 另一种解决方法 feature-based，是用鲁棒的特征：VLAD，Fisher + SIFT。这种方法不依赖训练数据，但是效果不如 part-bas">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://davidlau.me/2018/01/22/img/cnn-variant-bcnn-fig1.png">
+<meta property="og:image" content="http://davidlau.me/2018/01/22/img/cnn-variant-bcnn-fig2.png">
+<meta property="og:image" content="http://davidlau.me/2018/01/22/img/cnn-variant-bcnn-fig3.png">
+<meta property="og:image" content="http://davidlau.me/2018/01/22/img/cnn-variant-rcnn-fig1.png">
+<meta property="og:image" content="http://davidlau.me/2018/01/22/img/cnn-variant-yolo-fig1.png">
+<meta property="og:updated_time" content="2018-01-24T03:59:32.474Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CNN Variant">
+<meta name="twitter:description" content="Bi-CNN  细粒度的分类问题，fine-grained image classification，如花的品种识别，十分困难。 一种解决方法称为 part-based，是定位特征区域，如花瓣，然后用 CNN 分类，这种方法的缺点是标注成本高。 另一种解决方法 feature-based，是用鲁棒的特征：VLAD，Fisher + SIFT。这种方法不依赖训练数据，但是效果不如 part-bas">
+<meta name="twitter:image" content="http://davidlau.me/2018/01/22/img/cnn-variant-bcnn-fig1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://davidlau.me/2018/01/22/cnn-variant/"/>
+
+
+
+
+
+  <title>CNN Variant | davidlau's blog</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?1f9568aea795d9674618be7bae3ab784";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">davidlau's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2018/01/22/cnn-variant/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="davidlau">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="davidlau's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">CNN Variant</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-01-22T16:26:43+08:00">
+                2018-01-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="bi-cnn"><a class="markdownIt-Anchor" href="#bi-cnn"></a> Bi-CNN</h2>
+<p><img src="../img/cnn-variant-bcnn-fig1.png" alt="bcnn"></p>
+<p>细粒度的分类问题，fine-grained image classification，如花的品种识别，十分困难。</p>
+<p>一种解决方法称为 part-based，是定位特征区域，如花瓣，然后用 CNN 分类，这种方法的缺点是标注成本高。</p>
+<p>另一种解决方法 feature-based，是用鲁棒的特征：VLAD，Fisher + SIFT。这种方法不依赖训练数据，但是效果不如 part-based 方法。</p>
+<p>Lin et. al. 提出的 Bi-CNN [1]，克服以上两种方法的缺点，可以更好的解决细粒度分类问题。同时，这种结构和人类认知的 ventral stream (what pathway) &amp; dorsal stream (where pathway) 相似。</p>
+<p>实验中，B-CNN 效果比 FC-CNN 高出10% 左右。其中 w/ ft 表示识别 localization 后的图像。</p>
+<p><img src="../img/cnn-variant-bcnn-fig2.png" alt="bcnn"></p>
+<p>找出最大化激活 filter 的图片区域，发现 B-CNN 能够学习到不同部位的特征，以完成 fine-grained 图像分类任务：</p>
+<p><img src="../img/cnn-variant-bcnn-fig3.png" alt="bcnn"></p>
+<h2 id="scda"><a class="markdownIt-Anchor" href="#scda"></a> SCDA</h2>
+<h2 id="dcgan"><a class="markdownIt-Anchor" href="#dcgan"></a> DCGAN</h2>
+<h2 id="r-cnn"><a class="markdownIt-Anchor" href="#r-cnn"></a> R-CNN</h2>
+<p>Ross Girshick et. al. 在 2014 [2] 提出 R-CNN，用于 object detection 和 sementic segmentation，比 VOC 2012 的最好模型 mAP (mean average precision) 提升了 30%；在 ILSVRC2013 mAP 达到 31.4%。</p>
+<p><img src="../img/cnn-variant-rcnn-fig1.png" alt="bcnn"></p>
+<p>在 ILSVRC 2012，CNN AlexNet 在图像分类取得了很好的成绩。为填补 CNN 在 object detection 的鸿沟，本文主要解决两个问题：</p>
+<ul>
+<li>
+<p>如何用深度网络进行 object detection</p>
+<p>以往方法有 1. CNN Softmax + Regressor [4]，缺点精度不高 2. sliding-window detctor，如 ILSVRC2013 冠军 Overfit [3]，缺点计算代价高。本文通过 category-independent region proposal 方法，在测试时，该方法生成 2k 张候选截图做为输入，用 category-specific SVM 分类。目前有多种 region proposal 方法，本文用 selective search [4]。分类后，用一些后处理方法来 refined box 以提升精度。</p>
+</li>
+<li>
+<p>如何用小容量样本，训练高容量 CNN</p>
+<p>以往方法用 unsupervised pre-train + supervised fine-tuning 训练。本文用大数据集 supervised pre-train (ILSVRC) + 小数据集 supervised fine-tuning (PASCAL)，对结果有显著提升。使用 AlexNet 的 pre-train model，把最后一层 4048 x 1000 改成 4048 x 21 (PASCAL 的类别数目)。在 CNN 的输出层，用 category-specific SVM 模型完成分类任务；category-independent linear regression 完成定位，输出 box 坐标。</p>
+</li>
+</ul>
+<h2 id="fast-r-cnn"><a class="markdownIt-Anchor" href="#fast-r-cnn"></a> Fast R-CNN</h2>
+<p>R-CNN 存在缺点：</p>
+<ol>
+<li>测试运行速度慢，由 2k region proposal 导致</li>
+<li>SVM 训练时无法更新 CNN 参数</li>
+<li>复杂的训练流程</li>
+</ol>
+<p>为解决 R-CNN 这些问题，Girschick 在 ICCV 2015 [5] 提出 Faster R-CNN，改进有：</p>
+<ol>
+<li>Region of Interest Pooling 机制，让 region proposal 在 conv5 后执行，提升测试速度</li>
+<li>SVM 改成 softmax，训练时更新 CNN 参数</li>
+<li>简化训练流程，end-to-end</li>
+</ol>
+<p>在 PASCAL 训练时间从 84 小时降低到 9.5 小时，测试时速度提升 146x，mAP 稍微有提升。</p>
+<p>实际每张图片处理时间从 50 sec 到 2 sec。</p>
+<h2 id="faster-r-cnn"><a class="markdownIt-Anchor" href="#faster-r-cnn"></a> Faster R-CNN</h2>
+<p>为了达到实时（0.2 sec），何凯明在 NIPS 2016 发表 Faster R-CNN [6]，通过 Region Proposal Network 提升速度。</p>
+<p>在一个网络中，四个 loss：</p>
+<ul>
+<li>RPN classification (good / bad)</li>
+<li>RPN regression (anchor -&gt; proposal)</li>
+<li>Fast R-CNN classification (over class)</li>
+<li>Fast R-CNN regression (proposal -&gt; box)</li>
+</ul>
+<h2 id="mask-r-cnn"><a class="markdownIt-Anchor" href="#mask-r-cnn"></a> Mask  R-CNN</h2>
+<p>He et. al. 2017 提出 Mask R-CNN [8]，在 Fast R-CNN 基础上，做 instance  segmantation，精确到像素，同时可以做 pose detection。</p>
+<h2 id="resnet"><a class="markdownIt-Anchor" href="#resnet"></a> ResNet</h2>
+<h2 id="yolo"><a class="markdownIt-Anchor" href="#yolo"></a> YOLO</h2>
+<p>Single shot 方法，速度可以达到 115 FPS，但是准确率不如 R-CNN。</p>
+<p>YOLO 把 bounding box regression 和分类放入同一个网络。</p>
+<p>优点：</p>
+<ol>
+<li>简单，单一网络</li>
+<li>快</li>
+<li>整张图像做为输入，能对全局信息进行建模，避免 R-CNN 对背景错误分类的问题</li>
+<li>能学习到图像的泛化表示，比如在训练时用自然图像，在测试时用艺术图像也能工作</li>
+</ol>
+<p>缺点：</p>
+<ol>
+<li>未达到 state-of-art 方法的进度</li>
+<li>精度不高，无法处理大分辨率图像的小物体</li>
+</ol>
+<p>模型结构：</p>
+<ol>
+<li>输入图像划分为 7x7 的 grid</li>
+<li>每个 grid  输出 B 个 bounding box 的 (dx, dy, dw, dh, confidence) ，和分类结果 C，其中 confidence 表示 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>I</mi><mi>O</mi><mi>U</mi><mfrac><mrow><mi>t</mi><mi>r</mi><mi>u</mi><mi>t</mi><mi>h</mi></mrow><mrow><mi>p</mi><mi>r</mi><mi>e</mi><mi>d</mi></mrow></mfrac></mrow><annotation encoding="application/x-tex">IOU\frac {truth}{pred}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.8801079999999999em;"></span><span class="strut bottom" style="height:1.3612159999999998em;vertical-align:-0.481108em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.07847em;">I</span><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mord mathit" style="margin-right:0.10903em;">U</span><span class="mord reset-textstyle textstyle uncramped"><span class="sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span><span class="mfrac"><span class="vlist"><span style="top:0.345em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit">p</span><span class="mord mathit" style="margin-right:0.02778em;">r</span><span class="mord mathit">e</span><span class="mord mathit">d</span></span></span></span><span style="top:-0.22999999999999998em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle textstyle uncramped frac-line"></span></span><span style="top:-0.394em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mord mathit">t</span><span class="mord mathit" style="margin-right:0.02778em;">r</span><span class="mord mathit">u</span><span class="mord mathit">t</span><span class="mord mathit">h</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span></span></span></span></span></li>
+</ol>
+<p><img src="../img/cnn-variant-yolo-fig1.png" alt="cnn-variant-yolo-fig1"></p>
+<p>损失函数定义：</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mtable><mtr><mtd><mrow></mrow></mtd><mtd><mrow><mrow></mrow><msub><mi>λ</mi><mrow><mi>c</mi><mi>o</mi><mi>o</mi><mi>r</mi></mrow></msub><msubsup><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>0</mn></mrow><mrow><msup><mi>S</mi><mn>2</mn></msup></mrow></msubsup><msubsup><mo>∑</mo><mrow><mi>j</mi><mo>=</mo><mn>0</mn></mrow><mi>B</mi></msubsup><msubsup><mn mathvariant="normal">1</mn><mrow><mi>i</mi><mi>j</mi></mrow><mrow><mi>o</mi><mi>b</mi><mi>j</mi></mrow></msubsup><mo fence="false">[</mo><mo>(</mo><msub><mi>x</mi><mi>i</mi></msub><mo>−</mo><msub><mover accent="true"><mi>x</mi><mo>^</mo></mover><mi>i</mi></msub><msup><mo>)</mo><mn>2</mn></msup><mo>+</mo><mo>(</mo><msub><mi>y</mi><mi>i</mi></msub><mo>−</mo><msub><mover accent="true"><mi>y</mi><mo>^</mo></mover><mi>i</mi></msub><msup><mo>)</mo><mn>2</mn></msup><mo fence="false">]</mo></mrow></mtd></mtr><mtr><mtd><mrow></mrow></mtd><mtd><mrow><mrow></mrow><mo>+</mo><msub><mi>λ</mi><mrow><mi>c</mi><mi>o</mi><mi>o</mi><mi>r</mi></mrow></msub><msubsup><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>0</mn></mrow><mrow><msup><mi>S</mi><mn>2</mn></msup></mrow></msubsup><msubsup><mo>∑</mo><mrow><mi>j</mi><mo>=</mo><mn>0</mn></mrow><mi>B</mi></msubsup><msubsup><mn mathvariant="normal">1</mn><mrow><mi>i</mi><mi>j</mi></mrow><mrow><mi>o</mi><mi>b</mi><mi>j</mi></mrow></msubsup><mo fence="false">[</mo><mo>(</mo><msqrt><mrow><msub><mi>w</mi><mi>i</mi></msub></mrow></msqrt><mo>−</mo><msqrt><mrow><msub><mover accent="true"><mi>w</mi><mo>^</mo></mover><mi>i</mi></msub></mrow></msqrt><msup><mo>)</mo><mn>2</mn></msup><mo>+</mo><mo>(</mo><msqrt><mrow><msub><mi>h</mi><mi>i</mi></msub></mrow></msqrt><mo>−</mo><msqrt><mrow><msub><mover accent="true"><mi>h</mi><mo>^</mo></mover><mi>i</mi></msub></mrow></msqrt><msup><mo>)</mo><mn>2</mn></msup><mo fence="false">]</mo></mrow></mtd></mtr><mtr><mtd><mrow></mrow></mtd><mtd><mrow><mrow></mrow><mo>+</mo><msubsup><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>0</mn></mrow><mrow><msup><mi>S</mi><mn>2</mn></msup></mrow></msubsup><msubsup><mo>∑</mo><mrow><mi>j</mi><mo>=</mo><mn>0</mn></mrow><mi>B</mi></msubsup><msubsup><mn mathvariant="normal">1</mn><mrow><mi>i</mi><mi>j</mi></mrow><mrow><mi>o</mi><mi>b</mi><mi>j</mi></mrow></msubsup><mo>(</mo><msub><mi>C</mi><mi>i</mi></msub><mo>−</mo><msub><mover accent="true"><mi>C</mi><mo>^</mo></mover><mi>i</mi></msub><msup><mo>)</mo><mn>2</mn></msup></mrow></mtd></mtr><mtr><mtd><mrow></mrow></mtd><mtd><mrow><mrow></mrow><mo>+</mo><msub><mi>λ</mi><mrow><mi>n</mi><mi>o</mi><mi>o</mi><mi>b</mi><mi>j</mi></mrow></msub><msubsup><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>0</mn></mrow><mrow><msup><mi>S</mi><mn>2</mn></msup></mrow></msubsup><msubsup><mo>∑</mo><mrow><mi>j</mi><mo>=</mo><mn>0</mn></mrow><mi>B</mi></msubsup><msubsup><mn mathvariant="normal">1</mn><mrow><mi>i</mi><mi>j</mi></mrow><mrow><mi>n</mi><mi>o</mi><mi>o</mi><mi>b</mi><mi>j</mi></mrow></msubsup><mo>(</mo><msub><mi>C</mi><mi>i</mi></msub><mo>−</mo><msub><mover accent="true"><mi>C</mi><mo>^</mo></mover><mi>i</mi></msub><msup><mo>)</mo><mn>2</mn></msup></mrow></mtd></mtr><mtr><mtd><mrow></mrow></mtd><mtd><mrow><mrow></mrow><mo>+</mo><msubsup><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>0</mn></mrow><mrow><msup><mi>S</mi><mn>2</mn></msup></mrow></msubsup><msubsup><mn mathvariant="normal">1</mn><mrow><mi>i</mi><mi>j</mi></mrow><mrow><mi>n</mi><mi>o</mi><mi>o</mi><mi>b</mi><mi>j</mi></mrow></msubsup><msub><mo>∑</mo><mrow><mi>c</mi><mo>∈</mo><mi>c</mi><mi>l</mi><mi>a</mi><mi>s</mi><mi>s</mi><mi>e</mi><mi>s</mi></mrow></msub><mo>(</mo><msub><mi>p</mi><mi>i</mi></msub><mo>(</mo><mi>c</mi><mo>)</mo><mo>−</mo><msub><mover accent="true"><mi>p</mi><mo>^</mo></mover><mi>i</mi></msub><mo>(</mo><mi>c</mi><mo>)</mo><msup><mo>)</mo><mn>2</mn></msup></mrow></mtd></mtr></mtable></mrow><annotation encoding="application/x-tex">\begin{aligned}
+&amp;\lambda_{coor} \sum_{i=0}^{S^2} \sum_{j=0}^B \mathbb 1_{ij}^{obj} \bigg[(x_i-\hat x_i)^2 + (y_i-\hat y_i)^2\bigg] \\
+&amp;+ \lambda_{coor} \sum_{i=0}^{S^2} \sum_{j=0}^B \mathbb 1_{ij}^{obj} \bigg[(\sqrt{w_i} - \sqrt{\hat w_i})^2 + (\sqrt{h_i} - \sqrt{\hat h_i})^2\bigg] \\
+&amp;+ \sum_{i=0}^{S^2} \sum_{j=0}^B \mathbb 1_{ij}^{obj} (C_i - \hat C_i) ^2 \\
+&amp;+ \lambda_{noobj} \sum_{i=0}^{S^2} \sum_{j=0}^B \mathbb 1_{ij}^{noobj}  (C_i - \hat C_i) ^2 \\
+&amp;+ \sum_{i=0}^{S^2} \mathbb 1_{ij}^{noobj} \sum_{c \in classes} (p_i(c) - \hat p_i(c))^2
+\end{aligned}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:8.558108em;"></span><span class="strut bottom" style="height:16.616216em;vertical-align:-8.058107999999999em;"></span><span class="base displaystyle textstyle uncramped"><span class="mord"><span class="mtable"><span class="col-align-r"><span class="vlist"><span style="top:-6.631783em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="mord displaystyle textstyle uncramped"></span></span><span style="top:-3.2916810000000005em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="mord displaystyle textstyle uncramped"></span></span><span style="top:0.04842099999999916em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="mord displaystyle textstyle uncramped"></span></span><span style="top:3.3885229999999993em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="mord displaystyle textstyle uncramped"></span></span><span style="top:6.728624999999999em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="mord displaystyle textstyle uncramped"></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="col-align-l"><span class="vlist"><span style="top:-6.631783em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1em;">​</span></span><span class="mord displaystyle textstyle uncramped"><span class="mord displaystyle textstyle uncramped"></span><span class="mord"><span class="mord mathit">λ</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit">c</span><span class="mord mathit">o</span><span class="mord mathit">o</span><span class="mord mathit" style="margin-right:0.02778em;">r</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mop op-limits"><span class="vlist"><span style="top:1.1776689999999999em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit">i</span><span class="mrel">=</span><span class="mord mathrm">0</span></span></span></span><span style="top:-0.000005000000000143778em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span><span class="op-symbol large-op mop">∑</span></span></span><span style="top:-1.2500050000000003em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mord"><span class="mord mathit" style="margin-right:0.05764em;">S</span><span class="vlist"><span style="top:-0.363em;margin-right:0.07142857142857144em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-scriptstyle scriptscriptstyle uncramped"><span class="mord mathrm">2</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mop op-limits"><span class="vlist"><span style="top:1.1776689999999999em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit" style="margin-right:0.05724em;">j</span><span class="mrel">=</span><span class="mord mathrm">0</span></span></span></span><span style="top:-0.000005000000000254801em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span><span class="op-symbol large-op mop">∑</span></span></span><span style="top:-1.2500050000000005em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord mathit" style="margin-right:0.05017em;">B</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class=""><span class="mord mathrm">1</span><span class="vlist"><span style="top:0.276864em;margin-left:0em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit">i</span><span class="mord mathit" style="margin-right:0.05724em;">j</span></span></span></span><span style="top:-0.480908em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mord mathit">o</span><span class="mord mathit">b</span><span class="mord mathit" style="margin-right:0.05724em;">j</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mord"><span class="style-wrap reset-textstyle textstyle uncramped"><span class="delimsizing size3">[</span></span></span><span class="mopen">(</span><span class="mord"><span class="mord mathit">x</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mbin">−</span><span class="mord"><span class="mord accent"><span class="vlist"><span style="top:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="mord mathit">x</span></span><span style="top:0em;margin-left:0.05556em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="accent-body"><span>^</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mclose"><span class="mclose">)</span><span class="vlist"><span style="top:-0.413em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord mathrm">2</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mbin">+</span><span class="mopen">(</span><span class="mord"><span class="mord mathit" style="margin-right:0.03588em;">y</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.03588em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mbin">−</span><span class="mord"><span class="mord accent"><span class="vlist"><span style="top:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="mord mathit" style="margin-right:0.03588em;">y</span></span><span style="top:0em;margin-left:0.11112em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="accent-body"><span>^</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.03588em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mclose"><span class="mclose">)</span><span class="vlist"><span style="top:-0.413em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord mathrm">2</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mord"><span class="style-wrap reset-textstyle textstyle uncramped"><span class="delimsizing size3">]</span></span></span></span></span><span style="top:-3.2916810000000005em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1em;">​</span></span><span class="mord displaystyle textstyle uncramped"><span class="mord displaystyle textstyle uncramped"></span><span class="mbin">+</span><span class="mord"><span class="mord mathit">λ</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit">c</span><span class="mord mathit">o</span><span class="mord mathit">o</span><span class="mord mathit" style="margin-right:0.02778em;">r</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mop op-limits"><span class="vlist"><span style="top:1.1776689999999999em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit">i</span><span class="mrel">=</span><span class="mord mathrm">0</span></span></span></span><span style="top:-0.000005000000000143778em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span><span class="op-symbol large-op mop">∑</span></span></span><span style="top:-1.2500050000000003em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mord"><span class="mord mathit" style="margin-right:0.05764em;">S</span><span class="vlist"><span style="top:-0.363em;margin-right:0.07142857142857144em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-scriptstyle scriptscriptstyle uncramped"><span class="mord mathrm">2</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mop op-limits"><span class="vlist"><span style="top:1.1776689999999999em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit" style="margin-right:0.05724em;">j</span><span class="mrel">=</span><span class="mord mathrm">0</span></span></span></span><span style="top:-0.000005000000000254801em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span><span class="op-symbol large-op mop">∑</span></span></span><span style="top:-1.2500050000000005em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord mathit" style="margin-right:0.05017em;">B</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class=""><span class="mord mathrm">1</span><span class="vlist"><span style="top:0.276864em;margin-left:0em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit">i</span><span class="mord mathit" style="margin-right:0.05724em;">j</span></span></span></span><span style="top:-0.480908em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mord mathit">o</span><span class="mord mathit">b</span><span class="mord mathit" style="margin-right:0.05724em;">j</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mord"><span class="style-wrap reset-textstyle textstyle uncramped"><span class="delimsizing size3">[</span></span></span><span class="mopen">(</span><span class="sqrt mord"><span class="sqrt-sign" style="top:0.06584500000000004em;"><span class="style-wrap reset-textstyle textstyle uncramped">√</span></span><span class="vlist"><span style="top:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1em;">​</span></span><span class="mord displaystyle textstyle cramped"><span class="mord"><span class="mord mathit" style="margin-right:0.02691em;">w</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.02691em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span><span style="top:-0.6941549999999999em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1em;">​</span></span><span class="reset-textstyle textstyle uncramped sqrt-line"></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1em;">​</span></span>​</span></span></span><span class="mbin">−</span><span class="sqrt mord"><span class="sqrt-sign" style="top:-0.11609999999999998em;"><span class="style-wrap reset-textstyle textstyle uncramped"><span class="delimsizing size1">√</span></span></span><span class="vlist"><span style="top:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1em;">​</span></span><span class="mord displaystyle textstyle cramped"><span class="mord"><span class="mord accent"><span class="vlist"><span style="top:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="mord mathit" style="margin-right:0.02691em;">w</span></span><span style="top:0em;margin-left:0.16668em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="accent-body"><span>^</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.02691em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span><span style="top:-0.9260999999999999em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1em;">​</span></span><span class="reset-textstyle textstyle uncramped sqrt-line"></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1em;">​</span></span>​</span></span></span><span class="mclose"><span class="mclose">)</span><span class="vlist"><span style="top:-0.413em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord mathrm">2</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mbin">+</span><span class="mopen">(</span><span class="sqrt mord"><span class="sqrt-sign" style="top:-0.11609999999999998em;"><span class="style-wrap reset-textstyle textstyle uncramped"><span class="delimsizing size1">√</span></span></span><span class="vlist"><span style="top:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1em;">​</span></span><span class="mord displaystyle textstyle cramped"><span class="mord"><span class="mord mathit">h</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span><span style="top:-0.9260999999999999em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1em;">​</span></span><span class="reset-textstyle textstyle uncramped sqrt-line"></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1em;">​</span></span>​</span></span></span><span class="mbin">−</span><span class="sqrt mord"><span class="sqrt-sign" style="top:-0.24782499999999996em;"><span class="style-wrap reset-textstyle textstyle uncramped"><span class="delimsizing size2">√</span></span></span><span class="vlist"><span style="top:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1em;">​</span></span><span class="mord displaystyle textstyle cramped"><span class="mord"><span class="mord accent"><span class="vlist"><span style="top:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="mord mathit">h</span></span><span style="top:-0.26343999999999995em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="accent-body"><span>^</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span><span style="top:-1.3578249999999998em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1em;">​</span></span><span class="reset-textstyle textstyle uncramped sqrt-line"></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1em;">​</span></span>​</span></span></span><span class="mclose"><span class="mclose">)</span><span class="vlist"><span style="top:-0.413em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord mathrm">2</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mord"><span class="style-wrap reset-textstyle textstyle uncramped"><span class="delimsizing size3">]</span></span></span></span></span><span style="top:0.04842099999999916em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1em;">​</span></span><span class="mord displaystyle textstyle uncramped"><span class="mord displaystyle textstyle uncramped"></span><span class="mbin">+</span><span class="mop op-limits"><span class="vlist"><span style="top:1.1776689999999999em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit">i</span><span class="mrel">=</span><span class="mord mathrm">0</span></span></span></span><span style="top:-0.000005000000000143778em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span><span class="op-symbol large-op mop">∑</span></span></span><span style="top:-1.2500050000000003em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mord"><span class="mord mathit" style="margin-right:0.05764em;">S</span><span class="vlist"><span style="top:-0.363em;margin-right:0.07142857142857144em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-scriptstyle scriptscriptstyle uncramped"><span class="mord mathrm">2</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mop op-limits"><span class="vlist"><span style="top:1.1776689999999999em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit" style="margin-right:0.05724em;">j</span><span class="mrel">=</span><span class="mord mathrm">0</span></span></span></span><span style="top:-0.000005000000000254801em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span><span class="op-symbol large-op mop">∑</span></span></span><span style="top:-1.2500050000000005em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord mathit" style="margin-right:0.05017em;">B</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class=""><span class="mord mathrm">1</span><span class="vlist"><span style="top:0.276864em;margin-left:0em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit">i</span><span class="mord mathit" style="margin-right:0.05724em;">j</span></span></span></span><span style="top:-0.480908em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mord mathit">o</span><span class="mord mathit">b</span><span class="mord mathit" style="margin-right:0.05724em;">j</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mopen">(</span><span class="mord"><span class="mord mathit" style="margin-right:0.07153em;">C</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.07153em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mbin">−</span><span class="mord"><span class="mord accent"><span class="vlist"><span style="top:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="mord mathit" style="margin-right:0.07153em;">C</span></span><span style="top:-0.25233em;margin-left:0.16668em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="accent-body"><span>^</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.07153em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mclose"><span class="mclose">)</span><span class="vlist"><span style="top:-0.413em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord mathrm">2</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span><span style="top:3.3885229999999993em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1em;">​</span></span><span class="mord displaystyle textstyle uncramped"><span class="mord displaystyle textstyle uncramped"></span><span class="mbin">+</span><span class="mord"><span class="mord mathit">λ</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit">n</span><span class="mord mathit">o</span><span class="mord mathit">o</span><span class="mord mathit">b</span><span class="mord mathit" style="margin-right:0.05724em;">j</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mop op-limits"><span class="vlist"><span style="top:1.1776689999999999em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit">i</span><span class="mrel">=</span><span class="mord mathrm">0</span></span></span></span><span style="top:-0.000005000000000143778em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span><span class="op-symbol large-op mop">∑</span></span></span><span style="top:-1.2500050000000003em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mord"><span class="mord mathit" style="margin-right:0.05764em;">S</span><span class="vlist"><span style="top:-0.363em;margin-right:0.07142857142857144em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-scriptstyle scriptscriptstyle uncramped"><span class="mord mathrm">2</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mop op-limits"><span class="vlist"><span style="top:1.1776689999999999em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit" style="margin-right:0.05724em;">j</span><span class="mrel">=</span><span class="mord mathrm">0</span></span></span></span><span style="top:-0.000005000000000254801em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span><span class="op-symbol large-op mop">∑</span></span></span><span style="top:-1.2500050000000005em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord mathit" style="margin-right:0.05017em;">B</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class=""><span class="mord mathrm">1</span><span class="vlist"><span style="top:0.276864em;margin-left:0em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit">i</span><span class="mord mathit" style="margin-right:0.05724em;">j</span></span></span></span><span style="top:-0.480908em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mord mathit">n</span><span class="mord mathit">o</span><span class="mord mathit">o</span><span class="mord mathit">b</span><span class="mord mathit" style="margin-right:0.05724em;">j</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mopen">(</span><span class="mord"><span class="mord mathit" style="margin-right:0.07153em;">C</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.07153em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mbin">−</span><span class="mord"><span class="mord accent"><span class="vlist"><span style="top:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="mord mathit" style="margin-right:0.07153em;">C</span></span><span style="top:-0.25233em;margin-left:0.16668em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="accent-body"><span>^</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.07153em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mclose"><span class="mclose">)</span><span class="vlist"><span style="top:-0.413em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord mathrm">2</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span><span style="top:6.728624999999999em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1em;">​</span></span><span class="mord displaystyle textstyle uncramped"><span class="mord displaystyle textstyle uncramped"></span><span class="mbin">+</span><span class="mop op-limits"><span class="vlist"><span style="top:1.1776689999999999em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit">i</span><span class="mrel">=</span><span class="mord mathrm">0</span></span></span></span><span style="top:-0.000005000000000143778em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span><span class="op-symbol large-op mop">∑</span></span></span><span style="top:-1.2500050000000003em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mord"><span class="mord mathit" style="margin-right:0.05764em;">S</span><span class="vlist"><span style="top:-0.363em;margin-right:0.07142857142857144em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-scriptstyle scriptscriptstyle uncramped"><span class="mord mathrm">2</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class=""><span class="mord mathrm">1</span><span class="vlist"><span style="top:0.276864em;margin-left:0em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit">i</span><span class="mord mathit" style="margin-right:0.05724em;">j</span></span></span></span><span style="top:-0.480908em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mord mathit">n</span><span class="mord mathit">o</span><span class="mord mathit">o</span><span class="mord mathit">b</span><span class="mord mathit" style="margin-right:0.05724em;">j</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mop op-limits"><span class="vlist"><span style="top:1.202113em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit">c</span><span class="mrel">∈</span><span class="mord mathit">c</span><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mord mathit">a</span><span class="mord mathit">s</span><span class="mord mathit">s</span><span class="mord mathit">e</span><span class="mord mathit">s</span></span></span></span><span style="top:-0.000005000000000032756em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span><span class="op-symbol large-op mop">∑</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mopen">(</span><span class="mord"><span class="mord mathit">p</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mopen">(</span><span class="mord mathit">c</span><span class="mclose">)</span><span class="mbin">−</span><span class="mord"><span class="mord accent"><span class="vlist"><span style="top:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="mord mathit">p</span></span><span style="top:0em;margin-left:0.16668em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="accent-body"><span>^</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mopen">(</span><span class="mord mathit">c</span><span class="mclose">)</span><span class="mclose"><span class="mclose">)</span><span class="vlist"><span style="top:-0.413em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord mathrm">2</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1em;">​</span></span>​</span></span></span></span></span></span></span></span></span></p>
+<p>其中用 sum-square error 因为容易优化，尽管和我们最大化 mAP 的目标不完全一致。另外，很多 box 不包含任何类别，训练时使得模型 confidence 趋于 0，导致早停。为解决这个问题，引入 ，\lambda_{coord}=5, \lambda_{noobj}=0.5。</p>
+<h2 id="其他技巧"><a class="markdownIt-Anchor" href="#其他技巧"></a> 其他技巧</h2>
+<p>Data augmentation，clip + flip 混合使用。</p>
+<p>在 supervised pre-trained model 基础上 supervised fine-turning，可以在训练集样本稀少的情况下，有显著提升 [2]。</p>
+<h2 id="引用"><a class="markdownIt-Anchor" href="#引用"></a> 引用</h2>
+<p>[1] Lin, Tsung-Yu, Aruni RoyChowdhury, and Subhransu Maji. “Bilinear cnn models for fine-grained visual recognition.” Proceedings of the IEEE International Conference on Computer Vision. 2015. <a href="http://www.cv-foundation.org/openaccess/content_iccv_2015/papers/Lin_Bilinear_CNN_Models_ICCV_2015_paper.pdf" target="_blank" rel="noopener">PDF</a></p>
+<p>[2] Girshick, Ross, et al. “Rich feature hierarchies for accurate object detection and semantic segmentation.” Proceedings of the IEEE conference on computer vision and pattern recognition. 2014. <a href="https://www.cv-foundation.org/openaccess/content_cvpr_2014/papers/Girshick_Rich_Feature_Hierarchies_2014_CVPR_paper.pdf" target="_blank" rel="noopener">PDF</a></p>
+<p>[3] Sermanet, Pierre, et al. “Overfeat: Integrated recognition, localization and detection using convolutional networks.” arXiv preprint arXiv:1312.6229 (2013). <a href="https://arxiv.org/pdf/1312.6229.pdf" target="_blank" rel="noopener">PDF</a></p>
+<p>[4] CS231n Lecture 8 - Localization and Detection <a href="https://www.youtube.com/watch?v=_GfPYLNQank" target="_blank" rel="noopener">Video</a></p>
+<p>[5] Girshick, Ross. “Fast r-cnn.” Proceedings of the IEEE international conference on computer vision. 2015. <a href="http://www.cv-foundation.org/openaccess/content_iccv_2015/papers/Girshick_Fast_R-CNN_ICCV_2015_paper.pdf" target="_blank" rel="noopener">PDF</a></p>
+<p>[6] Ren, Shaoqing, et al. “Faster R-CNN: Towards real-time object detection with region proposal networks.” <em>Advances in neural information processing systems</em>. 2015. <a href="http://papers.nips.cc/paper/5638-faster-r-cnn-towards-real-time-object-detection-with-region-proposal-networks.pdf" target="_blank" rel="noopener">PDF</a></p>
+<p>[7] YOLO <a href="https://pjreddie.com/darknet/yolo/" target="_blank" rel="noopener">Homepage</a> YOLO900 <a href="https://pjreddie.com/media/files/papers/YOLO9000.pdf" target="_blank" rel="noopener">PDF</a>  YOLO <a href="https://pjreddie.com/media/files/papers/yolo_1.pdf" target="_blank" rel="noopener">PDF</a></p>
+<p>[8] He, Kaiming, et al. “Mask r-cnn.” arXiv preprint arXiv:1703.06870 (2017). <a href="https://arxiv.org/pdf/1703.06870" target="_blank" rel="noopener">PDF</a></p>
+<p>[9] Lecture 11 Detection and Segmentation, Stanford University School of Engineering <a href="https://www.youtube.com/watch?v=nDPWywWRIRo" target="_blank" rel="noopener">Video</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>本文有帮助？</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/img/wechatpay.png" alt="davidlau WeChat Pay"/>
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/MachineLearning/" rel="tag"># MachineLearning</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/01/18/backprop/" rel="next" title="Backprop">
+                <i class="fa fa-chevron-left"></i> Backprop
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="davidlau" />
+          <p class="site-author-name" itemprop="name">davidlau</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">39</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">categories</span>
+              
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-name">tags</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#bi-cnn"><span class="nav-number">1.</span> <span class="nav-text"> Bi-CNN</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#scda"><span class="nav-number">2.</span> <span class="nav-text"> SCDA</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dcgan"><span class="nav-number">3.</span> <span class="nav-text"> DCGAN</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#r-cnn"><span class="nav-number">4.</span> <span class="nav-text"> R-CNN</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#fast-r-cnn"><span class="nav-number">5.</span> <span class="nav-text"> Fast R-CNN</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#faster-r-cnn"><span class="nav-number">6.</span> <span class="nav-text"> Faster R-CNN</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mask-r-cnn"><span class="nav-number">7.</span> <span class="nav-text"> Mask  R-CNN</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#resnet"><span class="nav-number">8.</span> <span class="nav-text"> ResNet</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#yolo"><span class="nav-number">9.</span> <span class="nav-text"> YOLO</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他技巧"><span class="nav-number">10.</span> <span class="nav-text"> 其他技巧</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#引用"><span class="nav-number">11.</span> <span class="nav-text"> 引用</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">davidlau</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

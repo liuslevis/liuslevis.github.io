@@ -79,7 +79,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Xcode," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -95,20 +95,21 @@
 
 
 
-<meta name="description" content="在升级到 Xcode7 后，项目遇到覆盖率测试输出的 GCDA 文件损坏问题。">
-<meta name="keywords" content="Xcode">
+<meta name="description" content="简介 直播平台每天都会产生海量的游戏直播视频，同时有很多内容作者从直播视频中剪辑精彩片段，进行二次创作。然而精彩视频剪辑工作，需要人工浏览视频并找出精彩片段，用视频编辑软件进行剪辑，耗费大量时间和精力。 为了解决这个问题，我们尝试用 AI 完成精彩视频剪辑的工作，并借助 TGL腾讯游戏玩家创作联盟 实现视频一键多渠道（看点、企鹅号、今日头条）发布。 DEMO:  绝地求生：拉风龙双排M416精彩">
 <meta property="og:type" content="article">
-<meta property="og:title" content="尝试解决 Xcode7.1 覆盖率测试 GCDA 文件损坏问题">
-<meta property="og:url" content="http://davidlau.me/2015/12/05/trying-to-fix-Xcode-7-GDCA-file-corruption/index.html">
+<meta property="og:title" content="AI 精彩视频剪辑：战术竞技类游戏直播">
+<meta property="og:url" content="http://davidlau.me/2018/05/08/video-game-highlight-detection/index.html">
 <meta property="og:site_name" content="davidlau&#39;s blog">
-<meta property="og:description" content="在升级到 Xcode7 后，项目遇到覆盖率测试输出的 GCDA 文件损坏问题。">
+<meta property="og:description" content="简介 直播平台每天都会产生海量的游戏直播视频，同时有很多内容作者从直播视频中剪辑精彩片段，进行二次创作。然而精彩视频剪辑工作，需要人工浏览视频并找出精彩片段，用视频编辑软件进行剪辑，耗费大量时间和精力。 为了解决这个问题，我们尝试用 AI 完成精彩视频剪辑的工作，并借助 TGL腾讯游戏玩家创作联盟 实现视频一键多渠道（看点、企鹅号、今日头条）发布。 DEMO:  绝地求生：拉风龙双排M416精彩">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://davidlau.me/img/gcdafix2.jpg">
-<meta property="og:updated_time" content="2018-01-02T02:02:24.387Z">
+<meta property="og:image" content="http://davidlau.me/img/pubg-detect.png">
+<meta property="og:image" content="http://davidlau.me/img/pubg-banner-detect.png">
+<meta property="og:image" content="http://davidlau.me/img/tgl-1.png">
+<meta property="og:updated_time" content="2018-05-08T11:43:34.293Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="尝试解决 Xcode7.1 覆盖率测试 GCDA 文件损坏问题">
-<meta name="twitter:description" content="在升级到 Xcode7 后，项目遇到覆盖率测试输出的 GCDA 文件损坏问题。">
-<meta name="twitter:image" content="http://davidlau.me/img/gcdafix2.jpg">
+<meta name="twitter:title" content="AI 精彩视频剪辑：战术竞技类游戏直播">
+<meta name="twitter:description" content="简介 直播平台每天都会产生海量的游戏直播视频，同时有很多内容作者从直播视频中剪辑精彩片段，进行二次创作。然而精彩视频剪辑工作，需要人工浏览视频并找出精彩片段，用视频编辑软件进行剪辑，耗费大量时间和精力。 为了解决这个问题，我们尝试用 AI 完成精彩视频剪辑的工作，并借助 TGL腾讯游戏玩家创作联盟 实现视频一键多渠道（看点、企鹅号、今日头条）发布。 DEMO:  绝地求生：拉风龙双排M416精彩">
+<meta name="twitter:image" content="http://davidlau.me/img/pubg-detect.png">
 
 
 
@@ -137,13 +138,13 @@
 
 
 
-  <link rel="canonical" href="http://davidlau.me/2015/12/05/trying-to-fix-Xcode-7-GDCA-file-corruption/"/>
+  <link rel="canonical" href="http://davidlau.me/2018/05/08/video-game-highlight-detection/"/>
 
 
 
 
 
-  <title>尝试解决 Xcode7.1 覆盖率测试 GCDA 文件损坏问题 | davidlau's blog</title>
+  <title>AI 精彩视频剪辑：战术竞技类游戏直播 | davidlau's blog</title>
   
 
 
@@ -276,7 +277,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2015/12/05/trying-to-fix-Xcode-7-GDCA-file-corruption/">
+    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2018/05/08/video-game-highlight-detection/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="davidlau">
@@ -293,7 +294,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">尝试解决 Xcode7.1 覆盖率测试 GCDA 文件损坏问题</h1>
+          <h1 class="post-title" itemprop="name headline">AI 精彩视频剪辑：战术竞技类游戏直播</h1>
         
 
         <div class="post-meta">
@@ -305,8 +306,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-12-05T11:05:15+08:00">
-                2015-12-05
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-08T16:43:54+08:00">
+                2018-05-08
               </time>
             
 
@@ -343,41 +344,44 @@
       
 
       
-        <p>在升级到 Xcode7 后，项目遇到覆盖率测试输出的 GCDA 文件损坏问题。</p>
+        <h2 id="简介"><a class="markdownIt-Anchor" href="#简介"></a> 简介</h2>
+<p>直播平台每天都会产生海量的游戏直播视频，同时有很多内容作者从直播视频中剪辑精彩片段，进行二次创作。然而精彩视频剪辑工作，需要人工浏览视频并找出精彩片段，用视频编辑软件进行剪辑，耗费大量时间和精力。</p>
+<p>为了解决这个问题，我们尝试用 AI 完成精彩视频剪辑的工作，并借助 <a href="http://tgl.qq.com/" target="_blank" rel="noopener">TGL腾讯游戏玩家创作联盟</a> 实现视频一键多渠道（看点、企鹅号、今日头条）发布。</p>
+<p>DEMO:</p>
+<video src="http://pubg-1254960240.file.myqcloud.com/video/1c358aa91e951c01c69e90c21ae2169a.mp4" controls="controls" style="max-width: 100%; display: block; margin-left: auto; margin-right: auto;">
+绝地求生：拉风龙双排M416精彩刚枪片段</video>
 <a id="more"></a>
-<h2 id="覆盖率测试原理"><a class="markdownIt-Anchor" href="#覆盖率测试原理"></a> 覆盖率测试原理</h2>
-<ol>
-<li>
-<p>在 App 运行时调用__gcov_flush() 输出 GCDA 文件， 记录每行代码的执行次数。</p>
-</li>
-<li>
-<p>然后用 lcov 命令从 CGDA + GCOV 生成报告文件，可以看到运行过程中每行代码的执行次数。</p>
-</li>
-</ol>
-<h2 id="问题表现"><a class="markdownIt-Anchor" href="#问题表现"></a> 问题表现</h2>
-<ol>
-<li>终端输出信息后 crash：</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">profiling: /Users/username/Library/Developer/CoreSimulator/Devices/DEVICE_ID/data/Containers/Data/Application/APP_ID/Documents/CoverageTest/CoreGraphics.gcda: cannot merge previous GCDA file: corrupt arc tag (0x00000011)</span><br></pre></td></tr></table></figure>
-<ol start="2">
-<li>lcov 命令从 GCDA 文件恢复的代码执行次数数据为0。而同样的代码用 Xcode6 得到的 GCDA 文件则没有问题。</li>
-</ol>
-<h2 id="问题定位"><a class="markdownIt-Anchor" href="#问题定位"></a> 问题定位</h2>
-<p>搜到很多人讨论，尝试文中提到的方法均无效，怀疑是 Xcode7 bug：生成 GCDA 文件的 __gcov_flush() 函数的问题。</p>
-<p><a href="https://forums.developer.apple.com/thread/9765" target="_blank" rel="noopener">https://forums.developer.apple.com/thread/9765</a><br>
-<a href="https://github.com/specta/specta/issues/167" target="_blank" rel="noopener">https://github.com/specta/specta/issues/167</a><br>
-<a href="http://stackoverflow.com/questions/22519530/dozens-of-profilinginvalid-arc-tag-when-running-code-coverage-in-xcode-5" target="_blank" rel="noopener">http://stackoverflow.com/questions/22519530/dozens-of-profilinginvalid-arc-tag-when-running-code-coverage-in-xcode-5</a><br>
-<a href="https://twitter.com/orta/status/595599325675171840" target="_blank" rel="noopener">https://twitter.com/orta/status/595599325675171840</a></p>
-<h2 id="问题解决"><a class="markdownIt-Anchor" href="#问题解决"></a> 问题解决</h2>
-<p>由于这个函数在 llvm runtime library 中，较难定位debug，故找到其<a href="https://llvm.org/svn/llvm-project/compiler-rt/branches/release_35/lib/profile/" target="_blank" rel="noopener">llvm compiler-rt 开源代码</a>，导入Xcode项目中:  <code>GCDAProfiling.c</code>  /  InstrProfiling.c / InstrProfiling.h</p>
-<p>将调用__gcov_flush()的文件声明 extern void __gcov_flush() 改成 #import “GCDAProfiling.c”，就可以自行 debug 了。</p>
-<h3 id="问题1crash-of-cannot-merge-previous-gcda-file-corrupt-arc"><a class="markdownIt-Anchor" href="#问题1crash-of-cannot-merge-previous-gcda-file-corrupt-arc"></a> 问题1：crash of cannot merge previous GCDA file: corrupt arc</h3>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">void llvm_gcda_start_file(const char *orig_filename, const char version[4],</span><br><span class="line">                          uint32_t checksum) &#123;</span><br><span class="line">  const char *mode = &quot;r+b&quot;;</span><br><span class="line">  filename = mangle_filename(orig_filename);</span><br><span class="line">  // fix : cannot merge previous GCDA file: corrupt arc tag</span><br><span class="line">  char *skipFileNames[2] = &#123;&quot;QuartzCore.gcda&quot;, &quot;CoreGraphics.gcda&quot;&#125;;</span><br><span class="line">  for (int i = 0; i &lt; 2; i++) &#123;</span><br><span class="line">    if (strstr(filename, skipFileNames[i])) return;</span><br><span class="line">  &#125;</span><br><span class="line">  ....</span><br></pre></td></tr></table></figure>
-<h3 id="问题2-gcda-恢复得到计数为0"><a class="markdownIt-Anchor" href="#问题2-gcda-恢复得到计数为0"></a> 问题2： GCDA 恢复得到计数为0</h3>
-<p>gcda计数为0 定位到这里，原因是uint64_t 累加溢出了，导致计数为0。加一个溢出保护。</p>
-<p><img src="/img/gcdafix2.jpg" alt="gcda fix 2"></p>
+<p><video src="http://pubg-1254960240.file.myqcloud.com/video/4d653540de2fde1e251648de3862e298.mp4" controls="controls" style="max-width: 100%; display: block; margin-left: auto; margin-right: auto;">绝地求生：萌妹子主播四排决赛圈吃鸡精彩集锦</video></p>
+<p>此外，剪辑视频带有 AI 识别的标签，比如：武器AK、双人排位、沙漠地图、8倍镜、决赛圈、主播名称等，内容作者可以在 <a href="tgl.qq.com">TGL</a> 可按标签检索视频，进行二次创作。</p>
+<p>目前已经支持 AI 视频剪辑的游戏有：绝地求生端游、刺激战场、全军出击、穿越火线端游和手游。同时我们接入了虎牙直播，实现了直播视频抓取、AI 视频剪辑、到多渠道自动发布。未来可接各种品类的游戏和赛事的直播 AI 视频剪辑需求、内容素材库的需求，有合作意向的同学可以联系我们。</p>
+<h2 id="方法"><a class="markdownIt-Anchor" href="#方法"></a> 方法</h2>
+<h3 id="精彩时刻识别"><a class="markdownIt-Anchor" href="#精彩时刻识别"></a> 精彩时刻识别</h3>
+<p>视频精彩时刻识别的方法有很多，有端到端的方法如 Yao [1]，以及基于视频截图的方法如 YOLO、CNN、Fast-RCNN 等。</p>
+<p>综合考虑准确率、实现复杂度、效率，我们使用 CNN 卷积神经网络识别游戏截图的方法。</p>
+<p>对每个截图，我们用多个 CNN 模型识别固定区域的图像，包括武器、排名、击杀提示、组队情况等：</p>
+<p><img src="/img/pubg-detect.png" alt="pubg-detect"></p>
+<h3 id="搞笑场景识别"><a class="markdownIt-Anchor" href="#搞笑场景识别"></a> 搞笑场景识别</h3>
+<p>搞笑场景是一个抽象的概念，这里我们把问题简化成笑声场景识别，即 Audio Event Detection (AED) 问题的简化版本。参考 Hershey [2] 和 Knox [3]，使用 MFCC 特征 + CNN 作为笑声场景识别模型。目前该识别模型正在开发中。</p>
+<h3 id="游戏视频区域识别"><a class="markdownIt-Anchor" href="#游戏视频区域识别"></a> 游戏视频区域识别</h3>
+<p>一些主播会以画中画的形式，同时展示游戏视频和主播影像。在这种情况下，需要先识别游戏视频区域的坐标，如下图绿色方框所示，才能够进一步进行精彩时刻的识别。</p>
+<p>要完成游戏视频区域识别的任务，可以用机器学习的方法如 CNN 回归模型，也可以用传统视觉算法霍夫曼直线检测。前者的泛化性能好，适用于各种情况，但需要大量的样本；后者基于算法规则，需要对图像进行预处理，不需大量的样本。</p>
+<p>综合考虑效率和成本，我们采用视觉算法完成这个任务。简单地说，首先把截图进行膨胀、腐蚀，然后用 Canny 算子的到边缘图片，最后应用霍夫曼直线检测算法得到视频区域。</p>
+<p><img src="/img/pubg-banner-detect.png" alt="pubg-banner-detect"></p>
+<h3 id="剪辑和拼接"><a class="markdownIt-Anchor" href="#剪辑和拼接"></a> 剪辑和拼接</h3>
+<p>给定原始视频和精彩时刻、搞笑时刻，我们制定一些剪辑规则，比如剪辑精彩时刻的前10秒后5秒、剪辑吃鸡时刻的前2分钟，然后调用视频处理工具 ffmpeg 进行剪辑。</p>
+<p>###TGL一键多渠道发布</p>
+<p>借助 <a href="http://tgl.qq.com/" target="_blank" rel="noopener">TGL腾讯游戏玩家创作联盟</a>，由 AI 剪辑视频后，可以实现视频的一键多渠道（看点、企鹅号、今日头条）发布。</p>
+<p><img src="/img/tgl-1.png" alt="TGL"></p>
 <h2 id="未来工作"><a class="markdownIt-Anchor" href="#未来工作"></a> 未来工作</h2>
-<p>GCDA 恢复数据虽然有了，基本满足测试组的需求（有没有覆盖到），但是不是完全正确的。</p>
+<ul>
+<li>如何解决少量样本训练模型效果不佳问题</li>
+<li>拓展更多搞笑场景识别模型</li>
+<li>自动撰写优质标题</li>
+</ul>
+<h2 id="引用"><a class="markdownIt-Anchor" href="#引用"></a> 引用</h2>
+<p>[1] Yao, Ting, Tao Mei, and Yong Rui. “Highlight detection with pairwise deep ranking for first-person video summarization.” (2016). <a href="http://openaccess.thecvf.com/content_cvpr_2016/papers/Yao_Highlight_Detection_With_CVPR_2016_paper.pdf" target="_blank" rel="noopener">PDF</a></p>
+<p>[2] Hershey, Shawn, et al. “CNN architectures for large-scale audio classification.” Acoustics, Speech and Signal Processing (ICASSP), 2017 IEEE International Conference on. IEEE, 2017. <a href="https://arxiv.org/abs/1609.09430" target="_blank" rel="noopener">PDF</a></p>
+<p>[3] Knox, Mary Tai, and Nikki Mirghafori. “Automatic laughter detection using neural networks.” <em>Eighth Annual Conference of the International Speech Communication Association</em>. 2007. <a href="http://www.icsi.berkeley.edu/pubs/speech/laughter_v10.pdf" target="_blank" rel="noopener">PDF</a></p>
 
       
     </div>
@@ -417,12 +421,6 @@
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/Xcode/" rel="tag"># Xcode</a>
-          
-        </div>
-      
 
       
       
@@ -432,8 +430,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/06/30/notes-on-7-concurrency-model-in-7-weeks/" rel="next" title="notes-on-7-concurrency-model-in-7-weeks">
-                <i class="fa fa-chevron-left"></i> notes-on-7-concurrency-model-in-7-weeks
+              <a href="/2018/02/26/video-static-region-detection/" rel="next" title="视频静态区域检测">
+                <i class="fa fa-chevron-left"></i> 视频静态区域检测
               </a>
             
           </div>
@@ -441,10 +439,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/05/20/ios-launch-crash-protection/" rel="prev" title="iOS 启动连续闪退保护方案">
-                iOS 启动连续闪退保护方案 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -578,7 +572,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#覆盖率测试原理"><span class="nav-number">1.</span> <span class="nav-text"> 覆盖率测试原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#问题表现"><span class="nav-number">2.</span> <span class="nav-text"> 问题表现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#问题定位"><span class="nav-number">3.</span> <span class="nav-text"> 问题定位</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#问题解决"><span class="nav-number">4.</span> <span class="nav-text"> 问题解决</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#问题1crash-of-cannot-merge-previous-gcda-file-corrupt-arc"><span class="nav-number">4.1.</span> <span class="nav-text"> 问题1：crash of cannot merge previous GCDA file: corrupt arc</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#问题2-gcda-恢复得到计数为0"><span class="nav-number">4.2.</span> <span class="nav-text"> 问题2： GCDA 恢复得到计数为0</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#未来工作"><span class="nav-number">5.</span> <span class="nav-text"> 未来工作</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text"> 简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#方法"><span class="nav-number">2.</span> <span class="nav-text"> 方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#精彩时刻识别"><span class="nav-number">2.1.</span> <span class="nav-text"> 精彩时刻识别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#搞笑场景识别"><span class="nav-number">2.2.</span> <span class="nav-text"> 搞笑场景识别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#游戏视频区域识别"><span class="nav-number">2.3.</span> <span class="nav-text"> 游戏视频区域识别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#剪辑和拼接"><span class="nav-number">2.4.</span> <span class="nav-text"> 剪辑和拼接</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#未来工作"><span class="nav-number">3.</span> <span class="nav-text"> 未来工作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#引用"><span class="nav-number">4.</span> <span class="nav-text"> 引用</span></a></li></ol></div>
             
 
           </div>

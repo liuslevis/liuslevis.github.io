@@ -102,7 +102,7 @@
 <meta property="og:site_name" content="davidlau&#39;s blog">
 <meta property="og:description" content="强化学习笔记。">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-06-06T03:11:08.877Z">
+<meta property="og:updated_time" content="2018-06-06T03:14:01.298Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Reinforce Learning">
 <meta name="twitter:description" content="强化学习笔记。">
@@ -347,7 +347,7 @@
 <p>算法需要最小化累计遗憾</p>
 \begin{align} 
 R_T &= \sum_{i=1}^{T} \bigg(w_{opt} - w_{B(i)} \bigg) \\
-       &=Tw^* - \sum_{i=1}^{T} w_{B(i)}
+    &=Tw^* - \sum_{i=1}^{T} w_{B(i)}
 \end{align}
 
 <p>其中 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>w</mi><mrow><mi>B</mi><mo>(</mo><mi>i</mi><mo>)</mo></mrow></msub></mrow><annotation encoding="application/x-tex">w_{B(i)}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.7857599999999999em;vertical-align:-0.3551999999999999em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit" style="margin-right:0.02691em;">w</span><span class="vlist"><span style="top:0.18019999999999992em;margin-right:0.05em;margin-left:-0.02691em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit" style="margin-right:0.05017em;">B</span><span class="mopen">(</span><span class="mord mathit">i</span><span class="mclose">)</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span> 是第 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>i</mi></mrow><annotation encoding="application/x-tex">i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.65952em;"></span><span class="strut bottom" style="height:0.65952em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">i</span></span></span></span> 次实验被选中臂的期望收益，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mi>w</mi><mo>∗</mo></msup></mrow><annotation encoding="application/x-tex">w^*</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.688696em;"></span><span class="strut bottom" style="height:0.688696em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit" style="margin-right:0.02691em;">w</span><span class="vlist"><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord">∗</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span> 是最佳选择臂的收益。</p>
@@ -392,6 +392,8 @@ A 中以均匀概率选取的动作，&以概率 \epsilon
 <p>然后把学得的策略模型作为强化学习的输入</p>
 <h3 id="逆强化学习"><a class="markdownIt-Anchor" href="#逆强化学习"></a> 逆强化学习</h3>
 <h2 id="reference"><a class="markdownIt-Anchor" href="#reference"></a> Reference</h2>
+<p>[1] 《机器学习》周志华</p>
+<p>[2] Bandit算法与推荐系统 <a href="http://geek.csdn.net/news/detail/195714" target="_blank" rel="noopener">http://geek.csdn.net/news/detail/195714</a></p>
 <!--
 
 [0.1] 强化学习用于推荐系统的若干案例 adenyue http://km.oa.com/group/22605/articles/show/311933
@@ -399,9 +401,6 @@ A 中以均匀概率选取的动作，&以概率 \epsilon
 [0.2] 神盾推荐 当企鹅FM遇上Bandit —— 拉新推荐 mecoolyang http://km.oa.com/group/22605/articles/show/294381
 
 -->
-<p>[1] 《机器学习》周志华</p>
-<p>[2] Bandit算法与推荐系统 <a href="http://geek.csdn.net/news/detail/195714" target="_blank" rel="noopener">http://geek.csdn.net/news/detail/195714</a></p>
-
       
     </div>
     

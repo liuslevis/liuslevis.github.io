@@ -103,13 +103,13 @@
 <meta property="og:site_name" content="davidlau&#39;s blog">
 <meta property="og:description" content="R-CNN Ross Girshick et. al. 在 2014 [2] 提出 R-CNN，用于 object detection 和 sementic segmentation，比 VOC 2012 的最好模型 mAP (mean average precision) 提升了 30%；在 ILSVRC2013 mAP 达到 31.4%。  在 ILSVRC 2012，CNN AlexNet">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://davidlau.me/2018/01/22/img/cnn-variant-rcnn-fig1.png">
-<meta property="og:image" content="http://davidlau.me/2018/01/22/img/cnn-variant-yolo-fig1.png">
-<meta property="og:updated_time" content="2018-01-24T09:47:56.265Z">
+<meta property="og:image" content="http://davidlau.me/img/cnn-variant-rcnn-fig1.png">
+<meta property="og:image" content="http://davidlau.me/img/cnn-variant-yolo-fig1.png">
+<meta property="og:updated_time" content="2018-06-06T03:00:51.502Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CNN：目标检测">
 <meta name="twitter:description" content="R-CNN Ross Girshick et. al. 在 2014 [2] 提出 R-CNN，用于 object detection 和 sementic segmentation，比 VOC 2012 的最好模型 mAP (mean average precision) 提升了 30%；在 ILSVRC2013 mAP 达到 31.4%。  在 ILSVRC 2012，CNN AlexNet">
-<meta name="twitter:image" content="http://davidlau.me/2018/01/22/img/cnn-variant-rcnn-fig1.png">
+<meta name="twitter:image" content="http://davidlau.me/img/cnn-variant-rcnn-fig1.png">
 
 
 
@@ -346,7 +346,7 @@
       
         <h2 id="r-cnn"><a class="markdownIt-Anchor" href="#r-cnn"></a> R-CNN</h2>
 <p>Ross Girshick et. al. 在 2014 [2] 提出 R-CNN，用于 object detection 和 sementic segmentation，比 VOC 2012 的最好模型 mAP (mean average precision) 提升了 30%；在 ILSVRC2013 mAP 达到 31.4%。</p>
-<p><img src="../img/cnn-variant-rcnn-fig1.png" alt="bcnn"></p>
+<p><img src="/img/cnn-variant-rcnn-fig1.png" alt="bcnn"></p>
 <p>在 ILSVRC 2012，CNN AlexNet 在图像分类取得了很好的成绩。为填补 CNN 在 object detection 的鸿沟，本文主要解决两个问题：</p>
 <ul>
 <li>
@@ -405,7 +405,7 @@
 <li>输入图像划分为 7x7 的 grid</li>
 <li>每个 grid  输出 B 个 bounding box 的 (dx, dy, dw, dh, confidence) ，和分类结果 C，其中 confidence 表示 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>I</mi><mi>O</mi><mi>U</mi><mfrac><mrow><mi>t</mi><mi>r</mi><mi>u</mi><mi>t</mi><mi>h</mi></mrow><mrow><mi>p</mi><mi>r</mi><mi>e</mi><mi>d</mi></mrow></mfrac></mrow><annotation encoding="application/x-tex">IOU\frac {truth}{pred}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.8801079999999999em;"></span><span class="strut bottom" style="height:1.3612159999999998em;vertical-align:-0.481108em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.07847em;">I</span><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mord mathit" style="margin-right:0.10903em;">U</span><span class="mord reset-textstyle textstyle uncramped"><span class="sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span><span class="mfrac"><span class="vlist"><span style="top:0.345em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit">p</span><span class="mord mathit" style="margin-right:0.02778em;">r</span><span class="mord mathit">e</span><span class="mord mathit">d</span></span></span></span><span style="top:-0.22999999999999998em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle textstyle uncramped frac-line"></span></span><span style="top:-0.394em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mord mathit">t</span><span class="mord mathit" style="margin-right:0.02778em;">r</span><span class="mord mathit">u</span><span class="mord mathit">t</span><span class="mord mathit">h</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span></span></span></span></span></li>
 </ol>
-<p><img src="../img/cnn-variant-yolo-fig1.png" alt="cnn-variant-yolo-fig1"></p>
+<p><img src="/img/cnn-variant-yolo-fig1.png" alt="cnn-variant-yolo-fig1"></p>
 <p>损失函数定义：</p>
 <p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mtable><mtr><mtd><mrow></mrow></mtd><mtd><mrow><mrow></mrow><msub><mi>λ</mi><mrow><mi>c</mi><mi>o</mi><mi>o</mi><mi>r</mi></mrow></msub><msubsup><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>0</mn></mrow><mrow><msup><mi>S</mi><mn>2</mn></msup></mrow></msubsup><msubsup><mo>∑</mo><mrow><mi>j</mi><mo>=</mo><mn>0</mn></mrow><mi>B</mi></msubsup><msubsup><mn mathvariant="normal">1</mn><mrow><mi>i</mi><mi>j</mi></mrow><mrow><mi>o</mi><mi>b</mi><mi>j</mi></mrow></msubsup><mo fence="false">[</mo><mo>(</mo><msub><mi>x</mi><mi>i</mi></msub><mo>−</mo><msub><mover accent="true"><mi>x</mi><mo>^</mo></mover><mi>i</mi></msub><msup><mo>)</mo><mn>2</mn></msup><mo>+</mo><mo>(</mo><msub><mi>y</mi><mi>i</mi></msub><mo>−</mo><msub><mover accent="true"><mi>y</mi><mo>^</mo></mover><mi>i</mi></msub><msup><mo>)</mo><mn>2</mn></msup><mo fence="false">]</mo></mrow></mtd></mtr><mtr><mtd><mrow></mrow></mtd><mtd><mrow><mrow></mrow><mo>+</mo><msub><mi>λ</mi><mrow><mi>c</mi><mi>o</mi><mi>o</mi><mi>r</mi></mrow></msub><msubsup><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>0</mn></mrow><mrow><msup><mi>S</mi><mn>2</mn></msup></mrow></msubsup><msubsup><mo>∑</mo><mrow><mi>j</mi><mo>=</mo><mn>0</mn></mrow><mi>B</mi></msubsup><msubsup><mn mathvariant="normal">1</mn><mrow><mi>i</mi><mi>j</mi></mrow><mrow><mi>o</mi><mi>b</mi><mi>j</mi></mrow></msubsup><mo fence="false">[</mo><mo>(</mo><msqrt><mrow><msub><mi>w</mi><mi>i</mi></msub></mrow></msqrt><mo>−</mo><msqrt><mrow><msub><mover accent="true"><mi>w</mi><mo>^</mo></mover><mi>i</mi></msub></mrow></msqrt><msup><mo>)</mo><mn>2</mn></msup><mo>+</mo><mo>(</mo><msqrt><mrow><msub><mi>h</mi><mi>i</mi></msub></mrow></msqrt><mo>−</mo><msqrt><mrow><msub><mover accent="true"><mi>h</mi><mo>^</mo></mover><mi>i</mi></msub></mrow></msqrt><msup><mo>)</mo><mn>2</mn></msup><mo fence="false">]</mo></mrow></mtd></mtr><mtr><mtd><mrow></mrow></mtd><mtd><mrow><mrow></mrow><mo>+</mo><msubsup><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>0</mn></mrow><mrow><msup><mi>S</mi><mn>2</mn></msup></mrow></msubsup><msubsup><mo>∑</mo><mrow><mi>j</mi><mo>=</mo><mn>0</mn></mrow><mi>B</mi></msubsup><msubsup><mn mathvariant="normal">1</mn><mrow><mi>i</mi><mi>j</mi></mrow><mrow><mi>o</mi><mi>b</mi><mi>j</mi></mrow></msubsup><mo>(</mo><msub><mi>C</mi><mi>i</mi></msub><mo>−</mo><msub><mover accent="true"><mi>C</mi><mo>^</mo></mover><mi>i</mi></msub><msup><mo>)</mo><mn>2</mn></msup></mrow></mtd></mtr><mtr><mtd><mrow></mrow></mtd><mtd><mrow><mrow></mrow><mo>+</mo><msub><mi>λ</mi><mrow><mi>n</mi><mi>o</mi><mi>o</mi><mi>b</mi><mi>j</mi></mrow></msub><msubsup><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>0</mn></mrow><mrow><msup><mi>S</mi><mn>2</mn></msup></mrow></msubsup><msubsup><mo>∑</mo><mrow><mi>j</mi><mo>=</mo><mn>0</mn></mrow><mi>B</mi></msubsup><msubsup><mn mathvariant="normal">1</mn><mrow><mi>i</mi><mi>j</mi></mrow><mrow><mi>n</mi><mi>o</mi><mi>o</mi><mi>b</mi><mi>j</mi></mrow></msubsup><mo>(</mo><msub><mi>C</mi><mi>i</mi></msub><mo>−</mo><msub><mover accent="true"><mi>C</mi><mo>^</mo></mover><mi>i</mi></msub><msup><mo>)</mo><mn>2</mn></msup></mrow></mtd></mtr><mtr><mtd><mrow></mrow></mtd><mtd><mrow><mrow></mrow><mo>+</mo><msubsup><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>0</mn></mrow><mrow><msup><mi>S</mi><mn>2</mn></msup></mrow></msubsup><msubsup><mn mathvariant="normal">1</mn><mrow><mi>i</mi><mi>j</mi></mrow><mrow><mi>n</mi><mi>o</mi><mi>o</mi><mi>b</mi><mi>j</mi></mrow></msubsup><msub><mo>∑</mo><mrow><mi>c</mi><mo>∈</mo><mi>c</mi><mi>l</mi><mi>a</mi><mi>s</mi><mi>s</mi><mi>e</mi><mi>s</mi></mrow></msub><mo>(</mo><msub><mi>p</mi><mi>i</mi></msub><mo>(</mo><mi>c</mi><mo>)</mo><mo>−</mo><msub><mover accent="true"><mi>p</mi><mo>^</mo></mover><mi>i</mi></msub><mo>(</mo><mi>c</mi><mo>)</mo><msup><mo>)</mo><mn>2</mn></msup></mrow></mtd></mtr></mtable></mrow><annotation encoding="application/x-tex">\begin{aligned}
 &amp;\lambda_{coor} \sum_{i=0}^{S^2} \sum_{j=0}^B \mathbb 1_{ij}^{obj} \bigg[(x_i-\hat x_i)^2 + (y_i-\hat y_i)^2\bigg] \\
@@ -571,7 +571,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">43</span>
+                <span class="site-state-item-count">44</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>

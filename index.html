@@ -271,6 +271,130 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2018/06/02/loss-function/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="davidlau">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="davidlau's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/06/02/loss-function/" itemprop="url">Loss Function</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-06-02T19:48:22+08:00">
+                2018-06-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>常见的损失函数。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/06/02/loss-function/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://davidlau.me/2018/05/08/video-game-highlight-detection/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -750,7 +874,7 @@
           
             <h2 id="r-cnn"><a class="markdownIt-Anchor" href="#r-cnn"></a> R-CNN</h2>
 <p>Ross Girshick et. al. 在 2014 [2] 提出 R-CNN，用于 object detection 和 sementic segmentation，比 VOC 2012 的最好模型 mAP (mean average precision) 提升了 30%；在 ILSVRC2013 mAP 达到 31.4%。</p>
-<p><img src="../img/cnn-variant-rcnn-fig1.png" alt="bcnn"></p>
+<p><img src="/img/cnn-variant-rcnn-fig1.png" alt="bcnn"></p>
 <p>在 ILSVRC 2012，CNN AlexNet 在图像分类取得了很好的成绩。为填补 CNN 在 object detection 的鸿沟，本文主要解决两个问题：</p>
 <ul>
 <li>
@@ -809,7 +933,7 @@
 <li>输入图像划分为 7x7 的 grid</li>
 <li>每个 grid  输出 B 个 bounding box 的 (dx, dy, dw, dh, confidence) ，和分类结果 C，其中 confidence 表示 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>I</mi><mi>O</mi><mi>U</mi><mfrac><mrow><mi>t</mi><mi>r</mi><mi>u</mi><mi>t</mi><mi>h</mi></mrow><mrow><mi>p</mi><mi>r</mi><mi>e</mi><mi>d</mi></mrow></mfrac></mrow><annotation encoding="application/x-tex">IOU\frac {truth}{pred}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.8801079999999999em;"></span><span class="strut bottom" style="height:1.3612159999999998em;vertical-align:-0.481108em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.07847em;">I</span><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mord mathit" style="margin-right:0.10903em;">U</span><span class="mord reset-textstyle textstyle uncramped"><span class="sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span><span class="mfrac"><span class="vlist"><span style="top:0.345em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit">p</span><span class="mord mathit" style="margin-right:0.02778em;">r</span><span class="mord mathit">e</span><span class="mord mathit">d</span></span></span></span><span style="top:-0.22999999999999998em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle textstyle uncramped frac-line"></span></span><span style="top:-0.394em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mord mathit">t</span><span class="mord mathit" style="margin-right:0.02778em;">r</span><span class="mord mathit">u</span><span class="mord mathit">t</span><span class="mord mathit">h</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span></span></span></span></span></li>
 </ol>
-<p><img src="../img/cnn-variant-yolo-fig1.png" alt="cnn-variant-yolo-fig1"></p>
+<p><img src="/img/cnn-variant-yolo-fig1.png" alt="cnn-variant-yolo-fig1"></p>
 <p>损失函数定义：</p>
 <p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mtable><mtr><mtd><mrow></mrow></mtd><mtd><mrow><mrow></mrow><msub><mi>λ</mi><mrow><mi>c</mi><mi>o</mi><mi>o</mi><mi>r</mi></mrow></msub><msubsup><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>0</mn></mrow><mrow><msup><mi>S</mi><mn>2</mn></msup></mrow></msubsup><msubsup><mo>∑</mo><mrow><mi>j</mi><mo>=</mo><mn>0</mn></mrow><mi>B</mi></msubsup><msubsup><mn mathvariant="normal">1</mn><mrow><mi>i</mi><mi>j</mi></mrow><mrow><mi>o</mi><mi>b</mi><mi>j</mi></mrow></msubsup><mo fence="false">[</mo><mo>(</mo><msub><mi>x</mi><mi>i</mi></msub><mo>−</mo><msub><mover accent="true"><mi>x</mi><mo>^</mo></mover><mi>i</mi></msub><msup><mo>)</mo><mn>2</mn></msup><mo>+</mo><mo>(</mo><msub><mi>y</mi><mi>i</mi></msub><mo>−</mo><msub><mover accent="true"><mi>y</mi><mo>^</mo></mover><mi>i</mi></msub><msup><mo>)</mo><mn>2</mn></msup><mo fence="false">]</mo></mrow></mtd></mtr><mtr><mtd><mrow></mrow></mtd><mtd><mrow><mrow></mrow><mo>+</mo><msub><mi>λ</mi><mrow><mi>c</mi><mi>o</mi><mi>o</mi><mi>r</mi></mrow></msub><msubsup><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>0</mn></mrow><mrow><msup><mi>S</mi><mn>2</mn></msup></mrow></msubsup><msubsup><mo>∑</mo><mrow><mi>j</mi><mo>=</mo><mn>0</mn></mrow><mi>B</mi></msubsup><msubsup><mn mathvariant="normal">1</mn><mrow><mi>i</mi><mi>j</mi></mrow><mrow><mi>o</mi><mi>b</mi><mi>j</mi></mrow></msubsup><mo fence="false">[</mo><mo>(</mo><msqrt><mrow><msub><mi>w</mi><mi>i</mi></msub></mrow></msqrt><mo>−</mo><msqrt><mrow><msub><mover accent="true"><mi>w</mi><mo>^</mo></mover><mi>i</mi></msub></mrow></msqrt><msup><mo>)</mo><mn>2</mn></msup><mo>+</mo><mo>(</mo><msqrt><mrow><msub><mi>h</mi><mi>i</mi></msub></mrow></msqrt><mo>−</mo><msqrt><mrow><msub><mover accent="true"><mi>h</mi><mo>^</mo></mover><mi>i</mi></msub></mrow></msqrt><msup><mo>)</mo><mn>2</mn></msup><mo fence="false">]</mo></mrow></mtd></mtr><mtr><mtd><mrow></mrow></mtd><mtd><mrow><mrow></mrow><mo>+</mo><msubsup><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>0</mn></mrow><mrow><msup><mi>S</mi><mn>2</mn></msup></mrow></msubsup><msubsup><mo>∑</mo><mrow><mi>j</mi><mo>=</mo><mn>0</mn></mrow><mi>B</mi></msubsup><msubsup><mn mathvariant="normal">1</mn><mrow><mi>i</mi><mi>j</mi></mrow><mrow><mi>o</mi><mi>b</mi><mi>j</mi></mrow></msubsup><mo>(</mo><msub><mi>C</mi><mi>i</mi></msub><mo>−</mo><msub><mover accent="true"><mi>C</mi><mo>^</mo></mover><mi>i</mi></msub><msup><mo>)</mo><mn>2</mn></msup></mrow></mtd></mtr><mtr><mtd><mrow></mrow></mtd><mtd><mrow><mrow></mrow><mo>+</mo><msub><mi>λ</mi><mrow><mi>n</mi><mi>o</mi><mi>o</mi><mi>b</mi><mi>j</mi></mrow></msub><msubsup><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>0</mn></mrow><mrow><msup><mi>S</mi><mn>2</mn></msup></mrow></msubsup><msubsup><mo>∑</mo><mrow><mi>j</mi><mo>=</mo><mn>0</mn></mrow><mi>B</mi></msubsup><msubsup><mn mathvariant="normal">1</mn><mrow><mi>i</mi><mi>j</mi></mrow><mrow><mi>n</mi><mi>o</mi><mi>o</mi><mi>b</mi><mi>j</mi></mrow></msubsup><mo>(</mo><msub><mi>C</mi><mi>i</mi></msub><mo>−</mo><msub><mover accent="true"><mi>C</mi><mo>^</mo></mover><mi>i</mi></msub><msup><mo>)</mo><mn>2</mn></msup></mrow></mtd></mtr><mtr><mtd><mrow></mrow></mtd><mtd><mrow><mrow></mrow><mo>+</mo><msubsup><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>0</mn></mrow><mrow><msup><mi>S</mi><mn>2</mn></msup></mrow></msubsup><msubsup><mn mathvariant="normal">1</mn><mrow><mi>i</mi><mi>j</mi></mrow><mrow><mi>n</mi><mi>o</mi><mi>o</mi><mi>b</mi><mi>j</mi></mrow></msubsup><msub><mo>∑</mo><mrow><mi>c</mi><mo>∈</mo><mi>c</mi><mi>l</mi><mi>a</mi><mi>s</mi><mi>s</mi><mi>e</mi><mi>s</mi></mrow></msub><mo>(</mo><msub><mi>p</mi><mi>i</mi></msub><mo>(</mo><mi>c</mi><mo>)</mo><mo>−</mo><msub><mover accent="true"><mi>p</mi><mo>^</mo></mover><mi>i</mi></msub><mo>(</mo><mi>c</mi><mo>)</mo><msup><mo>)</mo><mn>2</mn></msup></mrow></mtd></mtr></mtable></mrow><annotation encoding="application/x-tex">\begin{aligned}
 &amp;\lambda_{coor} \sum_{i=0}^{S^2} \sum_{j=0}^B \mathbb 1_{ij}^{obj} \bigg[(x_i-\hat x_i)^2 + (y_i-\hat y_i)^2\bigg] \\
@@ -952,15 +1076,15 @@
         
           
             <h2 id="bi-cnn"><a class="markdownIt-Anchor" href="#bi-cnn"></a> Bi-CNN</h2>
-<p><img src="../img/cnn-variant-bcnn-fig1.png" alt="bcnn"></p>
+<p><img src="/img/cnn-variant-bcnn-fig1.png" alt="bcnn"></p>
 <p>细粒度的分类问题，fine-grained image classification，如花的品种识别，十分困难。</p>
 <p>一种解决方法称为 part-based，是定位特征区域，如花瓣，然后用 CNN 分类，这种方法的缺点是标注成本高。</p>
 <p>另一种解决方法 feature-based，是用鲁棒的特征：VLAD，Fisher + SIFT。这种方法不依赖训练数据，但是效果不如 part-based 方法。</p>
 <p>Lin et. al. 提出的 Bi-CNN [1]，克服以上两种方法的缺点，可以更好的解决细粒度分类问题。同时，这种结构和人类认知的 ventral stream (what pathway) &amp; dorsal stream (where pathway) 相似。</p>
 <p>实验中，B-CNN 效果比 FC-CNN 高出10% 左右。其中 w/ ft 表示识别 localization 后的图像。</p>
-<p><img src="../img/cnn-variant-bcnn-fig2.png" alt="bcnn"></p>
+<p><img src="/img/cnn-variant-bcnn-fig2.png" alt="bcnn"></p>
 <p>找出最大化激活 filter 的图片区域，发现 B-CNN 能够学习到不同部位的特征，以完成 fine-grained 图像分类任务：</p>
-<p><img src="../img/cnn-variant-bcnn-fig3.png" alt="bcnn"></p>
+<p><img src="/img/cnn-variant-bcnn-fig3.png" alt="bcnn"></p>
 <h2 id="scda"><a class="markdownIt-Anchor" href="#scda"></a> SCDA</h2>
 <h2 id="dcgan"><a class="markdownIt-Anchor" href="#dcgan"></a> DCGAN</h2>
 <h2 id="reference"><a class="markdownIt-Anchor" href="#reference"></a> Reference</h2>
@@ -1774,13 +1898,4749 @@ APA</p>
 
 
     
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2017/08/23/ios-private-api-detection/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="davidlau">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="davidlau's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/08/23/ios-private-api-detection/" itemprop="url">iOS 私有 API 调用检测机制探讨</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-23T17:35:45+08:00">
+                2017-08-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>最近发现部分 App 以字符串拼接的方法调用私有 API，在提交 AppStore 审核后被发现打回修改的案例。</p>
+<p>对于开发者提交的二进制文件，Apple 是如何检查出私有 API 的调用 ？本文尝试探讨可能的检测机制，以及每种机制的漏洞。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/08/23/ios-private-api-detection/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2017/08/21/online-optimization/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="davidlau">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="davidlau's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/08/21/online-optimization/" itemprop="url">在线学习方法概述</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-21T16:48:41+08:00">
+                2017-08-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>推荐系统算法常常用到逻辑回归算法，而传统的批量学习算法如 SGD 无法应对大规模、高维的数据集和实时数据流。为了解决这个问题，在线最优化算法如 TG [1]、FOBOS [2]、RDA [3]、FTRL [4,5,6] 应运而生，下面将介绍、对比这些算法。</p>
+<p>TODO</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/08/21/online-optimization/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2017/08/18/GloVe/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="davidlau">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="davidlau's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/08/18/GloVe/" itemprop="url">GloVe</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-18T14:59:13+08:00">
+                2017-08-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>介绍一种 word embedding 方法。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/08/18/GloVe/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2017/08/17/gbdt/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="davidlau">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="davidlau's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/08/17/gbdt/" itemprop="url">GBDT</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-17T11:02:32+08:00">
+                2017-08-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>GBDT（Gradient Boosting Descision Tree），梯度提升决策树，又名 MART（Multiple Additive Regression Tree），是由多颗回归决策树组成的 Boosting 算法，常用于 CTR 预估。本文介绍了决策树、Boosting 决策树、Gradient Boosting 决策树的算法原理和<a href="https://github.com/liuslevis/gbdt" target="_blank" rel="noopener">实现</a>。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/08/17/gbdt/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2017/08/11/reinforcelearning/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="davidlau">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="davidlau's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/08/11/reinforcelearning/" itemprop="url">Reinforce Learning</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-11T16:33:29+08:00">
+                2017-08-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>强化学习笔记。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/08/11/reinforcelearning/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2017/08/11/deeplearning/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="davidlau">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="davidlau's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/08/11/deeplearning/" itemprop="url">Deep Learning</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-11T15:16:24+08:00">
+                2017-08-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>深度学习笔记</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/08/11/deeplearning/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2017/08/11/activation/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="davidlau">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="davidlau's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/08/11/activation/" itemprop="url">Activation</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-11T14:45:49+08:00">
+                2017-08-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>对比、介绍神经元的激活函数。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/08/11/activation/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2017/08/08/fm/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="davidlau">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="davidlau's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/08/08/fm/" itemprop="url">Factorization Machine</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-08T19:53:31+08:00">
+                2017-08-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>Factorization Machine [1] 是一种预测模型，广泛用于推荐系统，优点有：</p>
+<ol>
+<li>适用于 SVM 无法应付的稀疏数据</li>
+<li>FM (2-way) 比 LR 多了二阶 kernel，适用于大数据，线性复杂度，可以用 primal objective 而不是 dual objective 优化（如 SVM）</li>
+<li>通用的预测模型，适用于任何实数特征。</li>
+</ol>
+<p>下面是 [1] 的学习笔记。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/08/08/fm/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2017/08/07/mf/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="davidlau">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="davidlau's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/08/07/mf/" itemprop="url">Matrix Factorization</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-07T22:05:56+08:00">
+                2017-08-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>Matrix Factorization 是一种协同过滤思想的方法，用于物品推荐和评分预测。</p>
+<p>YAHOO 团队在 Netflix Prize 应用 Matrix Factorization 并取得较好的成绩，效果远超传统协同过滤方法 [1]，我们在下文详细展开介绍。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/08/07/mf/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2017/07/07/weread-book-recommend-via-ctr/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="davidlau">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="davidlau's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/07/07/weread-book-recommend-via-ctr/" itemprop="url">尝试改进微信读书个性化推荐：一个基于 CTR 预估的方法</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-07-07T17:30:49+08:00">
+                2017-07-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Dev/" itemprop="url" rel="index">
+                    <span itemprop="name">Dev</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="引言"><a class="markdownIt-Anchor" href="#引言"></a> 引言</h2>
+<p>微信读书的书籍个性化推荐包括：</p>
+<ol>
+<li>
+<p>冷启动用户的书籍推荐，如发现 tab – 新手卡片，为新注册用户推荐书籍，方法参见文章 <a href="http://davidlau.me/2016/10/15/cold-start-recommendations/">微信读书冷启动用户书籍推荐初探：一个借助微信用户画像的方法</a> <a href="http://davidlau.me/2016/12/14/cold-start-recommendations-in-action/">微信读书冷启动推荐实战：一种基于用户属性的方法<br>
+</a>。</p>
+</li>
+<li>
+<p>基于协同过滤（Item-CF / Word2vec）的书籍推荐，如于书城 – 搜索 – 猜你喜欢，为老用户推荐书籍。</p>
+</li>
+</ol>
+<p>为提升 2 的效果，本文设计了一个离线实验，用  CTR 预估方法做书籍个性化推荐，发现效果（准确率、召回率）较现网方法（Word2vec）提升接近一倍。</p>
+<p><img src="/img/table.png" alt=""></p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/07/07/weread-book-recommend-via-ctr/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2017/07/07/ios-launch-crash-monitor/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="davidlau">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="davidlau's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/07/07/ios-launch-crash-monitor/" itemprop="url">iOS App 启动必 crash 监控</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-07-07T17:27:57+08:00">
+                2017-07-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Dev/" itemprop="url" rel="index">
+                    <span itemprop="name">Dev</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="摘要"><a class="markdownIt-Anchor" href="#摘要"></a> 摘要</h2>
+<p>在 iOS 11 Beta 刚刚发布时，有用户在微博反馈：升级到 iOS 11 Beta 后，微信读书 App 遇到启动必 crash 的绝境，无法使用。</p>
+<p><img src="/img/crash_feedback.png" alt="feed_back"></p>
+<p>用户看到的界面，是我们开源的  <a href="http://davidlau.me/2016/05/20/ios-launch-crash-protection/">iOS 启动连续闪退保护方案</a> 提示。</p>
+<p>调试发现，是一段 iOS 11 不兼容的代码引发的问题。我们通过修改不兼容代码，解决了问题。</p>
+<p>等到现网用户反馈，为时太晚，如何把启动必 crash 问题纳入监控？</p>
+<p>我们设计了一个<strong>特征值</strong>以判断这个问题，并扩展了 <a href="https://wereadteam.github.io/2016/05/23/GYBootingProtection/" target="_blank" rel="noopener">iOS 启动连续闪退保护方案</a>，提供了日志上报接口，帮助开发者在第一时间发现启动必 crash 问题。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/07/07/ios-launch-crash-monitor/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2017/04/28/fitting-ios-nsrecorder-decibel-curve/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="davidlau">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="davidlau's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/04/28/fitting-ios-nsrecorder-decibel-curve/" itemprop="url">R 语言线性回归应用：拟合 iOS 录音波形图</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-04-28T19:41:51+08:00">
+                2017-04-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="引言"><a class="markdownIt-Anchor" href="#引言"></a> 引言</h2>
+<p>微信读书有一个录音功能需求：</p>
+<ol>
+<li>
+<p>录音时绘制音频波形， 音频以 wav 格式保存</p>
+</li>
+<li>
+<p>再次进入界面，加载 wav，重新渲染音频波形</p>
+<p><img src="/img/lecture_record_1.png" alt="lecture_record_1"></p>
+</li>
+</ol>
+<p>步骤 1 通过 NSRecorder.averagePowerForChannel 方法获取当前录音的分贝 $$L_p$$ 数组，绘制波形图</p>
+<p><img src="/img/lecture_track_origin.png" alt="lecture_track_lm"></p>
+<p>步骤 2 需要从 wav 推算出分贝波形图。然而根据分贝公式推算出来的结果如下图所示，与步骤 1 不一致：</p>
+<p><img src="/img/lecture_track_recover_failed.png" alt="lecture_track_lm"></p>
+<p>不一致的原因，可能是步骤 1 通过硬件 DSP 计算得到 mic 的分贝，与 2 通过公式计算 wav 分贝的算法不同。</p>
+<p>我们要解决这样的问题：拟合一个公式，输入一段 wav 采样的均方根值 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>p</mi><mrow><mi>r</mi><mi>m</mi><mi>s</mi></mrow></msub></mrow><annotation encoding="application/x-tex">p_{rms}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit">p</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit" style="margin-right:0.02778em;">r</span><span class="mord mathit">m</span><span class="mord mathit">s</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span>，输出估算的分贝 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mover accent="true"><mrow><msub><mi>L</mi><mi>p</mi></msub></mrow><mo>~</mo></mover></mrow><annotation encoding="application/x-tex">\tilde{L_p}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.9201900000000001em;"></span><span class="strut bottom" style="height:1.206298em;vertical-align:-0.286108em;"></span><span class="base textstyle uncramped"><span class="mord accent"><span class="vlist"><span style="top:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="mord textstyle cramped"><span class="mord"><span class="mord mathit">L</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">p</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span><span style="top:-0.60233em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="accent-body"><span>~</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span> ，使其近似等于 averagePowerForChannel 返回的值 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>L</mi><mi>p</mi></msub></mrow><annotation encoding="application/x-tex">L_p</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.969438em;vertical-align:-0.286108em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit">L</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">p</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span>。</p>
+<p>我们通过收集数据，建立线性回归模型，调参，验证等步骤，成功得到了波形图还原方程：</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mover accent="true"><mrow><msub><mi>L</mi><mi>p</mi></msub></mrow><mo>~</mo></mover><mo>=</mo><mo>−</mo><mn>8</mn><mn>0</mn><mo>+</mo><mn>6</mn><msub><mi>log</mi><mrow><mn>2</mn></mrow></msub><mrow><msub><mi>p</mi><mrow><mi>r</mi><mi>m</mi><mi>s</mi></mrow></msub></mrow><mtext> </mtext><mi>d</mi><mi>B</mi></mrow><annotation encoding="application/x-tex">\tilde{L_p} = -80 + 6 \log_{2} {p_{rms}}\ dB
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.9201900000000001em;"></span><span class="strut bottom" style="height:1.206298em;vertical-align:-0.286108em;"></span><span class="base displaystyle textstyle uncramped"><span class="mord accent"><span class="vlist"><span style="top:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="mord displaystyle textstyle cramped"><span class="mord"><span class="mord mathit">L</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">p</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span><span style="top:-0.60233em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="accent-body"><span>~</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mrel">=</span><span class="mord">−</span><span class="mord mathrm">8</span><span class="mord mathrm">0</span><span class="mbin">+</span><span class="mord mathrm">6</span><span class="mop"><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="vlist"><span style="top:0.24444em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathrm">2</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mord displaystyle textstyle uncramped"><span class="mord"><span class="mord mathit">p</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit" style="margin-right:0.02778em;">r</span><span class="mord mathit">m</span><span class="mord mathit">s</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span><span class="mord mspace"> </span><span class="mord mathit">d</span><span class="mord mathit" style="margin-right:0.05017em;">B</span></span></span></span></span></p>
+<p>最终，还原了近似波形图：</p>
+<p><img src="/img/lecture_track_recover_succ.png" alt="lecture_track_lm"></p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/04/28/fitting-ios-nsrecorder-decibel-curve/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2017/03/21/html/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="davidlau">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="davidlau's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/03/21/html/" itemprop="url">HTML</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-21T15:15:54+08:00">
+                2017-03-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>机器学习笔记</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/03/21/html/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2017/03/06/word2vec-collaborative-filtering/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="davidlau">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="davidlau's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/03/06/word2vec-collaborative-filtering/" itemprop="url">基于word2vec协同过滤推荐</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-06T15:15:04+08:00">
+                2017-03-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithm/" itemprop="url" rel="index">
+                    <span itemprop="name">Algorithm</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="引言"><a class="markdownIt-Anchor" href="#引言"></a> 引言</h2>
+<p>在文章 <a href="http://davidlau.me/2016/12/09/learn-cf-in-python/">学习协同过滤推荐 \w 100行Python代码</a> 中，介绍了基于物品的协同过滤推荐，根据 user-item 评分矩阵，找出与给定 item 评分最接近的物品，作为推荐结果。</p>
+<p>在本文中，把书籍名称看作单词，以用户喜欢的书籍看作句子，利用 word2vec 模型构建了一个书籍的向量空间。对给定书籍，找出与其距离最近的书籍，作为推荐结果。</p>
+<p>本文用 Python 60 行代码实现了一个 Demo，得到每本书籍在向量空间的表示，输出基于书籍的协同过滤推荐结果。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/03/06/word2vec-collaborative-filtering/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2016/12/14/cold-start-recommendations-in-action/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="davidlau">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="davidlau's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/12/14/cold-start-recommendations-in-action/" itemprop="url">微信读书冷启动推荐实战：一种基于用户属性的方法</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-12-14T23:49:09+08:00">
+                2016-12-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithm/" itemprop="url" rel="index">
+                    <span itemprop="name">Algorithm</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="引言"><a class="markdownIt-Anchor" href="#引言"></a> 引言</h2>
+<p>在文章《微信读书冷启动书籍推荐初探：一个借助微信用户画像的方法<br>
+》<a href="http://davidlau.me/2016/10/15/cold-start-recommendations/">1</a>，我们发现用户的阅读偏好与用户属性（性别、年龄、n 线城市、公众号阅读偏好）相关。基于这个发现，我们利用用户属性，给冷启动的新注册用户做个性化推荐，效果较编辑推荐提升约 50%。</p>
+<p><img src="/img/newcard_push_add.png" alt="说明图片"></p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2016/12/14/cold-start-recommendations-in-action/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2016/12/09/learn-cf-in-python/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="davidlau">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="davidlau's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/12/09/learn-cf-in-python/" itemprop="url">学习协同过滤推荐 \w 100行Python代码</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-12-09T09:32:11+08:00">
+                2016-12-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Dev/" itemprop="url" rel="index">
+                    <span itemprop="name">Dev</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="引言"><a class="markdownIt-Anchor" href="#引言"></a> 引言</h2>
+<p>用一百行 Python 代码，入门协同过滤推荐。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2016/12/09/learn-cf-in-python/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2016/10/23/thai-photos/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="davidlau">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="davidlau's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/10/23/thai-photos/" itemprop="url">thai-photos</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-10-23T15:25:31+08:00">
+                2016-10-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Life/" itemprop="url" rel="index">
+                    <span itemprop="name">Life</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            
+<a id="more"></a>
+
+
+
+
+
+
+
+
+
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2016/10/15/scuba-diving/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="davidlau">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="davidlau's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/10/15/scuba-diving/" itemprop="url">初学潜水</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-10-15T13:56:24+08:00">
+                2016-10-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Life/" itemprop="url" rel="index">
+                    <span itemprop="name">Life</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>在 2016 国庆节假期，从广州前往泰国涛岛 Koh Tao 学习潜水，尝试考取入门级别的开放水域（Open Water）潜水员证书。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2016/10/15/scuba-diving/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2016/10/15/cold-start-recommendations/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="davidlau">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="davidlau's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/10/15/cold-start-recommendations/" itemprop="url">微信读书冷启动用户书籍推荐初探：一个借助微信用户画像的方法</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-10-15T13:53:04+08:00">
+                2016-10-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithm/" itemprop="url" rel="index">
+                    <span itemprop="name">Algorithm</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="引言"><a class="markdownIt-Anchor" href="#引言"></a> 引言</h2>
+<p>微信读书 App 中的书籍推荐系统，逐渐开始在运营活动中（每周热榜、新手卡片）使用，尝试从技术侧帮助运营侧提高转活动的化率。</p>
+<p>对微信读书的活跃用户，我们根据其读书时长、点评书等用户行为，做书籍推荐。对微信读书新增用户，由于缺少用户行为数据，无法使用这种方法做推荐，此类问题常被称为推荐系统冷启动问题。</p>
+<p>然而，我们发现微信用户画像，比如基础属性（年龄、城市、性别等）和公众号阅读兴趣等，与微信读书用户的阅读兴趣相关。借助微信用户画像进行书籍推荐，准确率较随机推荐提升约 1 倍。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2016/10/15/cold-start-recommendations/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2016/05/20/ios-launch-crash-protection/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="davidlau">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="davidlau's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/05/20/ios-launch-crash-protection/" itemprop="url">iOS 启动连续闪退保护方案</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-05-20T16:09:42+08:00">
+                2016-05-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Dev/" itemprop="url" rel="index">
+                    <span itemprop="name">Dev</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="引言"><a class="markdownIt-Anchor" href="#引言"></a> 引言</h2>
+<blockquote>
+<p>“如果某个实体表现出以下任何一种特性，它就具备自主性：自我修复、自我保护、自我维护、对目标的自我控制、自我改进。” —— 凯文·凯利</p>
+</blockquote>
+<p>iOS App 有时可能遇到启动必 crash 的绝境：每次打开 App 都闪退，无法正常使用App。</p>
+<p>为了尝试解决这个问题，微信读书开发了 iOS 连续闪退保护工具：<a href="https://github.com/liuslevis/GYBootingProtection" target="_blank" rel="noopener">GYBootingProtection</a>，检测连续闪退，在连续闪退出现时，尝试自修复 App：</p>
+<p><img src="/img/GYBootingProtectionIntro.png" alt="img"></p>
+<p>本文探讨了连续闪退问题的产生原因、检测、修复机制，以及如何在你的项目中引入、测试和使用 <a href="https://github.com/liuslevis/GYBootingProtection" target="_blank" rel="noopener">GYBootingProtection</a>。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2016/05/20/ios-launch-crash-protection/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2016/05/20/typesetter-testing-autmation/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="davidlau">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="davidlau's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/05/20/typesetter-testing-autmation/" itemprop="url">微信读书排版引擎自动化测试</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-05-20T16:09:42+08:00">
+                2016-05-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Dev/" itemprop="url" rel="index">
+                    <span itemprop="name">Dev</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="引言"><a class="markdownIt-Anchor" href="#引言"></a> 引言</h2>
+<p>在微信读书 App <sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup> 中，排版引擎负责把书源文件解析、渲染至屏幕，是最常用、最复杂的组件之一。而开发同学对排版引擎的日常修改，可能影响了海量书籍的排版结果。对排版引擎修改的测试耗时多、难度大、容易漏测。本文介绍了为解决测试的难题，如何逐步将人工测试步骤自动化，最终构建了一套微信读书排版引擎自动化测试流程，以确保微信读书排版引擎的质量。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2016/05/20/typesetter-testing-autmation/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2015/12/05/trying-to-fix-Xcode-7-GDCA-file-corruption/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="davidlau">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="davidlau's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2015/12/05/trying-to-fix-Xcode-7-GDCA-file-corruption/" itemprop="url">尝试解决 Xcode7.1 覆盖率测试 GCDA 文件损坏问题</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-12-05T11:05:15+08:00">
+                2015-12-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>在升级到 Xcode7 后，项目遇到覆盖率测试输出的 GCDA 文件损坏问题。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2015/12/05/trying-to-fix-Xcode-7-GDCA-file-corruption/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2015/06/30/notes-on-7-concurrency-model-in-7-weeks/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="davidlau">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="davidlau's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2015/06/30/notes-on-7-concurrency-model-in-7-weeks/" itemprop="url">notes-on-7-concurrency-model-in-7-weeks</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-06-30T11:22:27+08:00">
+                2015-06-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Dev/" itemprop="url" rel="index">
+                    <span itemprop="name">Dev</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="week-1-线程和锁"><a class="markdownIt-Anchor" href="#week-1-线程和锁"></a> Week 1 线程和锁</h2>
+<h3 id="优点"><a class="markdownIt-Anchor" href="#优点"></a> 优点</h3>
+<p>易于实现，适用场景广，接近“硬件本质”。</p>
+<h3 id="缺点"><a class="markdownIt-Anchor" href="#缺点"></a> 缺点</h3>
+<p>不够抽象，难以单元测试、Debug、不可重现故障。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2015/06/30/notes-on-7-concurrency-model-in-7-weeks/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2015/06/16/learn-haskell/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="davidlau">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="davidlau's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2015/06/16/learn-haskell/" itemprop="url">learn-haskell</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-06-16T14:58:02+08:00">
+                2015-06-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Dev/" itemprop="url" rel="index">
+                    <span itemprop="name">Dev</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>—— Notes on CH8 Haskell, <em>Seven Languages in Seven Weeks</em> by Bruce A. Tate</p>
+<h2 id="引言"><a class="markdownIt-Anchor" href="#引言"></a> 引言</h2>
+<p>Haskell不同于Scala，是一门纯函数式语言，它强制使用者使用函数式语法而没有妥协。</p>
+<ul>
+<li>
+<p>是一门<strong>强类型</strong>定义的<strong>静态类型</strong>语言。它的**类型模型基于推断理论（in-ferred）**并被公认为是函数语言中最高效的类型系统之一。你会发现该类型系统支持多态语义并有助于人们作出十分整洁清晰的设计。</p>
+</li>
+<li>
+<p>支持Erlang风格的模式匹配（pattern matching）和哨兵表达式。你也能在Haskell中发现Clojure风格的惰性求值（lazyevaluation）以及与Clojure和Erlang相同的列表推导语法。</p>
+</li>
+<li>
+<p>无副作用，通过monad概念保存状态：一个Haskell函数可以返回一个有副作用并且会被延迟执行的结果.</p>
+</li>
+</ul>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2015/06/16/learn-haskell/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2015/05/30/conspiracism/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="davidlau">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="davidlau's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2015/05/30/conspiracism/" itemprop="url">五毛和阴谋论</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-05-30T12:52:56+08:00">
+                2015-05-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Opinion/" itemprop="url" rel="index">
+                    <span itemprop="name">Opinion</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>看了环球日报，司马南，五月网，乌有之乡，民兵智库上的文章，总有一股气，不得不吐。</p>
+<p>这些媒体上总是有一种论调：</p>
+<blockquote>
+<p>美国由少数人操纵，想反对中国，想竭制中国。美帝是坏人，号召国民要起来反对，打倒美国佬。美帝控制的国内媒体，宣扬西方价值观念，而对广大爱国民众、学者和言论观点则进行压制和屏蔽<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup>。</p>
+</blockquote>
+<p>而《货币战争》上提出，美国有个罗斯柴尔德家族控制了央行，打压中国的货币体系。其中太多谬误，在知乎<sup class="footnote-ref"><a href="#fn2" id="fnref2">[2]</a></sup>有详细讨论，其中有：</p>
+<blockquote>
+<p>书中认为应当藏金于民，鼓励大家购买黄金增值保值。但在金融上对黄金是有定论的：黄金作为大宗商品，是优秀的避险工具，并且黄金价格与美元指数存在负相关。<br>
+「乱世买黄金」，预期美国经济下滑，美元疲软时，买入黄金规避风险。不是什么时候都要买的，反例正是在美国经济正在复苏的时候买黄金赔进去的中国大妈。</p>
+</blockquote>
+<p>这些媒体把美国看做一个意志独立的，由少数财团操纵，只为自己利益着想，想打谁打谁的坏人。</p>
+<p>似乎是一种阴谋论，而阴谋论有着<strong>不可证伪</strong>的特点：</p>
+<blockquote>
+<p>阴谋论往往缺乏证据，荒谬的逻辑，不符合奥卡姆剃刀原则，是很多谣传的基础。但是被指责为阴谋当事人的一方，也很难证伪阴谋论的说法，许多阴谋论有不可证伪的特点，即通常说的“难以自证清白”。逻辑上，任何一件自然发生的事件，事后都可以被描绘成事先策划的。因此，说一个理论是阴谋论同时有该理论不被广为接受的意味。<sup class="footnote-ref"><a href="#fn3" id="fnref3">[3]</a></sup></p>
+</blockquote>
+<p>这些美国想竭制中国的阴谋论观点，是建立在这样的前提下：美国是一个意志精神利益关系统一独立的个体，中美互相独立，没有利益交互。</p>
+<p>这样的前提，把美国山姆大叔描绘得栩栩如生，能很容易被广大中国青年接受，进而转化成愤青，关注中美矛盾，而不是关注国内的矛盾。从而达到阴谋论提出者的目的——转移矛盾。咦，听起来，好像多年前抵制日货、法西斯的年代，民粹主义有些相似？</p>
+<p>然而，事情似乎远不像两个人打架这么简单：</p>
+<ol>
+<li>
+<p>美国不是一个个体，它是多方利益关系的人的集合，包括美国华人，犹太人，一二代移民，商人，工人，非法移民，各个党派等等。</p>
+</li>
+<li>
+<p>中国也不是一个个体。</p>
+</li>
+<li>
+<p>而中、美之间，不可能是简单的对立关系。中间有复杂的利益关系交错，不是两个独立敌对的个体。比如说某领导的女儿在美国上大学，官员在美国有资产，中美公司护持股份，互有固定资产投资，中美股民互持对方股市的股票。随着市场全球化，中美之间的关系不像朝美关系那样的单纯。</p>
+</li>
+</ol>
+<h3 id="如果真要打仗天朝屁民该怎么办"><a class="markdownIt-Anchor" href="#如果真要打仗天朝屁民该怎么办"></a> 如果真要打仗，天朝屁民该怎么办？</h3>
+<p>抵制美国货？别傻了。</p>
+<p>买黄金？黄金和美元走势负相关<sup class="footnote-ref"><a href="#fn4" id="fnref4">[4]</a></sup>。</p>
+<p>如果你认为中美打仗，美国尤其是美国军火商会占便宜，那么请买军火商的股票。——洛克希德—马丁公司在9.11后疯长不少。</p>
+<p>有了市场全球化，大家都可以发战争财了。</p>
+<h3 id="萨达姆以欧元结算石油招来战争"><a class="markdownIt-Anchor" href="#萨达姆以欧元结算石油招来战争"></a> 萨达姆以欧元结算石油，招来战争</h3>
+<p>这是类《货币战争》风格的言论，类似的还有<a href="http://www.zhihu.com/question/20482823" target="_blank" rel="noopener">传言中国将以人民币作为出口石油结算货币，如果是真的将产生什么影响？</a></p>
+<p>下面，以朝鲜为背景，探讨一下这个问题。</p>
+<p>假设朝鲜货币（￥）兑换外币是必须经过中央银行，汇率不浮动、由央行制订。朝鲜元兑美元，6￥兑1$。</p>
+<p>如果朝鲜要求以朝鲜币结算石油，且它的石油价格（换算成美元$）和其他国家一样，会带来怎样的结果呢？</p>
+<p>美国家向朝鲜买石油，去朝鲜央行将美元兑换成朝鲜币，购回一桶石油（10兑60￥）。朝鲜央行收10，支出60￥。</p>
+<p>同时朝鲜石油工人工作一个月，产出一桶石油，收入3000￥。而美国石油工人一个月收入1000$（约6000￥）。</p>
+<p>消费物价一样（1$在美国和6￥在朝鲜都能买1袋面粉），作为一个朝鲜石油工的收入比美国石油工收入低一半。</p>
+<ul>
+<li>
+<p>如果，朝鲜政府宣布，朝鲜元￥继续升值，7￥兑1。然而国内的石油价格、物价依然一样。美国用更少的兑换一桶石油，石油出口增多，朝鲜公司进口成本降低、赚钱多了，央行的美元储备增加。有钱民众发现￥升值了，出国血拼，购置美国房产。低收入者发现钱不够出国旅游，物价无差别，生活继续。有通胀危险，物价提升，低收入者生活质量下降。（对内贬值，对外升值）</p>
+</li>
+<li>
+<p>如果，朝鲜政府宣布，朝鲜元￥贬值，5￥兑1。然而国内的石油价格、物价依然一样。美国发现要用更多的兑换一桶石油。石油出口减少，朝鲜公司进口成本增加、赚钱少了，央行的美元储备减少。有钱民众发现￥贬值了，进口商品涨价了；低收入者的物价无差别，生活继续。有通缩危险。有通缩危险，物价下降，低收入者生活质量提高。（对内升值，对外贬值）</p>
+</li>
+</ul>
+<p>同时，由于是朝鲜政府、央行控制汇率，有可能高于或者低于市场价格，导致部分人在黑市炒卖货币获利，同时导致通胀或者通缩。</p>
+<p>由此可见，前一种情况对政府、出口商、高收入人群而言是较理想的，对低收入群众而言则不利。反之亦然。</p>
+<p>但是如果是自由浮动汇率制度，则没有上述问题。资本在跨国结算时会自己寻找最优的方案进行结算。</p>
+<hr class="footnotes-sep">
+<section class="footnotes">
+<ol class="footnotes-list">
+<li id="fn1" class="footnote-item"><p><a href="http://mp.weixin.qq.com/s?__biz=MzA5MTMyNjcxMQ==&amp;mid=207826371&amp;idx=3&amp;sn=5a769b2111b93728c53c3116b9f38438&amp;scene=1&amp;key=c468684b929d2be2dd96783ce220a1a22265c81815a458601a258d867f75262b16b39dcc2bc511f54e9c836f98166452&amp;ascene=1&amp;uin=NDAyNjkwNDU%3D&amp;devicetype=webwx&amp;version=70000001&amp;pass_ticket=wk%2BLtYdhnO9EYgRWBNwjO7rHBMmtFFpwle7Q19W1tac%3D" target="_blank" rel="noopener">http://mp.weixin.qq.com/s?__biz=MzA5MTMyNjcxMQ==&amp;mid=207826371&amp;idx=3&amp;sn=5a769b2111b93728c53c3116b9f38438&amp;scene=1&amp;key=c468684b929d2be2dd96783ce220a1a22265c81815a458601a258d867f75262b16b39dcc2bc511f54e9c836f98166452&amp;ascene=1&amp;uin=NDAyNjkwNDU%3D&amp;devicetype=webwx&amp;version=70000001&amp;pass_ticket=wk%2BLtYdhnO9EYgRWBNwjO7rHBMmtFFpwle7Q19W1tac%3D</a> <a href="#fnref1" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn2" class="footnote-item"><p><a href="http://www.zhihu.com/question/20261912" target="_blank" rel="noopener">http://www.zhihu.com/question/20261912</a> <a href="#fnref2" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn3" class="footnote-item"><p><a href="http://zh.wikipedia.org/zh-cn/%E9%99%B0%E8%AC%80%E8%AB%96#Conspiracy" target="_blank" rel="noopener">http://zh.wikipedia.org/zh-cn/陰謀論#Conspiracy</a> <a href="#fnref3" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn4" class="footnote-item"><p><a href="http://www.gfsoso.net/scholar?hl=zh-CN&amp;as_sdt=0,5&amp;q=gold+price+u+s+dollar+relevant" target="_blank" rel="noopener">http://www.gfsoso.net/scholar?hl=zh-CN&amp;as_sdt=0,5&amp;q=gold+price+u+s+dollar+relevant</a> <a href="#fnref4" class="footnote-backref">↩︎</a></p>
+</li>
+</ol>
+</section>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2015/05/28/learn-SCIP/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="davidlau">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="davidlau's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2015/05/28/learn-SCIP/" itemprop="url">SCIP学习笔记</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-05-28T09:37:14+08:00">
+                2015-05-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Dev/" itemprop="url" rel="index">
+                    <span itemprop="name">Dev</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="引言"><a class="markdownIt-Anchor" href="#引言"></a> 引言</h2>
+<p>SCIP(<em>Structure and Interpretation of Computer Programs</em>)<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup>是MIT自1984年起的编程入门教程，尽管最近他们用Python的课程取代了Lisp语言，但是随着工业界越来越多的应用函数编程语言，如Clojure、Scala、Racket，以及软件开发使用并发的趋势(见文章<sup class="footnote-ref"><a href="#fn2" id="fnref2">[2]</a></sup>），重读SCIP是很有意义的。</p>
+<p>SCIP分五章：构造过程抽象，构造数据抽象，模块化、对象和状态（涉及并发），源语言抽象，寄存器机器里的计算（编译器如何工作）</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2015/05/28/learn-SCIP/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2015/05/11/learning-functional-programming-in-swift/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="davidlau">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="davidlau's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2015/05/11/learning-functional-programming-in-swift/" itemprop="url">通过Swift学函数式编程</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-05-11T16:57:03+08:00">
+                2015-05-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Dev/" itemprop="url" rel="index">
+                    <span itemprop="name">Dev</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>在文章<a href="http://leverich.github.io/swiftislikescala/" target="_blank" rel="noopener">SWIFT IS A LOT LIKE SCALA</a> <sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup> 提到Swift和Scala有很大的相似之处，在某些特性甚至比Scala对函数式编程的支持更友好。笔者遂从Swift语言出发，学习函数式编程<sup class="footnote-ref"><a href="#fn2" id="fnref2">[2]</a></sup> <sup class="footnote-ref"><a href="#fn3" id="fnref3">[3]</a></sup>，并记录笔记如下。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2015/05/11/learning-functional-programming-in-swift/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2015/05/11/notes-on-The-Free-Launch-Is-Over/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="davidlau">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="davidlau's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2015/05/11/notes-on-The-Free-Launch-Is-Over/" itemprop="url">笔记：软件开发的转折——并发化</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-05-11T16:52:55+08:00">
+                2015-05-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Dev/" itemprop="url" rel="index">
+                    <span itemprop="name">Dev</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>——文章<a href="http://www.gotw.ca/publications/concurrency-ddj.htm" target="_blank" rel="noopener">The Free Lunch Is Over: A Fundamental Turn Toward Concurrency in Software By Herb Sutter</a>的读书笔记</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2015/05/11/notes-on-The-Free-Launch-Is-Over/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2015/04/19/how-my-marxism-fundamentals-collapse/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="davidlau">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="davidlau's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2015/04/19/how-my-marxism-fundamentals-collapse/" itemprop="url">我的马克思主义观是如何崩塌的</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-04-19T13:18:05+08:00">
+                2015-04-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Opinion/" itemprop="url" rel="index">
+                    <span itemprop="name">Opinion</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>在最近一年，看了一些与社会、经济、政府有关的书，使我的先前接受（被洗脑）的<strong>马克思政治经济学观点，被彻底颠覆了</strong>。</p>
+<blockquote>
+<p>《国富论》</p>
+<p>《黑客与画家》</p>
+<p>《市场的逻辑》张维迎</p>
+<p>《从0到1》</p>
+<p>《失控》</p>
+<p>《社会契约论》</p>
+</blockquote>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2015/04/19/how-my-marxism-fundamentals-collapse/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2015/03/04/Google-Chrome-Canary-for-CSS-Animation-Debug/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="davidlau">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="davidlau's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2015/03/04/Google-Chrome-Canary-for-CSS-Animation-Debug/" itemprop="url">Google Chrome Canary：一个可以慢速调试css动画的浏览器</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-03-04T16:32:52+08:00">
+                2015-03-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Dev/" itemprop="url" rel="index">
+                    <span itemprop="name">Dev</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>慢速调试CSS动画？以前要通过插件完成，现在集成到Chrome Canary浏览器里了，尽管它还是开发者预览版，但是这个功能是原生的哦。</p>
+<p>有了它，就可以通过0.1~1x的速度，慢速渲染css动画，大大方便了前端开发者。</p>
+<p>使用方法：安装<a href="https://www.google.com/chrome/browser/canary.html" target="_blank" rel="noopener">Chrome Canary</a> （需用梯子下载），打开一个带有CSS动画效果的网页，在页面空白处右键—『审查元素』，拖动Styles—Animations的控制条，即可把CSS动画速度变慢。</p>
+<p><img src="/img/screenShotChromeCanary.png" alt="Chrome Canary Animation Debug Screen Shot"></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2014/10/23/TODO/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="davidlau">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="davidlau's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2014/10/23/TODO/" itemprop="url">TODO</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2014-10-23T15:11:55+08:00">
+                2014-10-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Life/" itemprop="url" rel="index">
+                    <span itemprop="name">Life</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>研究生阶段已过一半，也找工作也告一段落。下面把学生最后阶段要完成的事情列出来，以便安排计划和督促自己。</p>
+<p>工程：</p>
+<blockquote>
+<p>函数式编程语言 Haswell / Erlang / Swift</p>
+<p>Python Web</p>
+<p>NoSQL</p>
+<p>深入SQL</p>
+<p>毕业设计</p>
+</blockquote>
+<p>学术：</p>
+<blockquote>
+<p>掌握经典的机器学习算法推导</p>
+</blockquote>
+<blockquote>
+<p>统计 概率</p>
+</blockquote>
+<blockquote>
+<p>深度学习–图片分类，以及其他任务与传统方法做对比</p>
+</blockquote>
+<blockquote>
+<p>3 Kaggle Problem @ ranking 30%</p>
+</blockquote>
+<p>公开课：</p>
+<blockquote>
+<p>完成Coursera Enroll的课程视频和课后练习：</p>
+</blockquote>
+<blockquote>
+<p>Game Theory</p>
+</blockquote>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2014/08/10/sleep-less-keep-enegertic/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="davidlau">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="davidlau's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2014/08/10/sleep-less-keep-enegertic/" itemprop="url">每晚睡4.5小时，保持精力充沛的秘诀</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2014-08-10T14:58:27+08:00">
+                2014-08-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Life/" itemprop="url" rel="index">
+                    <span itemprop="name">Life</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>读到这篇文章：<a href="http://www.glenrhodes.com/?p=132" target="_blank" rel="noopener">THE POWER OF THE SLEEP CYCLE</a>，作者提到每天晚上只睡4.5小时或者3小时，白天也能精力充沛。而且达芬奇，Thomas Jefferson，建筑师福乐，爱迪生，马英九也掌握了这种技巧，而且健康并没有因此受影响：福乐和达芬奇都2倍长寿于当时的平均水平。</p>
+<p>到底是什么秘密呢？</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2014/08/10/sleep-less-keep-enegertic/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2014/08/10/programming-pearls-II-C12-notes-rand-num-generator/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="davidlau">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="davidlau's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2014/08/10/programming-pearls-II-C12-notes-rand-num-generator/" itemprop="url">编程珠玑II C12笔记: rand num generator</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2014-08-10T14:57:07+08:00">
+                2014-08-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithm/" itemprop="url" rel="index">
+                    <span itemprop="name">Algorithm</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="problem"><a class="markdownIt-Anchor" href="#problem"></a> Problem:</h2>
+<pre><code>given m&lt;n, generate random numbers of m within range(0..n).
+</code></pre>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2014/08/10/programming-pearls-II-C12-notes-rand-num-generator/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
   </section>
 
   
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
-  </nav>
-
 
 
           </div>
@@ -1824,7 +6684,7 @@ APA</p>
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">43</span>
+                <span class="site-state-item-count">44</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>

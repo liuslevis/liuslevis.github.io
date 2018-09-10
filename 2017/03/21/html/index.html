@@ -103,7 +103,7 @@
 <meta property="og:description" content="机器学习笔记">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/967544-975d0cdbc8bda3cb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2018-06-06T03:25:19.894Z">
+<meta property="og:updated_time" content="2018-07-17T09:28:00.631Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="HTML">
 <meta name="twitter:description" content="机器学习笔记">
@@ -624,7 +624,7 @@ h^*(x)= \underset{c \in \mathcal{Y}}{\arg \min} R(c|x)
 <p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>R</mi><mo>(</mo><mi>c</mi><mi mathvariant="normal">∣</mi><mi>x</mi><mo>)</mo><mo>=</mo><mn>1</mn><mo>−</mo><mi>P</mi><mo>(</mo><mi>c</mi><mi mathvariant="normal">∣</mi><mi>x</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">R(c|x)=1-P(c|x)
 </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base displaystyle textstyle uncramped"><span class="mord mathit" style="margin-right:0.00773em;">R</span><span class="mopen">(</span><span class="mord mathit">c</span><span class="mord mathrm">∣</span><span class="mord mathit">x</span><span class="mclose">)</span><span class="mrel">=</span><span class="mord mathrm">1</span><span class="mbin">−</span><span class="mord mathit" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord mathit">c</span><span class="mord mathrm">∣</span><span class="mord mathit">x</span><span class="mclose">)</span></span></span></span></span></p>
 <p>于是最小化分类错误率的贝叶斯最优分类器为</p>
-h^* (x)= \underset{x \in mathcal{Y}}{\arg \max} P(c|x)
+h^* (x)= \underset{x \in \mathcal{Y}}{\arg \max} P(c|x)
 
 <p>不难看出, 要使用贝叶斯判定准则来最小化决策风险, 首先要获得后验概率 $$P(c|x)$$, 但是在现实任务中很难. 问题可以转化为贝叶斯公式</p>
 <p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>P</mi><mo>(</mo><mi>c</mi><mi mathvariant="normal">∣</mi><mi>x</mi><mo>)</mo><mo>=</mo><mfrac><mrow><mi>P</mi><mo>(</mo><mi>x</mi><mo separator="true">,</mo><mi>c</mi><mo>)</mo></mrow><mrow><mi>P</mi><mo>(</mo><mi>x</mi><mo>)</mo></mrow></mfrac><mo>=</mo><mfrac><mrow><mi>P</mi><mo>(</mo><mi>c</mi><mo>)</mo><mi>P</mi><mo>(</mo><mi>x</mi><mi mathvariant="normal">∣</mi><mi>c</mi><mo>)</mo></mrow><mrow><mi>P</mi><mo>(</mo><mi>x</mi><mo>)</mo></mrow></mfrac></mrow><annotation encoding="application/x-tex">P(c|x)=\frac{P(x,c)}{P(x)}=\frac{P(c)P(x|c)}{P(x)}
@@ -676,7 +676,7 @@ P(x_i|c)=\frac{|D_{c,x_i}|}{|D_c|}
 <p>一种高效实现: KD 树</p>
 <h2 id="决策树"><a class="markdownIt-Anchor" href="#决策树"></a> 决策树</h2>
 <p>求所有可能的决策树是 NP 完全问题, 常用启发式方法, 近似求解, 得到次优解, 常用学习算法: <code>ID3</code> / <code>C4.5</code> / <code>CART</code></p>
-<p>特征选择的准则, 用<code>信息增益</code>、<code>信息增益</code>比来衡量: 如果用一个特征进行分类的结果与随机分类的结果没有很大差异, 则认为这个特征是没有分类能力的.</p>
+<p>特征选择的准则, 用<strong>信息增益</strong>、<strong>信息增益比</strong>来衡量: 如果用一个特征进行分类的结果与随机分类的结果没有很大差异, 则认为这个特征是没有分类能力的.</p>
 <p>一般算法: 递归地选择最优特征, 并根据该特征对训练数据进行分割.</p>
 <p>剪枝: 以避免过拟合, 考虑全局最优.</p>
 <p>优点: <a href="https://zh.wikipedia.org/wiki/%E5%86%B3%E7%AD%96%E6%A0%91%E5%AD%A6%E4%B9%A0" target="_blank" rel="noopener">wiki</a></p>
@@ -713,7 +713,7 @@ P(x_i|c)=\frac{|D_{c,x_i}|}{|D_c|}
 </li>
 </ol>
 <h3 id="c45"><a class="markdownIt-Anchor" href="#c45"></a> C4.5</h3>
-<p>改进 ID3, 用 <strong>信息增益比</strong> 来选择特征</p>
+<p>改进 ID3, 用 <strong>信息增益比</strong> 来选择特征, 改善信息增益偏向选择值较多的问题, 对其进行校正、归一化.</p>
 <h3 id="剪枝"><a class="markdownIt-Anchor" href="#剪枝"></a> 剪枝</h3>
 <p>一种简单的方法: 通过极小化损失函数来实现, 损失函数定义</p>
 <p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>C</mi><mi>α</mi></msub><mo>(</mo><mi>T</mi><mo>)</mo><mo>=</mo><msub><mi mathvariant="normal">Σ</mi><mi>t</mi></msub><msub><mi>N</mi><mi>t</mi></msub><msub><mi>H</mi><mi>t</mi></msub><mo>(</mo><mi>T</mi><mo>)</mo><mo>+</mo><mi>α</mi><mi mathvariant="normal">∣</mi><mi>T</mi><mi mathvariant="normal">∣</mi></mrow><annotation encoding="application/x-tex">C_\alpha(T)=\Sigma_tN_tH_t(T)+\alpha|T|
@@ -729,7 +729,7 @@ P(x_i|c)=\frac{|D_{c,x_i}|}{|D_c|}
 <p>分类与回归树, Breiman 1984 提出, 算法由特征选择、树的生成、剪枝组成, 分类、回归任务都可以用.</p>
 <h4 id="最小二乘法生成回归树"><a class="markdownIt-Anchor" href="#最小二乘法生成回归树"></a> 最小二乘法生成回归树</h4>
 <p>输入：训练集 $$T={(x_1,y_1),…,(x_N,y_N)}, x_i \in X, y_i \in Y $$, 其中 $$Y$$ 是连续变量</p>
-<p>输出: 回归树 $$f(x)$$</p>
+<p>输出：回归树 $$f(x)$$</p>
 <p>假设将输入空间划分成 $$M$$ 个单元 $$R_1,…,R_M$$, 并且在每个单元 $$R_m$$ 上有固定输出值 $$c_m$$, 于是回归树模型可表示为</p>
 <p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>f</mi><mo>(</mo><mi>x</mi><mo>)</mo><mo>=</mo><msubsup><mo>∑</mo><mrow><mi>m</mi><mo>=</mo><mn>1</mn></mrow><mrow><mi>M</mi></mrow></msubsup><msub><mi>c</mi><mi>m</mi></msub><mi>I</mi><mo>(</mo><mi>x</mi><mo>⊆</mo><msub><mi>R</mi><mi>m</mi></msub><mo>)</mo></mrow><annotation encoding="application/x-tex">f(x)=\sum_{m=1}^{M} c_m I(x \subseteq R_m)
 </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:1.8283360000000002em;"></span><span class="strut bottom" style="height:3.0954490000000003em;vertical-align:-1.267113em;"></span><span class="base displaystyle textstyle uncramped"><span class="mord mathit" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord mathit">x</span><span class="mclose">)</span><span class="mrel">=</span><span class="mop op-limits"><span class="vlist"><span style="top:1.1671129999999998em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit">m</span><span class="mrel">=</span><span class="mord mathrm">1</span></span></span></span><span style="top:-0.000005000000000143778em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span><span class="op-symbol large-op mop">∑</span></span></span><span style="top:-1.2500050000000003em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mord mathit" style="margin-right:0.10903em;">M</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mord"><span class="mord mathit">c</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">m</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mord mathit" style="margin-right:0.07847em;">I</span><span class="mopen">(</span><span class="mord mathit">x</span><span class="mrel">⊆</span><span class="mord"><span class="mord mathit" style="margin-right:0.00773em;">R</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.00773em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">m</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mclose">)</span></span></span></span></span></p>
@@ -1309,7 +1309,7 @@ Why LR 模型 work
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">45</span>
+                <span class="site-state-item-count">46</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -1331,7 +1331,7 @@ Why LR 模型 work
             
             <div class="site-state-item site-state-tags">
               
-                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-count">20</span>
                 <span class="site-state-item-name">tags</span>
               
             </div>

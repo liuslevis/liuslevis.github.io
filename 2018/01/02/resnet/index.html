@@ -106,7 +106,8 @@
 <meta property="og:image" content="http://davidlau.me/img/resnet-fig-1.png">
 <meta property="og:image" content="http://davidlau.me/img/resnet-fig-2.png">
 <meta property="og:image" content="http://davidlau.me/img/resnet-fig-3.png">
-<meta property="og:updated_time" content="2018-01-12T11:15:39.531Z">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/2228224-f9b16ae3483b14da.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/700">
+<meta property="og:updated_time" content="2018-07-06T06:23:53.450Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ResNet 学习笔记">
 <meta name="twitter:description" content="MSRA 的 Kaiming He et. al. 在 CVPR15 发表了 ResNet [1]，即残差网络，在网络的输入层加入了残差函数，使得更深层神经网络优化更容易。用 152 层 ResNet （比 VGG 深 8 倍）学习 ImageNet 数据集，达到 3.57% 的错误率在 ILSVRC 2015 中名列第一。 在 Deep CNN 中，通常可以增加网络层数，来加强学习能力。 随着网">
@@ -356,7 +357,9 @@
 <p><img src="/img/resnet-fig-1.png" alt="fig1"></p>
 <p>在这篇论文中，提出了 deep residual learning framework 来解决这个退化问题。让每个 layer 拟合 residual mapping，而不是拟合 underlying mapping，如 Figure 2 所示。</p>
 <p><img src="/img/resnet-fig-2.png" alt="fig1"></p>
+<p>如果 add 操作输入和输出的大小不同，那就可以使用零填充或投射（通过 1×1 卷积）来得到匹配的大小。</p>
 <p>记 original mapping 为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi mathvariant="script">F</mi><mo>(</mo><mi mathvariant="bold">x</mi><mo>)</mo><mo>:</mo><mo>=</mo><mi mathvariant="script">H</mi><mo>(</mo><mi mathvariant="bold">x</mi><mo>)</mo><mo>−</mo><mi mathvariant="bold">x</mi></mrow><annotation encoding="application/x-tex">\mathcal F(\mathbf x) := \mathcal H(\mathbf x) - \mathbf x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathcal" style="margin-right:0.09931em;">F</span><span class="mopen">(</span><span class="mord mathbf">x</span><span class="mclose">)</span><span class="mrel">:</span><span class="mrel">=</span><span class="mord mathcal" style="margin-right:0.00965em;">H</span><span class="mopen">(</span><span class="mord mathbf">x</span><span class="mclose">)</span><span class="mbin">−</span><span class="mord mathbf">x</span></span></span></span> ，记 residual mapping 为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi mathvariant="script">H</mi><mo>(</mo><mi mathvariant="bold">x</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">\mathcal H(\mathbf x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathcal" style="margin-right:0.00965em;">H</span><span class="mopen">(</span><span class="mord mathbf">x</span><span class="mclose">)</span></span></span></span>。我们假设 residual mapping  更容易优化。极限情况下，如果 identity mapping 是最优的，那么把 residual push to zero 比拟合 identity mapping （stack of nonlinear layers） 更容易。</p>
+<p>ResNet 作者将这些问题归结成了一个单一的假设：直接映射是难以学习的。而且他们提出了一种修正方法：不再学习从 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">x</span></span></span></span> 到 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>H</mi><mo>(</mo><mi>x</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">H(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.08125em;">H</span><span class="mopen">(</span><span class="mord mathit">x</span><span class="mclose">)</span></span></span></span> 的基本映射关系，而是学习这两者之间的差异，也就是「残差（residual）」。然后，为了计算 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>H</mi><mo>(</mo><mi>x</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">H(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.08125em;">H</span><span class="mopen">(</span><span class="mord mathit">x</span><span class="mclose">)</span></span></span></span>，我们只需要将这个残差加到输入上即可。</p>
 <p>其中为 identity <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi mathvariant="bold">x</mi></mrow><annotation encoding="application/x-tex">\mathbf x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.44444em;"></span><span class="strut bottom" style="height:0.44444em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathbf">x</span></span></span></span> 是 shortcut connection，它不增加模型的计算复杂度和参数，同时也容易用现有框架（Keras / Caffe）实现。</p>
 <p>论文的实验表明：</p>
 <ol>
@@ -367,6 +370,11 @@
 <p><img src="/img/resnet-fig-3.png" alt="fig1"></p>
 <p>在 <code>keras.applications.resnet50</code> 中 ResNet 结构定义如下。其中 <code>conv_block</code> 和 <code>identity_block</code> 的区别是 identity <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi mathvariant="bold">x</mi></mrow><annotation encoding="application/x-tex">\mathbf x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.44444em;"></span><span class="strut bottom" style="height:0.44444em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathbf">x</span></span></span></span> 增加了卷积计算。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">x = Conv2D(<span class="number">64</span>, (<span class="number">7</span>, <span class="number">7</span>), strides=(<span class="number">2</span>, <span class="number">2</span>), padding=<span class="string">'same'</span>, name=<span class="string">'conv1'</span>)(img_input)</span><br><span class="line">x = BatchNormalization(axis=<span class="number">3</span>, name=<span class="string">'bn_conv1'</span>)(x)</span><br><span class="line">x = Activation(<span class="string">'relu'</span>)(x)</span><br><span class="line">x = MaxPooling2D((<span class="number">3</span>, <span class="number">3</span>), strides=(<span class="number">2</span>, <span class="number">2</span>))(x)</span><br><span class="line"></span><br><span class="line">x = conv_block(x, <span class="number">3</span>, [<span class="number">64</span>, <span class="number">64</span>, <span class="number">256</span>], stage=<span class="number">2</span>, block=<span class="string">'a'</span>, strides=(<span class="number">1</span>, <span class="number">1</span>))</span><br><span class="line">x = identity_block(x, <span class="number">3</span>, [<span class="number">64</span>, <span class="number">64</span>, <span class="number">256</span>], stage=<span class="number">2</span>, block=<span class="string">'b'</span>)</span><br><span class="line">x = identity_block(x, <span class="number">3</span>, [<span class="number">64</span>, <span class="number">64</span>, <span class="number">256</span>], stage=<span class="number">2</span>, block=<span class="string">'c'</span>)</span><br><span class="line"></span><br><span class="line">x = conv_block(x, <span class="number">3</span>, [<span class="number">128</span>, <span class="number">128</span>, <span class="number">512</span>], stage=<span class="number">3</span>, block=<span class="string">'a'</span>)</span><br><span class="line">x = identity_block(x, <span class="number">3</span>, [<span class="number">128</span>, <span class="number">128</span>, <span class="number">512</span>], stage=<span class="number">3</span>, block=<span class="string">'b'</span>)</span><br><span class="line">x = identity_block(x, <span class="number">3</span>, [<span class="number">128</span>, <span class="number">128</span>, <span class="number">512</span>], stage=<span class="number">3</span>, block=<span class="string">'c'</span>)</span><br><span class="line">x = identity_block(x, <span class="number">3</span>, [<span class="number">128</span>, <span class="number">128</span>, <span class="number">512</span>], stage=<span class="number">3</span>, block=<span class="string">'d'</span>)</span><br><span class="line"></span><br><span class="line">x = conv_block(x, <span class="number">3</span>, [<span class="number">256</span>, <span class="number">256</span>, <span class="number">1024</span>], stage=<span class="number">4</span>, block=<span class="string">'a'</span>, strides=(<span class="number">2</span>, <span class="number">2</span>))</span><br><span class="line">x = identity_block(x, <span class="number">3</span>, [<span class="number">256</span>, <span class="number">256</span>, <span class="number">1024</span>], stage=<span class="number">4</span>, block=<span class="string">'b'</span>)</span><br><span class="line">x = identity_block(x, <span class="number">3</span>, [<span class="number">256</span>, <span class="number">256</span>, <span class="number">1024</span>], stage=<span class="number">4</span>, block=<span class="string">'c'</span>)</span><br><span class="line">x = identity_block(x, <span class="number">3</span>, [<span class="number">256</span>, <span class="number">256</span>, <span class="number">1024</span>], stage=<span class="number">4</span>, block=<span class="string">'d'</span>)</span><br><span class="line">x = identity_block(x, <span class="number">3</span>, [<span class="number">256</span>, <span class="number">256</span>, <span class="number">1024</span>], stage=<span class="number">4</span>, block=<span class="string">'e'</span>)</span><br><span class="line">x = identity_block(x, <span class="number">3</span>, [<span class="number">256</span>, <span class="number">256</span>, <span class="number">1024</span>], stage=<span class="number">4</span>, block=<span class="string">'f'</span>)</span><br><span class="line"></span><br><span class="line">x = conv_block(x, <span class="number">3</span>, [<span class="number">512</span>, <span class="number">512</span>, <span class="number">2048</span>], stage=<span class="number">5</span>, block=<span class="string">'a'</span>, strides=(<span class="number">2</span>, <span class="number">2</span>))</span><br><span class="line">x = identity_block(x, <span class="number">3</span>, [<span class="number">512</span>, <span class="number">512</span>, <span class="number">2048</span>], stage=<span class="number">5</span>, block=<span class="string">'b'</span>)</span><br><span class="line">x = identity_block(x, <span class="number">3</span>, [<span class="number">512</span>, <span class="number">512</span>, <span class="number">2048</span>], stage=<span class="number">5</span>, block=<span class="string">'c'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># x = AveragePooling2D((7, 7), name='avg_pool')(x)</span></span><br><span class="line">x = AveragePooling2D((<span class="number">1</span>, <span class="number">1</span>), name=<span class="string">'avg_pool'</span>)(x)</span><br><span class="line"></span><br><span class="line">x = Flatten()(x)</span><br><span class="line">x = Dense(n_labels, activation=<span class="string">'softmax'</span>, name=<span class="string">'fc'</span>)(x)</span><br></pre></td></tr></table></figure>
+<h2 id="1x1-卷积"><a class="markdownIt-Anchor" href="#1x1-卷积"></a> 1x1 卷积</h2>
+<p>下图是一个更深的残差函数，称为 Bottleneck，使用了 1x1 卷积 对输入输出进行降维，加速计算，减少网络参数：</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/2228224-f9b16ae3483b14da.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/700" alt="img"></p>
+<p>其中 1x1 卷积的作用，是线性组合不同channel的像素点，保留平面结构，增加或减少 depth，完成升维或者降维。</p>
+<p>经过激励层，1x1 卷积在前一层学习表示上添加了非线性激励，提升网络表达能力。</p>
 <hr class="footnotes-sep">
 <section class="footnotes">
 <ol class="footnotes-list">
@@ -492,8 +500,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.gif"
@@ -508,7 +525,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">45</span>
+                <span class="site-state-item-count">46</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -530,7 +547,7 @@
             
             <div class="site-state-item site-state-tags">
               
-                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-count">20</span>
                 <span class="site-state-item-name">tags</span>
               
             </div>
@@ -555,6 +572,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1x1-卷积"><span class="nav-number">1.</span> <span class="nav-text"> 1x1 卷积</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

@@ -102,7 +102,7 @@
 <meta property="og:site_name" content="davidlau&#39;s blog">
 <meta property="og:description" content="Factorization Machine [1] 是一种预测模型，广泛用于推荐系统，优点有：  适用于 SVM 无法应付的稀疏数据 FM (2-way) 比 LR 多了二阶 kernel，适用于大数据，线性复杂度，可以用 primal objective 而不是 dual objective 优化（如 SVM） 通用的预测模型，适用于任何实数特征。  下面是 [1] 的学习笔记。">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-01-02T02:02:24.312Z">
+<meta property="og:updated_time" content="2019-01-28T02:46:03.253Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Factorization Machine">
 <meta name="twitter:description" content="Factorization Machine [1] 是一种预测模型，广泛用于推荐系统，优点有：  适用于 SVM 无法应付的稀疏数据 FM (2-way) 比 LR 多了二阶 kernel，适用于大数据，线性复杂度，可以用 primal objective 而不是 dual objective 优化（如 SVM） 通用的预测模型，适用于任何实数特征。  下面是 [1] 的学习笔记。">
@@ -349,7 +349,7 @@
 <p>下面是 [1] 的学习笔记。</p>
 <a id="more"></a>
 <h2 id="factorization-machine"><a class="markdownIt-Anchor" href="#factorization-machine"></a> Factorization Machine</h2>
-<p>假设训练数据集 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>D</mi></mrow><annotation encoding="application/x-tex">D</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.68333em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">D</span></span></span></span> 是高度稀疏的</p>
+<p>假设训练数据集 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>D</mi></mrow><annotation encoding="application/x-tex">D</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.68333em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">D</span></span></span></span> 是<strong>高度稀疏</strong>的</p>
 D=\{(\textbf x^{(1)}, y^{(1)}), (\textbf x^{(2)}, y^{(2)}), ...\}
 
 <p>特征向量，在 [1] 中的例子是用户 ID + 电影 ID + 用户特征 + 电影特征 + 其他特征</p>
@@ -718,7 +718,7 @@ T = \sum_{(\textbf x, y) \in D} [\hat y(\textbf x) - y]^2 + \sum_{\theta \in \Th
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2018</span>
+  <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

@@ -103,7 +103,7 @@
 <meta property="og:description" content="对比、介绍神经元的激活函数。">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://qph.ec.quoracdn.net/main-qimg-c3387770fad696342e93c21c1049149f">
-<meta property="og:updated_time" content="2018-03-22T02:31:17.117Z">
+<meta property="og:updated_time" content="2019-02-14T08:36:40.272Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Activation">
 <meta name="twitter:description" content="对比、介绍神经元的激活函数。">
@@ -351,7 +351,6 @@
 <p>优点：理想的计划函数</p>
 <p>缺点：不连续，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">x=0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.64444em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">x</span><span class="mrel">=</span><span class="mord mathrm">0</span></span></span></span> 无导数，不好优化</p>
 <h2 id="sigmoid"><a class="markdownIt-Anchor" href="#sigmoid"></a> Sigmoid</h2>
-<p>测试</p>
 <p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mtable><mtr><mtd><mrow><mi>σ</mi><mo>(</mo><mi>x</mi><mo>)</mo></mrow></mtd><mtd><mrow><mrow></mrow><mo>=</mo><mfrac><mrow><msup><mi>e</mi><mi>x</mi></msup></mrow><mrow><mn>1</mn><mo>+</mo><msup><mi>e</mi><mi>x</mi></msup></mrow></mfrac><mo>∈</mo><mo>[</mo><mn>0</mn><mo separator="true">,</mo><mn>1</mn><mo>]</mo></mrow></mtd></mtr><mtr><mtd><mrow><msup><mi>σ</mi><mrow><mi mathvariant="normal">′</mi></mrow></msup><mo>(</mo><mi>x</mi><mo>)</mo></mrow></mtd><mtd><mrow><mrow></mrow><mo>=</mo><mi>σ</mi><mo>(</mo><mi>x</mi><mo>)</mo><mo>(</mo><mn>1</mn><mo>−</mo><mi>σ</mi><mo>(</mo><mi>x</mi><mo>)</mo><mo>)</mo></mrow></mtd></mtr></mtable></mrow><annotation encoding="application/x-tex">\begin{aligned}
 \sigma(x)&amp;=\frac{e^x}{1+e^x} \in [0, 1] \\
 \sigma&#x27;(x)&amp;=\sigma(x)(1-\sigma(x))
@@ -363,7 +362,7 @@
 </ul>
 <p>缺点</p>
 <ul>
-<li>饱和的神经元令梯度弥散（当 $$|x|&gt;5$$ 时，梯度非常小，梯度更新缓慢）</li>
+<li>饱和的神经元令梯度弥散（当 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi mathvariant="normal">∣</mi><mi>x</mi><mi mathvariant="normal">∣</mi><mo>&gt;</mo><mn>5</mn></mrow><annotation encoding="application/x-tex">|x|&gt;5</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">∣</span><span class="mord mathit">x</span><span class="mord mathrm">∣</span><span class="mrel">&gt;</span><span class="mord mathrm">5</span></span></span></span> 时，梯度非常小，梯度更新缓慢）</li>
 <li>exp 计算复杂度稍高</li>
 <li>not zero-center</li>
 </ul>
@@ -398,7 +397,7 @@
 <p>缺点</p>
 <ul>
 <li>not zero center</li>
-<li>当 $$x&lt;0$$ 时，有梯度弥散问题</li>
+<li>当 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi><mo>&lt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">x&lt;0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.68354em;vertical-align:-0.0391em;"></span><span class="base textstyle uncramped"><span class="mord mathit">x</span><span class="mrel">&lt;</span><span class="mord mathrm">0</span></span></span></span> 时，有梯度弥散问题</li>
 </ul>
 <h3 id="leaky-relu"><a class="markdownIt-Anchor" href="#leaky-relu"></a> Leaky ReLU</h3>
 <p>[Mass et al., 2013], [He et al., 2015]</p>
@@ -406,7 +405,7 @@
 </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base displaystyle textstyle uncramped"><span class="mord mathit" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord mathit">x</span><span class="mclose">)</span><span class="mrel">=</span><span class="mop">max</span><span class="mopen">(</span><span class="mord mathrm">0</span><span class="mord mathrm">.</span><span class="mord mathrm">0</span><span class="mord mathrm">1</span><span class="mord mathit">x</span><span class="mpunct">,</span><span class="mord mathit">x</span><span class="mclose">)</span></span></span></span></span></p>
 <p>优点</p>
 <ul>
-<li>不饱和，可以避免 $$x&lt;0$$ 的梯度消失</li>
+<li>不饱和，可以避免 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi><mo>&lt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">x&lt;0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.68354em;vertical-align:-0.0391em;"></span><span class="base textstyle uncramped"><span class="mord mathit">x</span><span class="mrel">&lt;</span><span class="mord mathrm">0</span></span></span></span> 的梯度消失</li>
 <li>计算快</li>
 <li>比 sigmoid / tanh 收敛快（6x）</li>
 </ul>

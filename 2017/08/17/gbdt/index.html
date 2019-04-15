@@ -102,7 +102,7 @@
 <meta property="og:site_name" content="davidlau&#39;s blog">
 <meta property="og:description" content="GBDT（Gradient Boosting Descision Tree）, 梯度提升决策树, 又名 MART（Multiple Additive Regression Tree）, 是由多颗回归决策树组成的 Boosting 算法, 常用于 CTR 预估. 本文介绍了决策树、Boosting 决策树、Gradient Boosting 决策树的算法原理和实现.">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-04-07T13:10:41.491Z">
+<meta property="og:updated_time" content="2019-04-09T09:58:18.120Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="GBDT">
 <meta name="twitter:description" content="GBDT（Gradient Boosting Descision Tree）, 梯度提升决策树, 又名 MART（Multiple Additive Regression Tree）, 是由多颗回归决策树组成的 Boosting 算法, 常用于 CTR 预估. 本文介绍了决策树、Boosting 决策树、Gradient Boosting 决策树的算法原理和实现.">
@@ -638,15 +638,38 @@ obj^* &amp;= - \frac{1}{2} \sum_{j=1}^T \frac{G^2_j}{H_j + \gamma} + \gamma T
 <li>能够很好的处理缺失数据</li>
 <li>容易并行化等等</li>
 </ul>
-<h2 id="随机森林-vs-gb"><a class="markdownIt-Anchor" href="#随机森林-vs-gb"></a> 随机森林 vs GB</h2>
-<p>Gradient-Boosted Trees 又名 MART(Multiple Additive Regression Tree), GBRT(Gradient Boost Regression Tree), Tree Net, Treelink, 由 Friedman 发明.</p>
-<p>GBT 迭代地训练一组决策树, 每棵树的训练残差结果, 作为下一个带训练的树的输入标签.</p>
+<h2 id="rf-vs-gbdt"><a class="markdownIt-Anchor" href="#rf-vs-gbdt"></a> RF vs GBDT</h2>
+<p>GBDT 迭代地训练一组决策树, 每棵树的训练残差结果, 作为下一个带训练的树的输入标签.</p>
+<p>RF 并行训练多个树, 每个树训练时用随机的样本、特征, 最后投票得到预测结果。</p>
 <p>二者的区别有:</p>
 <ul>
-<li>GBTs 每次训练一颗树, 而 RF 是并行训练多棵树, 前者时间较长</li>
-<li>增加 GBTs 的 numTrees, 会增加过拟合的可能;增加 RF 的 numTree, 会减少过拟合的可能性</li>
-<li>RF 较容易调参, 因为 numTree 增加会使性能单调提高, 而 GBTs 的 numTree 增加有可能会使性能降低</li>
+<li>GBDT 每次训练一颗树, 而 RF 是并行训练多棵树, 前者时间较长</li>
+<li>增加 GBDT 的 numTrees, 会增加过拟合的可能;增加 RF 的 numTree, 会减少过拟合的可能性</li>
+<li>RF 较容易调参, 因为 numTree 增加会使性能单调提高, 而 GBDT 的 numTree 增加有可能会使性能降低</li>
+<li>RF 是通过减少模型的方差来提高性能, 而 GBDT 是减少模型的偏差来提高性能</li>
+<li>组成 RF 可是分类树也可以是回归树, 而 GBDT 只由回归树组成</li>
+<li>RF 树的权值相等, GBDT 权值不等</li>
+<li>GBT 是回归树而不是分类树, RF 可以是分类树或回归树</li>
+<li>RF 使用的是随机样本、特征构建子树, GBT 使用所有样本、特征构建子树</li>
+<li>RF 适合决策边界是矩形的, 不适合对角线型的</li>
+<li>RF 一般较 GBDT 精度低，泛化性好</li>
+<li>RF 自带 OOB 作为验证集合, 在生成过程中可以对误差进行无偏估计, 如果样本数量太小容易过拟合</li>
 </ul>
+<h2 id="分类树-vs-回归树"><a class="markdownIt-Anchor" href="#分类树-vs-回归树"></a> 分类树 vs 回归树</h2>
+<ul>
+<li>分类树使用信息增益或者增益比率来划分节点, 每个节点样本的类别投票决定测试样本的类别</li>
+<li>回归树使用最小化均方差划分节点, 每个节点样本的均值作为测试样本的回归预测值</li>
+</ul>
+<h2 id="gbdt-vs-xgboost"><a class="markdownIt-Anchor" href="#gbdt-vs-xgboost"></a> GBDT vs XGBoost</h2>
+<ul>
+<li>GBDT 优化用到 gini 指数的一阶导数信息, XGB 用二阶导数的泰勒展开</li>
+<li>GBDT 以 CART 回归树作为基分类器,  XGB 还支持线性分类器</li>
+<li>GBDT 通过剪枝做正则, XGB 通过在损失函数加入了正则项达到剪枝目的, 综合考虑叶节点个数、叶子结点输出的分数，还可以自定义正则项（要求二阶可导）</li>
+<li>XGB 支持特征粒度的并行计算优化, 通过索引算法减少特征选择的时间</li>
+<li>XGB 支持列抽样，借鉴 RF，降低计算量，减少过拟合</li>
+<li>XGB 支持缺省值</li>
+</ul>
+<p>一个特征的 Gini feature importance, 指 Gini 指数下降程度之和。</p>
 <p>总体而言, 二者的选择, 取决于你数据集的特性</p>
 <h2 id="reference"><a class="markdownIt-Anchor" href="#reference"></a> Reference</h2>
 <p>[1] GBDT：梯度提升决策树 <a href="http://www.jianshu.com/p/005a4e6ac775" target="_blank" rel="noopener">http://www.jianshu.com/p/005a4e6ac775</a></p>
@@ -655,6 +678,8 @@ obj^* &amp;= - \frac{1}{2} \sum_{j=1}^T \frac{G^2_j}{H_j + \gamma} + \gamma T
 <p>[4] Wiki <a href="https://en.wikipedia.org/wiki/Huber_loss" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Huber_loss</a></p>
 <p>[5] XGBoost: Intro to boosted trees <a href="https://xgboost.readthedocs.io/en/latest/tutorials/model.html" target="_blank" rel="noopener">URL</a></p>
 <p>[6] XGBoost: A Scalable Tree Boosting System <a href="https://arxiv.org/pdf/1603.02754.pdf" target="_blank" rel="noopener">PDF</a></p>
+<p>[7] <a href="https://blog.csdn.net/qq_39303465/article/details/80965484" target="_blank" rel="noopener">https://blog.csdn.net/qq_39303465/article/details/80965484</a></p>
+<p>[8] <a href="https://www.cnblogs.com/notwice/p/8546436.html" target="_blank" rel="noopener">https://www.cnblogs.com/notwice/p/8546436.html</a></p>
 
       
     </div>
@@ -792,7 +817,7 @@ obj^* &amp;= - \frac{1}{2} \sum_{j=1}^T \frac{G^2_j}{H_j + \gamma} + \gamma T
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">50</span>
+                <span class="site-state-item-count">51</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -849,7 +874,7 @@ obj^* &amp;= - \frac{1}{2} \sum_{j=1}^T \frac{G^2_j}{H_j + \gamma} + \gamma T
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#熵"><span class="nav-number">1.</span> <span class="nav-text"> 熵</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#条件熵"><span class="nav-number">2.</span> <span class="nav-text"> 条件熵</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#联合熵"><span class="nav-number">3.</span> <span class="nav-text"> 联合熵</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#信息增益"><span class="nav-number">4.</span> <span class="nav-text"> 信息增益</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#信息增益比"><span class="nav-number">5.</span> <span class="nav-text"> 信息增益比</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基尼指数"><span class="nav-number">6.</span> <span class="nav-text"> 基尼指数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#决策树"><span class="nav-number"></span> <span class="nav-text"> 决策树</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#id3"><span class="nav-number">1.</span> <span class="nav-text"> ID3</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#c45"><span class="nav-number">2.</span> <span class="nav-text"> C4.5</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cart-剪枝"><span class="nav-number">3.</span> <span class="nav-text"> CART 剪枝</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cart"><span class="nav-number">4.</span> <span class="nav-text"> CART</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#最小二乘法生成回归树"><span class="nav-number">4.1.</span> <span class="nav-text"> 最小二乘法生成回归树</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#regression-descision-tree"><span class="nav-number"></span> <span class="nav-text"> Regression Descision Tree</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#boosting-decision-tree"><span class="nav-number"></span> <span class="nav-text"> Boosting Decision Tree</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#gradient-boosting-decision-tree"><span class="nav-number"></span> <span class="nav-text"> Gradient Boosting Decision Tree</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#xgboosted-trees"><span class="nav-number"></span> <span class="nav-text"> (XG)Boosted Trees</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#随机森林"><span class="nav-number"></span> <span class="nav-text"> 随机森林</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#随机森林-vs-gb"><span class="nav-number"></span> <span class="nav-text"> 随机森林 vs GB</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#reference"><span class="nav-number"></span> <span class="nav-text"> Reference</span></a></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#熵"><span class="nav-number">1.</span> <span class="nav-text"> 熵</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#条件熵"><span class="nav-number">2.</span> <span class="nav-text"> 条件熵</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#联合熵"><span class="nav-number">3.</span> <span class="nav-text"> 联合熵</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#信息增益"><span class="nav-number">4.</span> <span class="nav-text"> 信息增益</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#信息增益比"><span class="nav-number">5.</span> <span class="nav-text"> 信息增益比</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基尼指数"><span class="nav-number">6.</span> <span class="nav-text"> 基尼指数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#决策树"><span class="nav-number"></span> <span class="nav-text"> 决策树</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#id3"><span class="nav-number">1.</span> <span class="nav-text"> ID3</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#c45"><span class="nav-number">2.</span> <span class="nav-text"> C4.5</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cart-剪枝"><span class="nav-number">3.</span> <span class="nav-text"> CART 剪枝</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cart"><span class="nav-number">4.</span> <span class="nav-text"> CART</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#最小二乘法生成回归树"><span class="nav-number">4.1.</span> <span class="nav-text"> 最小二乘法生成回归树</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#regression-descision-tree"><span class="nav-number"></span> <span class="nav-text"> Regression Descision Tree</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#boosting-decision-tree"><span class="nav-number"></span> <span class="nav-text"> Boosting Decision Tree</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#gradient-boosting-decision-tree"><span class="nav-number"></span> <span class="nav-text"> Gradient Boosting Decision Tree</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#xgboosted-trees"><span class="nav-number"></span> <span class="nav-text"> (XG)Boosted Trees</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#随机森林"><span class="nav-number"></span> <span class="nav-text"> 随机森林</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#rf-vs-gbdt"><span class="nav-number"></span> <span class="nav-text"> RF vs GBDT</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分类树-vs-回归树"><span class="nav-number"></span> <span class="nav-text"> 分类树 vs 回归树</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#gbdt-vs-xgboost"><span class="nav-number"></span> <span class="nav-text"> GBDT vs XGBoost</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#reference"><span class="nav-number"></span> <span class="nav-text"> Reference</span></a></div>
             
 
           </div>

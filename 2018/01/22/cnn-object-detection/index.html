@@ -104,11 +104,12 @@
 <meta property="og:description" content="Multi-shot 方法  R-CNN Ross Girshick et. al. 在 2014 [2] 提出 R-CNN，用于 object detection 和 sementic segmentation，比 VOC 2012 的最好模型 mAP (mean average precision) 提升了 30%；在 ILSVRC2013 mAP 达到 31.4%。 R-CNN 使用 Re">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://davidlau.me/img/cnn-variant-rcnn-fig1.png">
+<meta property="og:image" content="https://img-blog.csdn.net/20150202210136741">
 <meta property="og:image" content="https://static.ddlee.cn/static/img/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0-Fast-R-CNN/fast-rcnn-arch.png">
 <meta property="og:image" content="http://davidlau.me/img/cnn-variant-yolo-fig1.png">
 <meta property="og:image" content="https://1.bp.blogspot.com/-ratpdnSjwB8/Wnh-eDET5XI/AAAAAAAAA0w/Fvd6DFgMeF8Ezx_cT2Wb6Ik3HhtWKfxYgCLcBGAs/s1600/Image1.PNG">
 <meta property="og:image" content="https://4.bp.blogspot.com/-GAezL8Xk3pc/WniA9rOUdrI/AAAAAAAAA08/crzpUpHjS_QSP_ixLvZfg8QA4OAPHRs0QCLcBGAs/s1600/Image2.PNG">
-<meta property="og:updated_time" content="2019-04-15T13:59:39.634Z">
+<meta property="og:updated_time" content="2019-04-25T08:11:17.750Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CNN：目标检测">
 <meta name="twitter:description" content="Multi-shot 方法  R-CNN Ross Girshick et. al. 在 2014 [2] 提出 R-CNN，用于 object detection 和 sementic segmentation，比 VOC 2012 的最好模型 mAP (mean average precision) 提升了 30%；在 ILSVRC2013 mAP 达到 31.4%。 R-CNN 使用 Re">
@@ -364,7 +365,19 @@
 </li>
 </ul>
 <h2 id="sppnet"><a class="markdownIt-Anchor" href="#sppnet"></a> SPPNet</h2>
-<p>引入 Spatial Pyramid Pooling</p>
+<p>引入 Spatial Pyramid Pooling，SPP结构从细密和粗糙级别上分割图像，然后融合局部的特征。SPP有3个优势：</p>
+<ol>
+<li>
+<p>任意size和scale输入，产生固定的输出特征表示，提取整个图片在不同尺度的特征</p>
+</li>
+<li>
+<p>使用多级spatial pooling layer（多个尺寸的pooling），多级pooling对于物体形变具有鲁棒性</p>
+</li>
+<li>
+<p>允许我们在各种size和scale下训练网络，可以增加样本个数（类似数据增益），防止过拟合</p>
+</li>
+</ol>
+<p><img src="https://img-blog.csdn.net/20150202210136741" alt="img"></p>
 <h2 id="fast-r-cnn"><a class="markdownIt-Anchor" href="#fast-r-cnn"></a> Fast R-CNN</h2>
 <p>R-CNN 存在缺点：</p>
 <ol>

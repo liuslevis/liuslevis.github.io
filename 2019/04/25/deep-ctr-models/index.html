@@ -95,13 +95,17 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="davidlau&#39;s blog">
-<meta property="og:url" content="http://davidlau.me/tags/swift/index.html">
+<meta name="description" content="GBDT + LR  Wide &amp;amp; Deep  DeepFM  DNN for Youtube RecSys">
+<meta property="og:type" content="article">
+<meta property="og:title" content="deep-ctr-models">
+<meta property="og:url" content="http://davidlau.me/2019/04/25/deep-ctr-models/index.html">
 <meta property="og:site_name" content="davidlau&#39;s blog">
+<meta property="og:description" content="GBDT + LR  Wide &amp;amp; Deep  DeepFM  DNN for Youtube RecSys">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-04-25T08:14:24.395Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="davidlau&#39;s blog">
+<meta name="twitter:title" content="deep-ctr-models">
+<meta name="twitter:description" content="GBDT + LR  Wide &amp;amp; Deep  DeepFM  DNN for Youtube RecSys">
 
 
 
@@ -130,13 +134,13 @@
 
 
 
-  <link rel="canonical" href="http://davidlau.me/tags/swift/"/>
+  <link rel="canonical" href="http://davidlau.me/2019/04/25/deep-ctr-models/"/>
 
 
 
 
 
-  <title>Tag: swift | davidlau's blog</title>
+  <title>deep-ctr-models | davidlau's blog</title>
   
 
 
@@ -171,7 +175,7 @@
     
   
 
-  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left  ">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -255,54 +259,168 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block tag">
+  <div id="posts" class="posts-expand">
+    
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>swift<small>Tag</small>
-        </h1>
-      </div>
+  
 
-      
-        
+  
+  
+  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2019/04/25/deep-ctr-models/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="davidlau">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="davidlau's blog">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2015/05/11/learning-functional-programming-in-swift/" itemprop="url">
-              
-                <span itemprop="name">通过Swift学函数式编程</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">deep-ctr-models</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2015-05-11T16:57:03+08:00"
-              content="2015-05-11" >
-          05-11
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-04-25T16:12:32+08:00">
+                2019-04-25
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="gbdt-lr"><a class="markdownIt-Anchor" href="#gbdt-lr"></a> GBDT + LR</h2>
+<h2 id="wide-deep"><a class="markdownIt-Anchor" href="#wide-deep"></a> Wide &amp; Deep</h2>
+<h2 id="deepfm"><a class="markdownIt-Anchor" href="#deepfm"></a> DeepFM</h2>
+<h2 id="dnn-for-youtube-recsys"><a class="markdownIt-Anchor" href="#dnn-for-youtube-recsys"></a> DNN for Youtube RecSys</h2>
 
       
     </div>
+    
+    
+    
 
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>本文有帮助？</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/img/wechatpay.png" alt="davidlau WeChat Pay"/>
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/14/bayesian/" rel="next" title="贝叶斯定理">
+                <i class="fa fa-chevron-left"></i> 贝叶斯定理
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -310,6 +428,10 @@
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -330,8 +452,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.gif"
@@ -393,6 +524,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#gbdt-lr"><span class="nav-number">1.</span> <span class="nav-text"> GBDT + LR</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#wide-deep"><span class="nav-number">2.</span> <span class="nav-text"> Wide &amp; Deep</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#deepfm"><span class="nav-number">3.</span> <span class="nav-text"> DeepFM</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dnn-for-youtube-recsys"><span class="nav-number">4.</span> <span class="nav-text"> DNN for Youtube RecSys</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -506,10 +653,10 @@
   
 
   
-    <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
 <script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
 
-  
+
 
   
 

@@ -95,17 +95,32 @@
 
 
 
-<meta name="description" content="GBDT + LR  Wide &amp;amp; Deep  DeepFM  DNN for Youtube RecSys">
+<meta name="description" content="从ctr预估问题看看f(x)设计—DNN篇 LambdaJi 知乎  GBDT + LR Facebook ADKDD 2014   Wide &amp;amp; Deep Google DLRS 2016   FNN &amp;amp; SNN Feedforward Neural Network, ANN 2007 Self-Normalizing Neural Network, NIPS 2017">
 <meta property="og:type" content="article">
 <meta property="og:title" content="deep-ctr-models">
 <meta property="og:url" content="http://davidlau.me/2019/04/25/deep-ctr-models/index.html">
 <meta property="og:site_name" content="davidlau&#39;s blog">
-<meta property="og:description" content="GBDT + LR  Wide &amp;amp; Deep  DeepFM  DNN for Youtube RecSys">
+<meta property="og:description" content="从ctr预估问题看看f(x)设计—DNN篇 LambdaJi 知乎  GBDT + LR Facebook ADKDD 2014   Wide &amp;amp; Deep Google DLRS 2016   FNN &amp;amp; SNN Feedforward Neural Network, ANN 2007 Self-Normalizing Neural Network, NIPS 2017">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-04-25T08:14:24.395Z">
+<meta property="og:image" content="https://img2018.cnblogs.com/blog/1473228/201809/1473228-20180917183111311-2021770645.png">
+<meta property="og:image" content="https://2.bp.blogspot.com/-wkrmRibw_GM/V3Mg3O3Q0-I/AAAAAAAABG0/Jm3Nl4-VcYIJ44dA5nSz6vpTyCKF2KWQgCKgB/s1600/image03.png">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-1c7cf8fe8fed03bdf5e8740b9334f491_hd.jpg">
+<meta property="og:image" content="https://pic3.zhimg.com/80/v2-96bfc6e3739c465e4bc7d125c96e9bee_hd.jpg">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-4651d69213d29cfbbbab8e6ce188b1a4_hd.jpg">
+<meta property="og:image" content="https://pic4.zhimg.com/80/v2-1e03363fea7172503b888f8436fad8d7_hd.jpg">
+<meta property="og:image" content="https://pic4.zhimg.com/80/v2-c47b92b0c2035fa7a8bec088964f4dd3_hd.png">
+<meta property="og:image" content="https://pic4.zhimg.com/80/v2-ece03d4954ff71e3fd98cce214eff18b_hd.jpg">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-e3f4ee9d263aaffedb19a9953639a870_hd.jpg">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-358687b8a233f8605a579bf51238e8b1_hd.jpg">
+<meta property="og:image" content="http://fanding.xyz/img/ZH01.png">
+<meta property="og:image" content="http://fanding.xyz/img/ZH09.jpg">
+<meta property="og:image" content="http://fanding.xyz/img/ZH11.jpg">
+<meta property="og:image" content="http://fanding.xyz/img/ZH14.jpg">
+<meta property="og:updated_time" content="2019-08-14T02:34:21.010Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="deep-ctr-models">
-<meta name="twitter:description" content="GBDT + LR  Wide &amp;amp; Deep  DeepFM  DNN for Youtube RecSys">
+<meta name="twitter:description" content="从ctr预估问题看看f(x)设计—DNN篇 LambdaJi 知乎  GBDT + LR Facebook ADKDD 2014   Wide &amp;amp; Deep Google DLRS 2016   FNN &amp;amp; SNN Feedforward Neural Network, ANN 2007 Self-Normalizing Neural Network, NIPS 2017">
+<meta name="twitter:image" content="https://img2018.cnblogs.com/blog/1473228/201809/1473228-20180917183111311-2021770645.png">
 
 
 
@@ -340,10 +355,57 @@
       
 
       
-        <h2 id="gbdt-lr"><a class="markdownIt-Anchor" href="#gbdt-lr"></a> GBDT + LR</h2>
+        <p>从ctr预估问题看看f(x)设计—DNN篇 LambdaJi <a href="https://zhuanlan.zhihu.com/p/28202287" target="_blank" rel="noopener">知乎</a></p>
+<h2 id="gbdt-lr"><a class="markdownIt-Anchor" href="#gbdt-lr"></a> GBDT + LR</h2>
+<p>Facebook ADKDD 2014</p>
+<p><img src="https://img2018.cnblogs.com/blog/1473228/201809/1473228-20180917183111311-2021770645.png" alt="img"></p>
 <h2 id="wide-deep"><a class="markdownIt-Anchor" href="#wide-deep"></a> Wide &amp; Deep</h2>
+<p>Google DLRS 2016</p>
+<p><img src="https://2.bp.blogspot.com/-wkrmRibw_GM/V3Mg3O3Q0-I/AAAAAAAABG0/Jm3Nl4-VcYIJ44dA5nSz6vpTyCKF2KWQgCKgB/s1600/image03.png" alt="img"></p>
+<h2 id="fnn-snn"><a class="markdownIt-Anchor" href="#fnn-snn"></a> FNN &amp; SNN</h2>
+<p>Feedforward Neural Network, ANN 2007</p>
+<p>Self-Normalizing Neural Network, NIPS 2017</p>
+<p><img src="https://pic2.zhimg.com/80/v2-1c7cf8fe8fed03bdf5e8740b9334f491_hd.jpg" alt="img"></p>
+<p><img src="https://pic3.zhimg.com/80/v2-96bfc6e3739c465e4bc7d125c96e9bee_hd.jpg" alt="img"></p>
+<p><img src="https://pic1.zhimg.com/80/v2-4651d69213d29cfbbbab8e6ce188b1a4_hd.jpg" alt="img"></p>
+<h2 id="pnn"><a class="markdownIt-Anchor" href="#pnn"></a> PNN</h2>
+<p>Product-based Neural Networks, ICDM 2016</p>
+<p><img src="https://pic4.zhimg.com/80/v2-1e03363fea7172503b888f8436fad8d7_hd.jpg" alt="img"></p>
 <h2 id="deepfm"><a class="markdownIt-Anchor" href="#deepfm"></a> DeepFM</h2>
-<h2 id="dnn-for-youtube-recsys"><a class="markdownIt-Anchor" href="#dnn-for-youtube-recsys"></a> DNN for Youtube RecSys</h2>
+<p>Huawei ICJA 2017</p>
+<p>输入是高维、稀疏的、连续值离散值混合。</p>
+<p><img src="https://pic4.zhimg.com/80/v2-c47b92b0c2035fa7a8bec088964f4dd3_hd.png" alt="img"></p>
+<p>对比其他网络结构</p>
+<p><img src="https://pic4.zhimg.com/80/v2-ece03d4954ff71e3fd98cce214eff18b_hd.jpg" alt="img"></p>
+<h2 id="nfm"><a class="markdownIt-Anchor" href="#nfm"></a> NFM</h2>
+<p><img src="https://pic1.zhimg.com/80/v2-e3f4ee9d263aaffedb19a9953639a870_hd.jpg" alt="img"></p>
+<h2 id="afm"><a class="markdownIt-Anchor" href="#afm"></a> AFM</h2>
+<p><img src="https://pic2.zhimg.com/80/v2-358687b8a233f8605a579bf51238e8b1_hd.jpg" alt="img"></p>
+<p>NFM 的改进，增加 attention 机制，对无用的交叉项降权，减少噪声。</p>
+<h2 id="dssm"><a class="markdownIt-Anchor" href="#dssm"></a> DSSM</h2>
+<p>DSSM 是微软 2013 年发表的一个 query / doc 相似度计算模型，思想是将不同的对象映射到同一个语义空间中，利用改语义空间中的距离计算相似度。</p>
+<p>首先将 query 和 doc 转化成 embedding  向量 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">x</span></span></span></span>，这里针对英文单词提出了 word hash 方法降低计算量（中文不适用）。</p>
+<p>接着词向量 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">x</span></span></span></span> 输入 DNN，选取 tanh 作为激活函数，得到 semantic feature <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>y</mi></mrow><annotation encoding="application/x-tex">y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.03588em;">y</span></span></span></span>；然后 query 和 doc 会进行一次 cos 相似度计算得到 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>R</mi><mo>(</mo><mi>q</mi><mo separator="true">,</mo><msub><mi>D</mi><mi>i</mi></msub><mo>)</mo></mrow><annotation encoding="application/x-tex">R(q,D_i)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.00773em;">R</span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.03588em;">q</span><span class="mpunct">,</span><span class="mord"><span class="mord mathit" style="margin-right:0.02778em;">D</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.02778em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mclose">)</span></span></span></span>，最后经过 softmax 得到 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>P</mi><mo>(</mo><msub><mi>D</mi><mi>i</mi></msub><mi mathvariant="normal">∣</mi><mi>Q</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">P(D_i|Q)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord"><span class="mord mathit" style="margin-right:0.02778em;">D</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.02778em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mord mathrm">∣</span><span class="mord mathit">Q</span><span class="mclose">)</span></span></span></span>，其中</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>R</mi><mo>(</mo><mi>Q</mi><mo separator="true">,</mo><mi>D</mi><mo>)</mo><mo>=</mo><mi>cos</mi><mo>(</mo><msub><mi>y</mi><mi>Q</mi></msub><mo separator="true">,</mo><msub><mi>y</mi><mi>D</mi></msub><mo>)</mo><mo>=</mo><mfrac><mrow><msubsup><mi>y</mi><mi>Q</mi><mi>T</mi></msubsup><msub><mi>y</mi><mi>D</mi></msub></mrow><mrow><mi mathvariant="normal">∣</mi><mi mathvariant="normal">∣</mi><msub><mi>y</mi><mi>Q</mi></msub><mi mathvariant="normal">∣</mi><mi mathvariant="normal">∣</mi><mi mathvariant="normal">∣</mi><mi mathvariant="normal">∣</mi><msub><mi>y</mi><mi>D</mi></msub><mi mathvariant="normal">∣</mi><mi mathvariant="normal">∣</mi></mrow></mfrac></mrow><annotation encoding="application/x-tex">R(Q,D)=\cos (y_Q, y_D) =\frac{y_Q^T y_D}{||y_Q||||y_D||}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:1.64277em;"></span><span class="strut bottom" style="height:2.614878em;vertical-align:-0.972108em;"></span><span class="base displaystyle textstyle uncramped"><span class="mord mathit" style="margin-right:0.00773em;">R</span><span class="mopen">(</span><span class="mord mathit">Q</span><span class="mpunct">,</span><span class="mord mathit" style="margin-right:0.02778em;">D</span><span class="mclose">)</span><span class="mrel">=</span><span class="mop">cos</span><span class="mopen">(</span><span class="mord"><span class="mord mathit" style="margin-right:0.03588em;">y</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.03588em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">Q</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mpunct">,</span><span class="mord"><span class="mord mathit" style="margin-right:0.03588em;">y</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.03588em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit" style="margin-right:0.02778em;">D</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mclose">)</span><span class="mrel">=</span><span class="mord reset-textstyle displaystyle textstyle uncramped"><span class="sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span><span class="mfrac"><span class="vlist"><span style="top:0.6859999999999999em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle textstyle cramped"><span class="mord textstyle cramped"><span class="mord mathrm">∣</span><span class="mord mathrm">∣</span><span class="mord"><span class="mord mathit" style="margin-right:0.03588em;">y</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.03588em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">Q</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mord mathrm">∣</span><span class="mord mathrm">∣</span><span class="mord mathrm">∣</span><span class="mord mathrm">∣</span><span class="mord"><span class="mord mathit" style="margin-right:0.03588em;">y</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.03588em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit" style="margin-right:0.02778em;">D</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mord mathrm">∣</span><span class="mord mathrm">∣</span></span></span></span><span style="top:-0.22999999999999998em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle textstyle uncramped frac-line"></span></span><span style="top:-0.801439em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle textstyle uncramped"><span class="mord textstyle uncramped"><span class="mord"><span class="mord mathit" style="margin-right:0.03588em;">y</span><span class="vlist"><span style="top:0.275331em;margin-left:-0.03588em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">Q</span></span></span><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord mathit" style="margin-right:0.13889em;">T</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mord"><span class="mord mathit" style="margin-right:0.03588em;">y</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.03588em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit" style="margin-right:0.02778em;">D</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span></span></span></span></span></span></p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>P</mi><mo>(</mo><mi>D</mi><mi mathvariant="normal">∣</mi><mi>Q</mi><mo>)</mo><mo>=</mo><mfrac><mrow><mi>exp</mi><mo>(</mo><mi>γ</mi><mi>R</mi><mo>(</mo><mi>Q</mi><mo separator="true">,</mo><mi>D</mi><mo>)</mo><mo>)</mo></mrow><mrow><msub><mo>∑</mo><mrow><msup><mi>D</mi><mrow><mi mathvariant="normal">′</mi></mrow></msup><mo>∈</mo><mi>D</mi></mrow></msub><mi>exp</mi><mo>(</mo><mi>γ</mi><mi>R</mi><mo>(</mo><mi>Q</mi><mo separator="true">,</mo><msup><mi>D</mi><mrow><mi mathvariant="normal">′</mi></mrow></msup><mo>)</mo><mo>)</mo></mrow></mfrac></mrow><annotation encoding="application/x-tex">P(D|Q)=\frac{\exp (\gamma R(Q,D))}{\sum_{D&#x27;\in D} \exp(\gamma R(Q,D&#x27;))}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:1.427em;"></span><span class="strut bottom" style="height:2.44038em;vertical-align:-1.0133800000000002em;"></span><span class="base displaystyle textstyle uncramped"><span class="mord mathit" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.02778em;">D</span><span class="mord mathrm">∣</span><span class="mord mathit">Q</span><span class="mclose">)</span><span class="mrel">=</span><span class="mord reset-textstyle displaystyle textstyle uncramped"><span class="sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span><span class="mfrac"><span class="vlist"><span style="top:0.6860000000000002em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle textstyle cramped"><span class="mord textstyle cramped"><span class="mop"><span class="op-symbol small-op mop" style="top:-0.0000050000000000050004em;">∑</span><span class="vlist"><span style="top:0.30001em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord"><span class="mord mathit" style="margin-right:0.02778em;">D</span><span class="vlist"><span style="top:-0.289em;margin-right:0.07142857142857144em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-scriptstyle scriptscriptstyle cramped"><span class="mord scriptscriptstyle cramped"><span class="mord mathrm">′</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mrel">∈</span><span class="mord mathit" style="margin-right:0.02778em;">D</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mop">exp</span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.05556em;">γ</span><span class="mord mathit" style="margin-right:0.00773em;">R</span><span class="mopen">(</span><span class="mord mathit">Q</span><span class="mpunct">,</span><span class="mord"><span class="mord mathit" style="margin-right:0.02778em;">D</span><span class="vlist"><span style="top:-0.289em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathrm">′</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mclose">)</span><span class="mclose">)</span></span></span></span><span style="top:-0.22999999999999998em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle textstyle uncramped frac-line"></span></span><span style="top:-0.677em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle textstyle uncramped"><span class="mord textstyle uncramped"><span class="mop">exp</span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.05556em;">γ</span><span class="mord mathit" style="margin-right:0.00773em;">R</span><span class="mopen">(</span><span class="mord mathit">Q</span><span class="mpunct">,</span><span class="mord mathit" style="margin-right:0.02778em;">D</span><span class="mclose">)</span><span class="mclose">)</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span></span></span></span></span></span></p>
+<p><strong>DSSM</strong></p>
+<p><img src="http://fanding.xyz/img/ZH01.png" alt="img"></p>
+<p><strong>MultiView-DSSM</strong></p>
+<p>共享 item 参数</p>
+<p><img src="http://fanding.xyz/img/ZH09.jpg" alt="img"></p>
+<p><strong>T-DSSM</strong> Microsoft 2016</p>
+<p>MV-DSSM 模型加入 user temporal feature，引入 attention 机制，学习用户的短期兴趣。</p>
+<p>难点在于时序特征的设计和训练，使用前应权衡业务对时间序列预测的需求。</p>
+<p><img src="http://fanding.xyz/img/ZH11.jpg" alt="img"></p>
+<p><strong>Youtube DNN</strong></p>
+<p>Recsys 2017</p>
+<p><img src="http://fanding.xyz/img/ZH14.jpg" alt="img"></p>
+<p>相对于双塔结构，Youtube DNN 对物品 embedding、用户embedding 求平均然后 concat，用统一的（用户，物品）向量空间替代了原来的两个向量空间。</p>
+<h2 id="reference"><a class="markdownIt-Anchor" href="#reference"></a> Reference</h2>
+<p><a href="https://zhuanlan.zhihu.com/p/40135103" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/40135103</a></p>
+<p><a href="http://fanding.xyz/2018/05/01/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E4%B8%8ECTR%E9%A2%84%E4%BC%B0,%E5%9F%BA%E4%BA%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-%E4%B8%80-%E5%8F%AC%E5%9B%9E%E6%80%9D%E8%B7%AF%E5%8F%8A%E6%A8%A1%E5%9E%8B%E4%B8%B2%E8%AE%B2/" target="_blank" rel="noopener">fanding.xyz</a></p>
 
       
     </div>
@@ -401,6 +463,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/05/29/pctr/" rel="prev" title="pCTR">
+                pCTR <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -477,7 +543,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">52</span>
+                <span class="site-state-item-count">55</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -534,7 +600,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#gbdt-lr"><span class="nav-number">1.</span> <span class="nav-text"> GBDT + LR</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#wide-deep"><span class="nav-number">2.</span> <span class="nav-text"> Wide &amp; Deep</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#deepfm"><span class="nav-number">3.</span> <span class="nav-text"> DeepFM</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dnn-for-youtube-recsys"><span class="nav-number">4.</span> <span class="nav-text"> DNN for Youtube RecSys</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#gbdt-lr"><span class="nav-number">1.</span> <span class="nav-text"> GBDT + LR</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#wide-deep"><span class="nav-number">2.</span> <span class="nav-text"> Wide &amp; Deep</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#fnn-snn"><span class="nav-number">3.</span> <span class="nav-text"> FNN &amp; SNN</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pnn"><span class="nav-number">4.</span> <span class="nav-text"> PNN</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#deepfm"><span class="nav-number">5.</span> <span class="nav-text"> DeepFM</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#nfm"><span class="nav-number">6.</span> <span class="nav-text"> NFM</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#afm"><span class="nav-number">7.</span> <span class="nav-text"> AFM</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dssm"><span class="nav-number">8.</span> <span class="nav-text"> DSSM</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#reference"><span class="nav-number">9.</span> <span class="nav-text"> Reference</span></a></li></ol></div>
             
 
           </div>

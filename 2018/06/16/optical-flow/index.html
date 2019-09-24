@@ -95,18 +95,18 @@
 
 
 
-<meta name="description" content="定义 光流法实际是通过检测图像像素点的强度随时间的变化进而推断出物体移动速度及方向的方法。 在 2D + t 维的情况下，假设位于 (x,y,t)(x,y,t)(x,y,t) 的像素的亮度是 I(x,y,t)I(x,y,t)I(x,y,t)。该像素在两个像素之间移动了 Δx,Δy,Δt\Delta x,\Delta y, \Delta tΔx,Δy,Δt，有 I(x,y,t)=I(x+Δx,y+">
+<meta name="description" content="光流法">
 <meta name="keywords" content="Algorithm">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Optical Flow">
 <meta property="og:url" content="http://davidlau.me/2018/06/16/optical-flow/index.html">
 <meta property="og:site_name" content="davidlau&#39;s blog">
-<meta property="og:description" content="定义 光流法实际是通过检测图像像素点的强度随时间的变化进而推断出物体移动速度及方向的方法。 在 2D + t 维的情况下，假设位于 (x,y,t)(x,y,t)(x,y,t) 的像素的亮度是 I(x,y,t)I(x,y,t)I(x,y,t)。该像素在两个像素之间移动了 Δx,Δy,Δt\Delta x,\Delta y, \Delta tΔx,Δy,Δt，有 I(x,y,t)=I(x+Δx,y+">
+<meta property="og:description" content="光流法">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-06-16T10:50:52.770Z">
+<meta property="og:updated_time" content="2019-09-24T05:13:51.621Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Optical Flow">
-<meta name="twitter:description" content="定义 光流法实际是通过检测图像像素点的强度随时间的变化进而推断出物体移动速度及方向的方法。 在 2D + t 维的情况下，假设位于 (x,y,t)(x,y,t)(x,y,t) 的像素的亮度是 I(x,y,t)I(x,y,t)I(x,y,t)。该像素在两个像素之间移动了 Δx,Δy,Δt\Delta x,\Delta y, \Delta tΔx,Δy,Δt，有 I(x,y,t)=I(x+Δx,y+">
+<meta name="twitter:description" content="光流法">
 
 
 
@@ -341,7 +341,9 @@
       
 
       
-        <h2 id="定义"><a class="markdownIt-Anchor" href="#定义"></a> 定义</h2>
+        <p>光流法</p>
+<a id="more"></a>
+<h2 id="定义"><a class="markdownIt-Anchor" href="#定义"></a> 定义</h2>
 <p>光流法实际是通过检测图像像素点的强度随时间的变化进而推断出物体移动速度及方向的方法。</p>
 <p>在 2D + t 维的情况下，假设位于 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mi>x</mi><mo separator="true">,</mo><mi>y</mi><mo separator="true">,</mo><mi>t</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">(x,y,t)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mopen">(</span><span class="mord mathit">x</span><span class="mpunct">,</span><span class="mord mathit" style="margin-right:0.03588em;">y</span><span class="mpunct">,</span><span class="mord mathit">t</span><span class="mclose">)</span></span></span></span> 的像素的亮度是 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>I</mi><mo>(</mo><mi>x</mi><mo separator="true">,</mo><mi>y</mi><mo separator="true">,</mo><mi>t</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">I(x,y,t)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.07847em;">I</span><span class="mopen">(</span><span class="mord mathit">x</span><span class="mpunct">,</span><span class="mord mathit" style="margin-right:0.03588em;">y</span><span class="mpunct">,</span><span class="mord mathit">t</span><span class="mclose">)</span></span></span></span>。该像素在两个像素之间移动了 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi mathvariant="normal">Δ</mi><mi>x</mi><mo separator="true">,</mo><mi mathvariant="normal">Δ</mi><mi>y</mi><mo separator="true">,</mo><mi mathvariant="normal">Δ</mi><mi>t</mi></mrow><annotation encoding="application/x-tex">\Delta x,\Delta y, \Delta t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.8777699999999999em;vertical-align:-0.19444em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">Δ</span><span class="mord mathit">x</span><span class="mpunct">,</span><span class="mord mathrm">Δ</span><span class="mord mathit" style="margin-right:0.03588em;">y</span><span class="mpunct">,</span><span class="mord mathrm">Δ</span><span class="mord mathit">t</span></span></span></span>，有</p>
 <p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>I</mi><mo>(</mo><mi>x</mi><mo separator="true">,</mo><mi>y</mi><mo separator="true">,</mo><mi>t</mi><mo>)</mo><mo>=</mo><mi>I</mi><mo>(</mo><mi>x</mi><mo>+</mo><mi mathvariant="normal">Δ</mi><mi>x</mi><mo separator="true">,</mo><mi>y</mi><mo>+</mo><mi mathvariant="normal">Δ</mi><mi>y</mi><mo separator="true">,</mo><mi>t</mi><mo>+</mo><mi mathvariant="normal">Δ</mi><mi>t</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">I(x,y,t)=I(x + \Delta x, y + \Delta y, t + \Delta t)

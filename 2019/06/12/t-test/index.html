@@ -95,18 +95,18 @@
 
 
 
-<meta name="description" content="t - 分布 t - 分布，用于根据小样本来估计呈正态分布且方差未知的总体的均值的统计显著性。如果总体方差已知（例如在样本数量足够多时），则应该用正态分布来估计总体均值。 t-test 改进了 z-test 在样本量小于 30 时误差大的问题。 假设 XXX 是正态分布的随机变量，其中样本为 nnn，均值是 μ\muμ ，方差是 σ2\sigma^2σ​2​​ ，均未知。 样本均值为 X‾n=∑">
+<meta name="description" content="t-test t - 分布，用于根据小样本来估计呈正态分布且方差未知的总体的均值的统计显著性。如果总体方差已知（例如在样本数量足够多时），则应该用正态分布来估计总体均值。 t-test 改进了 z-test 在样本量小于 30 时误差大的问题。 假设 XXX 是正态分布的随机变量，其中样本为 nnn，均值是 μ\muμ ，方差是 σ2\sigma^2σ​2​​ ，均未知。 样本均值为 X‾n=∑">
 <meta property="og:type" content="article">
 <meta property="og:title" content="t-test">
 <meta property="og:url" content="http://davidlau.me/2019/06/12/t-test/index.html">
 <meta property="og:site_name" content="davidlau&#39;s blog">
-<meta property="og:description" content="t - 分布 t - 分布，用于根据小样本来估计呈正态分布且方差未知的总体的均值的统计显著性。如果总体方差已知（例如在样本数量足够多时），则应该用正态分布来估计总体均值。 t-test 改进了 z-test 在样本量小于 30 时误差大的问题。 假设 XXX 是正态分布的随机变量，其中样本为 nnn，均值是 μ\muμ ，方差是 σ2\sigma^2σ​2​​ ，均未知。 样本均值为 X‾n=∑">
+<meta property="og:description" content="t-test t - 分布，用于根据小样本来估计呈正态分布且方差未知的总体的均值的统计显著性。如果总体方差已知（例如在样本数量足够多时），则应该用正态分布来估计总体均值。 t-test 改进了 z-test 在样本量小于 30 时误差大的问题。 假设 XXX 是正态分布的随机变量，其中样本为 nnn，均值是 μ\muμ ，方差是 σ2\sigma^2σ​2​​ ，均未知。 样本均值为 X‾n=∑">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://www.omicsclass.com/image/show/attachments-2018-10-Z1jnFdCE5bbdc99e1a460.jpg">
-<meta property="og:updated_time" content="2019-08-14T02:26:26.955Z">
+<meta property="og:updated_time" content="2019-09-23T02:45:17.779Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="t-test">
-<meta name="twitter:description" content="t - 分布 t - 分布，用于根据小样本来估计呈正态分布且方差未知的总体的均值的统计显著性。如果总体方差已知（例如在样本数量足够多时），则应该用正态分布来估计总体均值。 t-test 改进了 z-test 在样本量小于 30 时误差大的问题。 假设 XXX 是正态分布的随机变量，其中样本为 nnn，均值是 μ\muμ ，方差是 σ2\sigma^2σ​2​​ ，均未知。 样本均值为 X‾n=∑">
+<meta name="twitter:description" content="t-test t - 分布，用于根据小样本来估计呈正态分布且方差未知的总体的均值的统计显著性。如果总体方差已知（例如在样本数量足够多时），则应该用正态分布来估计总体均值。 t-test 改进了 z-test 在样本量小于 30 时误差大的问题。 假设 XXX 是正态分布的随机变量，其中样本为 nnn，均值是 μ\muμ ，方差是 σ2\sigma^2σ​2​​ ，均未知。 样本均值为 X‾n=∑">
 <meta name="twitter:image" content="http://www.omicsclass.com/image/show/attachments-2018-10-Z1jnFdCE5bbdc99e1a460.jpg">
 
 
@@ -342,7 +342,7 @@
       
 
       
-        <h2 id="t-分布"><a class="markdownIt-Anchor" href="#t-分布"></a> t - 分布</h2>
+        <h2 id="t-test"><a class="markdownIt-Anchor" href="#t-test"></a> t-test</h2>
 <p>t - 分布，用于根据小样本来估计呈正态分布且方差未知的总体的均值的统计显著性。如果总体方差已知（例如在样本数量足够多时），则应该用正态分布来估计总体均值。</p>
 <p>t-test 改进了 z-test 在样本量小于 30 时误差大的问题。</p>
 <p>假设 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>X</mi></mrow><annotation encoding="application/x-tex">X</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.68333em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.07847em;">X</span></span></span></span> 是正态分布的随机变量，其中样本为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">n</span></span></span></span>，均值是 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>μ</mi></mrow><annotation encoding="application/x-tex">\mu</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="base textstyle uncramped"><span class="mord mathit">μ</span></span></span></span> ，方差是 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mi>σ</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">\sigma^2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.8141079999999999em;"></span><span class="strut bottom" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit" style="margin-right:0.03588em;">σ</span><span class="vlist"><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord mathrm">2</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span> ，均未知。</p>
@@ -408,6 +408,37 @@
 <h2 id="表-t_alphan-1"><a class="markdownIt-Anchor" href="#表-t_alphan-1"></a> 表 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>t</mi><mrow><mi>α</mi><mo separator="true">,</mo><mi>n</mi><mo>−</mo><mn>1</mn></mrow></msub></mrow><annotation encoding="application/x-tex">t_{\alpha,n -1}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.61508em;"></span><span class="strut bottom" style="height:0.9011879999999999em;vertical-align:-0.286108em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit">t</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit" style="margin-right:0.0037em;">α</span><span class="mpunct">,</span><span class="mord mathit">n</span><span class="mbin">−</span><span class="mord mathrm">1</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span></h2>
 <p><img src="http://www.omicsclass.com/image/show/attachments-2018-10-Z1jnFdCE5bbdc99e1a460.jpg" alt="img"></p>
 <h2 id="表-t_betan-1"><a class="markdownIt-Anchor" href="#表-t_betan-1"></a> 表 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>t</mi><mrow><mi>b</mi><mi>e</mi><mi>t</mi><mi>a</mi><mo separator="true">,</mo><mi>n</mi><mo>−</mo><mn>1</mn></mrow></msub></mrow><annotation encoding="application/x-tex">t_{beta,n-1}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.61508em;"></span><span class="strut bottom" style="height:0.9011879999999999em;vertical-align:-0.286108em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit">t</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit">b</span><span class="mord mathit">e</span><span class="mord mathit">t</span><span class="mord mathit">a</span><span class="mpunct">,</span><span class="mord mathit">n</span><span class="mbin">−</span><span class="mord mathrm">1</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span></h2>
+<h2 id="p-value"><a class="markdownIt-Anchor" href="#p-value"></a> P-value</h2>
+<p>p值是指在一个<a href="https://zh.wikipedia.org/wiki/%E6%A6%82%E7%8E%87%E6%A8%A1%E5%9E%8B" target="_blank" rel="noopener">概率模型</a>中，统计摘要（如两组样本<a href="https://zh.wikipedia.org/wiki/%E5%9D%87%E5%80%BC" target="_blank" rel="noopener">均值</a>差）与实际观测数据相同，或甚至更大这一事件发生的<a href="https://zh.wikipedia.org/wiki/%E6%A6%82%E7%8E%87" target="_blank" rel="noopener">概率</a>[<a href="https://zh.wikipedia.org/zh-hans/P%E5%80%BC#cite_note-ASA-1" target="_blank" rel="noopener">1]</a> 。换言之，是<a href="https://zh.wikipedia.org/wiki/%E6%A3%80%E9%AA%8C%E5%81%87%E8%AE%BE" target="_blank" rel="noopener">检验假设</a><a href="https://zh.wikipedia.org/wiki/%E8%99%9B%E7%84%A1%E5%81%87%E8%A8%AD" target="_blank" rel="noopener">虚无假设</a>成立或表现更严重的可能性。p值若与选定<a href="https://zh.wikipedia.org/wiki/%E6%98%BE%E8%91%97%E6%80%A7%E6%B0%B4%E5%B9%B3" target="_blank" rel="noopener">显著性水平</a>（0.05或0.01）相比更小，则<a href="https://zh.wikipedia.org/wiki/%E8%99%9B%E7%84%A1%E5%81%87%E8%A8%AD" target="_blank" rel="noopener">虚无假设</a>会被否定而不可接受。然而这并不直接表明原假设正确。通常在虚无假设下，p值是一个服从[0,1]区间<a href="https://zh.wikipedia.org/wiki/%E5%9D%87%E5%8B%BB%E5%88%86%E4%BD%88" target="_blank" rel="noopener">均匀分布</a>的<a href="https://zh.wikipedia.org/wiki/%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F" target="_blank" rel="noopener">随机变量</a>，在实际使用中因样本等各种因素存在<a href="https://zh.wikipedia.org/wiki/%E4%B8%8D%E7%A1%AE%E5%AE%9A%E6%80%A7" target="_blank" rel="noopener">不确定性</a>。产生的结果可能会带来争议。</p>
+<h2 id="效应量"><a class="markdownIt-Anchor" href="#效应量"></a> 效应量</h2>
+<p>在<a href="https://zh.wikipedia.org/wiki/%E7%B5%B1%E8%A8%88%E5%AD%B8" target="_blank" rel="noopener">统计学</a>中，<strong>效应值</strong>（effect size，或译<strong>效果量</strong>）是量化现象强度的数值。[<a href="https://zh.wikipedia.org/wiki/%E6%95%88%E5%BA%94%E5%80%BC#cite_note-Kelley2012-1" target="_blank" rel="noopener">1]</a>效应值实际的统计量包括了二个变数间的<a href="https://zh.wikipedia.org/wiki/%E7%9B%B8%E9%97%9C" target="_blank" rel="noopener">相关程度</a>、回归模型中的<a href="https://zh.wikipedia.org/wiki/%E7%B7%9A%E6%80%A7%E5%9B%9E%E6%AD%B8" target="_blank" rel="noopener">回归系数</a>、不同处理间<a href="https://zh.wikipedia.org/wiki/%E5%B9%B3%E5%9D%87%E5%80%BC" target="_blank" rel="noopener">平均值</a>的差异……等等。无论哪种效应值，其<a href="https://zh.wikipedia.org/wiki/%E7%B5%95%E5%B0%8D%E5%80%BC" target="_blank" rel="noopener">绝对值</a>越大表示效应越强，也就是现象越明显。效应值与<a href="https://zh.wikipedia.org/wiki/%E5%81%87%E8%A8%AD%E6%AA%A2%E5%AE%9A" target="_blank" rel="noopener">特效检验</a>的概念是互补的。在估算<a href="https://zh.wikipedia.org/wiki/%E7%B5%B1%E8%A8%88%E6%AA%A2%E5%AE%9A%E5%8A%9B" target="_blank" rel="noopener">统计检定力</a>、需要的<a href="https://zh.wikipedia.org/w/index.php?title=%E6%A8%A3%E6%9C%AC%E6%95%B8&amp;action=edit&amp;redlink=1" target="_blank" rel="noopener">样本数</a>与进行<a href="https://zh.wikipedia.org/wiki/%E5%85%83%E5%88%86%E6%9E%90" target="_blank" rel="noopener">元分析</a>时，效应值经常扮演重要角色。</p>
+<p>在研究结果中报导效应值被视为洽当的或必须的。[<a href="https://zh.wikipedia.org/wiki/%E6%95%88%E5%BA%94%E5%80%BC#cite_note-Wilkinson1999-2" target="_blank" rel="noopener">2]</a>[<a href="https://zh.wikipedia.org/wiki/%E6%95%88%E5%BA%94%E5%80%BC#cite_note-Nakagawa2007-3" target="_blank" rel="noopener">3]</a>相对于统计学上的<a href="https://zh.wikipedia.org/wiki/%E6%98%BE%E8%91%97%E6%80%A7%E5%B7%AE%E5%BC%82" target="_blank" rel="noopener">显著性</a>，效应值有利于了解研究结果的强度。[<a href="https://zh.wikipedia.org/wiki/%E6%95%88%E5%BA%94%E5%80%BC#cite_note-Ellis2010-4" target="_blank" rel="noopener">4]</a>特别是在<a href="https://zh.wikipedia.org/wiki/%E7%A4%BE%E6%9C%83%E7%A7%91%E5%AD%B8" target="_blank" rel="noopener">社会科学</a>和<a href="https://zh.wikipedia.org/wiki/%E9%86%AB%E5%AD%B8" target="_blank" rel="noopener">医学</a>研究上，效应值更显得重要。绝对与相对效应值可以传递不同的讯息，又可互相补充讯息。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Effect size</th>
+<th style="text-align:center"><em>d[5]</em></th>
+<th style="text-align:center"><em>r[6]</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">较小</td>
+<td style="text-align:center">0.2</td>
+<td style="text-align:center">0.10</td>
+</tr>
+<tr>
+<td style="text-align:center">中等</td>
+<td style="text-align:center">0.5</td>
+<td style="text-align:center">0.30</td>
+</tr>
+<tr>
+<td style="text-align:center">较大</td>
+<td style="text-align:center">0.8</td>
+<td style="text-align:center">0.50</td>
+</tr>
+</tbody>
+</table>
 
       
     </div>
@@ -602,7 +633,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#t-分布"><span class="nav-number">1.</span> <span class="nav-text"> t - 分布</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#应用-1"><span class="nav-number">2.</span> <span class="nav-text"> 应用 1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#应用2"><span class="nav-number">3.</span> <span class="nav-text"> 应用2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最小样本数计算"><span class="nav-number">4.</span> <span class="nav-text"> 最小样本数计算</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#表-t_alphan-1"><span class="nav-number">5.</span> <span class="nav-text"> 表 tα,n−1t_{\alpha,n -1}t​α,n−1​​</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#表-t_betan-1"><span class="nav-number">6.</span> <span class="nav-text"> 表 tbeta,n−1t_{beta,n-1}t​beta,n−1​​</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#t-test"><span class="nav-number">1.</span> <span class="nav-text"> t-test</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#应用-1"><span class="nav-number">2.</span> <span class="nav-text"> 应用 1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#应用2"><span class="nav-number">3.</span> <span class="nav-text"> 应用2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最小样本数计算"><span class="nav-number">4.</span> <span class="nav-text"> 最小样本数计算</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#表-t_alphan-1"><span class="nav-number">5.</span> <span class="nav-text"> 表 tα,n−1t_{\alpha,n -1}t​α,n−1​​</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#表-t_betan-1"><span class="nav-number">6.</span> <span class="nav-text"> 表 tbeta,n−1t_{beta,n-1}t​beta,n−1​​</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#p-value"><span class="nav-number">7.</span> <span class="nav-text"> P-value</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#效应量"><span class="nav-number">8.</span> <span class="nav-text"> 效应量</span></a></li></ol></div>
             
 
           </div>

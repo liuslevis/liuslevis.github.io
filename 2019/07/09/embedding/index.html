@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="default">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="https://cdn.bootcss.com/KaTeX/0.7.1/katex.min.css" rel="stylesheet">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="Word Embedding  Item2vec Barkan et. al. 在 ICML16 Workshop 提出，区别于 item2item （ALS ItemCF）方法，用 word2vec （负采样 Skip-gram） 学习物品隐式表达。 以用户浏览商品作为句子。假设同句子中的词是无顺序关系的，忽略了浏览顺序的 spartial information。其他情况可能不符合该假设，比">
+<meta property="og:type" content="article">
+<meta property="og:title" content="graph-embedding">
+<meta property="og:url" content="http://davidlau.me/2019/07/09/embedding/index.html">
+<meta property="og:site_name" content="davidlau&#39;s blog">
+<meta property="og:description" content="Word Embedding  Item2vec Barkan et. al. 在 ICML16 Workshop 提出，区别于 item2item （ALS ItemCF）方法，用 word2vec （负采样 Skip-gram） 学习物品隐式表达。 以用户浏览商品作为句子。假设同句子中的词是无顺序关系的，忽略了浏览顺序的 spartial information。其他情况可能不符合该假设，比">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://pic4.zhimg.com/80/v2-c9c14af8e7e07fbc438a245f8f9262e3_hd.png">
+<meta property="og:image" content="https://pic4.zhimg.com/v2-0afc28b2afcfe1c849abad96c292674b_r.jpg">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-abfc4abb33c340f400eff0cba9c40de4_hd.jpg">
+<meta property="og:image" content="data:image/png;base64,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">
+<meta property="og:image" content="https://images2015.cnblogs.com/blog/1042406/201702/1042406-20170203143719214-369021408.jpg">
+<meta property="og:updated_time" content="2019-09-30T07:26:20.255Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="graph-embedding">
+<meta name="twitter:description" content="Word Embedding  Item2vec Barkan et. al. 在 ICML16 Workshop 提出，区别于 item2item （ALS ItemCF）方法，用 word2vec （负采样 Skip-gram） 学习物品隐式表达。 以用户浏览商品作为句子。假设同句子中的词是无顺序关系的，忽略了浏览顺序的 spartial information。其他情况可能不符合该假设，比">
+<meta name="twitter:image" content="https://pic4.zhimg.com/80/v2-c9c14af8e7e07fbc438a245f8f9262e3_hd.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://davidlau.me/2019/07/09/embedding/"/>
+
+
+
+
+
+  <title>graph-embedding | davidlau's blog</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?1f9568aea795d9674618be7bae3ab784";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">davidlau's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2019/07/09/embedding/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="davidlau">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="davidlau's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">graph-embedding</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-07-09T17:35:03+08:00">
+                2019-07-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="word-embedding"><a class="markdownIt-Anchor" href="#word-embedding"></a> Word Embedding</h2>
+<h3 id="item2vec"><a class="markdownIt-Anchor" href="#item2vec"></a> Item2vec</h3>
+<p>Barkan et. al. 在 ICML16 Workshop 提出，区别于 item2item （ALS ItemCF）方法，用 word2vec （负采样 Skip-gram） 学习物品隐式表达。</p>
+<p>以用户浏览商品作为句子。假设同句子中的词是无顺序关系的，忽略了浏览顺序的 spartial information。其他情况可能不符合该假设，比如丛书《哈利波特1-5》。</p>
+<p>Music 领域分类，用音乐人流派进行聚类， item2vec 方法与 SVD 对比，有效分类：</p>
+<p><img src="https://pic4.zhimg.com/80/v2-c9c14af8e7e07fbc438a245f8f9262e3_hd.png" alt="img"></p>
+<h3 id="airbnb-embedding"><a class="markdownIt-Anchor" href="#airbnb-embedding"></a> Airbnb Embedding</h3>
+<p>KDD 18 <a href="https://link.zhihu.com/?target=https%3A//github.com/wzhe06/Reco-papers/blob/master/Embedding/%5BAirbnb%20Embedding%5D%20Real-time%20Personalization%20using%20Embeddings%20for%20Search%20Ranking%20at%20Airbnb%20%28Airbnb%202018%29.pdf" target="_blank" rel="noopener">Real-time Personalization using Embeddings for Search Ranking at Airbnb (Airbnb 2018)</a></p>
+<p>对用户和房源计算 word2vec，embedding everything，提升搜索推荐系统的性能。</p>
+<h2 id="graph-embedding"><a class="markdownIt-Anchor" href="#graph-embedding"></a> Graph Embedding</h2>
+<p>目标是用低维稠密向量表示图中的点。解决传统方法问题：</p>
+<ol>
+<li>矩阵分解 — 计算量大</li>
+<li>构造人工特征 — 需要领域知识、工作量大</li>
+</ol>
+<p>可用于推荐、节点分类、链接预测、可视化等场景。</p>
+<h3 id="deepwalk"><a class="markdownIt-Anchor" href="#deepwalk"></a> DeepWalk</h3>
+<p>构造无向无环图，以特定点作为起点，做随机游走得到点的序列作为句子，用 w2v skip gram 学习。</p>
+<p>例如给定 KV 对（用户，APPID），计算 APPID 的 embedding 时，以 APPID 作为节点，两个 APPID 之间共同的用户占比作为权重。</p>
+<p><img src="https://pic4.zhimg.com/v2-0afc28b2afcfe1c849abad96c292674b_r.jpg" alt="img"></p>
+<p><img src="https://pic1.zhimg.com/80/v2-abfc4abb33c340f400eff0cba9c40de4_hd.jpg" alt="img"></p>
+<h3 id="line"><a class="markdownIt-Anchor" href="#line"></a> LINE</h3>
+<p>MSRA 15，LINE (large-scale Information Network Embedding) 利用图中已存在的边构造目标函数，该目标函数显式描绘了一阶（6 和 7）和二阶（5 和 6）的邻近关系。然后通过优化方法去学习点的表达向量，其本质上是一种关于边的平滑，即很多很可能存在的边实际上不存在，需要模型去学习和预测出来。这点类似于推荐，任何推荐的算法本质上是对于user-item关系矩阵的平滑。</p>
+<p><img src="data:image/png;base64,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" alt="img"></p>
+<p>对于 用户ID-游戏ID 序列能够较好的建模。</p>
+<h3 id="node2vec"><a class="markdownIt-Anchor" href="#node2vec"></a> Node2Vec</h3>
+<p>Standford16，在DeepWalk的基础上更进一步，通过调整随机游走权重的方法使graph embedding的结果在网络的同质性（homophily）和结构性（structural equivalence）中进行权衡。</p>
+<p>为了使Graph Embedding的结果能够表达网络的同质性，在随机游走的过程中 BFS 产生结构性，DFS 产生同质性。为了获取二者的特性，通过 p q 参数控制随机游走过程往远处跳、跳回的概率。</p>
+<p>从实验结果看，同质性相同的物品很可能是同品类、同属性、或者经常被一同购买的物品，而结构性相同的物品则是各品类的爆款、各品类的最佳凑单商品等拥有类似趋势或者结构性属性的物品。</p>
+<h3 id="eges"><a class="markdownIt-Anchor" href="#eges"></a> EGES</h3>
+<p>KDD18  Enhanced Graph Embedding with Side Information。</p>
+<p>为了使“冷启动”的商品获得“合理”的初始Embedding，阿里团队通过引入了更多补充信息 (side info) 来丰富Embedding信息的来源，从而使没有历史行为记录的商品获得Embedding，从 DeepWalk 改进得到 EGES。</p>
+<p><a href="https://link.zhihu.com/?target=https%3A//github.com/wzhe06/Reco-papers/blob/master/Embedding/%5BAlibaba%20Embedding%5D%20Billion-scale%20Commodity%20Embedding%20for%20E-commerce%20Recommendation%20in%20Alibaba%20%28Alibaba%202018%29.pdf" target="_blank" rel="noopener">Billion-scale Commodity Embedding for E-commerce Recommendation in Alibaba</a></p>
+<h3 id="sdne"><a class="markdownIt-Anchor" href="#sdne"></a> SDNE</h3>
+<p>THU16 本文认为，DeepWalk的缺点是缺乏明确的优化目标，即objective function，而LINE是把网络的局部信息和全局信息分开学习，最后简单地把两个表达向量连接起来，显然不是最优做法，文章利用深度学习去做graph embedding，好处自然是非线性表达能力更强了，然后设计了一个同时描述局部和全局网络信息的目标函数，利用半监督的方式去拟合优化。</p>
+<h3 id="simrank"><a class="markdownIt-Anchor" href="#simrank"></a> SimRank</h3>
+<p>MIT 02 Jeh &amp; Widom 提出，给定 user-item 二部图 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>G</mi><mo>(</mo><mi>V</mi><mo separator="true">,</mo><mi>E</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">G(V,E)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit">G</span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.22222em;">V</span><span class="mpunct">,</span><span class="mord mathit" style="margin-right:0.05764em;">E</span><span class="mclose">)</span></span></span></span>，考虑如果用户相似，那么他们关联的物品也相似。其中 V 是节点，E 是边。</p>
+<p>定义两个节点的相似度</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>s</mi><mo>(</mo><mi>a</mi><mo separator="true">,</mo><mi>b</mi><mo>)</mo><mo>=</mo><mfrac><mrow><mi>C</mi></mrow><mrow><mi mathvariant="normal">∣</mi><mi>I</mi><mo>(</mo><mi>a</mi><mo>)</mo><mi mathvariant="normal">∣</mi><mi mathvariant="normal">∣</mi><mi>I</mi><mo>(</mo><mi>b</mi><mo>)</mo><mi mathvariant="normal">∣</mi></mrow></mfrac><msubsup><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mrow><mi mathvariant="normal">∣</mi><mi>I</mi><mo>(</mo><mi>a</mi><mo>)</mo><mi mathvariant="normal">∣</mi></mrow></msubsup><msubsup><mo>∑</mo><mrow><mi>j</mi><mo>=</mo><mn>1</mn></mrow><mrow><mi mathvariant="normal">∣</mi><mi>I</mi><mo>(</mo><mi>b</mi><mo>)</mo><mi mathvariant="normal">∣</mi></mrow></msubsup><mi>s</mi><mo>(</mo><msub><mi>I</mi><mi>i</mi></msub><mo>(</mo><mi>a</mi><mo>)</mo><mo separator="true">,</mo><msub><mi>I</mi><mi>i</mi></msub><mo>(</mo><mi>b</mi><mo>)</mo><mo>)</mo></mrow><annotation encoding="application/x-tex">s(a,b)=\frac{C}{|I(a)||I(b)|}\sum_{i=1}^{|I(a)|} \sum_{j=1}^{|I(b)|} s(I_i(a), I_i(b))
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:1.9610050000000006em;"></span><span class="strut bottom" style="height:3.3747820000000006em;vertical-align:-1.4137769999999998em;"></span><span class="base displaystyle textstyle uncramped"><span class="mord mathit">s</span><span class="mopen">(</span><span class="mord mathit">a</span><span class="mpunct">,</span><span class="mord mathit">b</span><span class="mclose">)</span><span class="mrel">=</span><span class="mord reset-textstyle displaystyle textstyle uncramped"><span class="sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span><span class="mfrac"><span class="vlist"><span style="top:0.686em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle textstyle cramped"><span class="mord textstyle cramped"><span class="mord mathrm">∣</span><span class="mord mathit" style="margin-right:0.07847em;">I</span><span class="mopen">(</span><span class="mord mathit">a</span><span class="mclose">)</span><span class="mord mathrm">∣</span><span class="mord mathrm">∣</span><span class="mord mathit" style="margin-right:0.07847em;">I</span><span class="mopen">(</span><span class="mord mathit">b</span><span class="mclose">)</span><span class="mord mathrm">∣</span></span></span></span><span style="top:-0.2300000000000001em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle textstyle uncramped frac-line"></span></span><span style="top:-0.677em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle textstyle uncramped"><span class="mord textstyle uncramped"><span class="mord mathit" style="margin-right:0.07153em;">C</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span></span><span class="mop op-limits"><span class="vlist"><span style="top:1.1776689999999999em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit">i</span><span class="mrel">=</span><span class="mord mathrm">1</span></span></span></span><span style="top:-0.000005000000000143778em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span><span class="op-symbol large-op mop">∑</span></span></span><span style="top:-1.3360050000000003em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mord mathrm">∣</span><span class="mord mathit" style="margin-right:0.07847em;">I</span><span class="mopen">(</span><span class="mord mathit">a</span><span class="mclose">)</span><span class="mord mathrm">∣</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mop op-limits"><span class="vlist"><span style="top:1.1776689999999999em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit" style="margin-right:0.05724em;">j</span><span class="mrel">=</span><span class="mord mathrm">1</span></span></span></span><span style="top:-0.000005000000000254801em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span><span class="op-symbol large-op mop">∑</span></span></span><span style="top:-1.3360050000000006em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mord mathrm">∣</span><span class="mord mathit" style="margin-right:0.07847em;">I</span><span class="mopen">(</span><span class="mord mathit">b</span><span class="mclose">)</span><span class="mord mathrm">∣</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mord mathit">s</span><span class="mopen">(</span><span class="mord"><span class="mord mathit" style="margin-right:0.07847em;">I</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.07847em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mopen">(</span><span class="mord mathit">a</span><span class="mclose">)</span><span class="mpunct">,</span><span class="mord"><span class="mord mathit" style="margin-right:0.07847em;">I</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.07847em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mopen">(</span><span class="mord mathit">b</span><span class="mclose">)</span><span class="mclose">)</span></span></span></span></span></p>
+<p>如果 a = b 则 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>s</mi><mo>(</mo><mi>a</mi><mo separator="true">,</mo><mi>b</mi><mo>)</mo><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">s(a,b)=1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit">s</span><span class="mopen">(</span><span class="mord mathit">a</span><span class="mpunct">,</span><span class="mord mathit">b</span><span class="mclose">)</span><span class="mrel">=</span><span class="mord mathrm">1</span></span></span></span> ；如果 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>a</mi><mo>≠</mo><mi>b</mi><mo separator="true">,</mo><mi>I</mi><mo>(</mo><mi>a</mi><mo>)</mo><mo>≠</mo><mi>n</mi><mi>u</mi><mi>l</mi><mi>l</mi><mo separator="true">,</mo><mi>I</mi><mo>(</mo><mi>b</mi><mo>)</mo><mo>≠</mo><mi>n</mi><mi>u</mi><mi>l</mi><mi>l</mi></mrow><annotation encoding="application/x-tex">a\ne b,I(a)\ne null,I(b)\ne null</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit">a</span><span class="mrel">≠</span><span class="mord mathit">b</span><span class="mpunct">,</span><span class="mord mathit" style="margin-right:0.07847em;">I</span><span class="mopen">(</span><span class="mord mathit">a</span><span class="mclose">)</span><span class="mrel">≠</span><span class="mord mathit">n</span><span class="mord mathit">u</span><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mpunct">,</span><span class="mord mathit" style="margin-right:0.07847em;">I</span><span class="mopen">(</span><span class="mord mathit">b</span><span class="mclose">)</span><span class="mrel">≠</span><span class="mord mathit">n</span><span class="mord mathit">u</span><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mord mathit" style="margin-right:0.01968em;">l</span></span></span></span> 则结果如上式；其他情况 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>s</mi><mo>(</mo><mi>a</mi><mo separator="true">,</mo><mi>b</mi><mo>)</mo><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">s(a,b)=0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit">s</span><span class="mopen">(</span><span class="mord mathit">a</span><span class="mpunct">,</span><span class="mord mathit">b</span><span class="mclose">)</span><span class="mrel">=</span><span class="mord mathrm">0</span></span></span></span></p>
+<p>其中 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>I</mi><mo>(</mo><mi>a</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">I(a)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.07847em;">I</span><span class="mopen">(</span><span class="mord mathit">a</span><span class="mclose">)</span></span></span></span> 表示和 a 相连的二部图另一个子节点的集合。</p>
+<p><img src="https://images2015.cnblogs.com/blog/1042406/201702/1042406-20170203143719214-369021408.jpg" alt="img"></p>
+<h3 id="user2vec-lstm"><a class="markdownIt-Anchor" href="#user2vec-lstm"></a> User2vec LSTM</h3>
+<h2 id="reference"><a class="markdownIt-Anchor" href="#reference"></a> Reference</h2>
+<p>[0] <a href="https://zhuanlan.zhihu.com/p/33732033" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/33732033</a></p>
+<p>[1] DeepWalk: Online Learning of Social Representations</p>
+<p>[2] LINE: Large-scale Information Network Embedding</p>
+<p>[3] node2vec: Scalable Feature Learning for Networks</p>
+<p>[4] Structural Deep Network Embedding</p>
+<p>[5] 深度学习中不得不学的Graph Embedding方法 <a href="https://zhuanlan.zhihu.com/p/64200072" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/64200072</a></p>
+<p>[7] Item2Vec: Neural Item Embedding for Collaborative Filtering <a href="https://arxiv.org/abs/1603.04259" target="_blank" rel="noopener">https://arxiv.org/abs/1603.04259</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>本文有帮助？</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/img/wechatpay.png" alt="davidlau WeChat Pay"/>
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/06/12/hypothesis-test/" rel="next" title="假设检验">
+                <i class="fa fa-chevron-left"></i> 假设检验
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/10/14/ocpc-taobao/" rel="prev" title="淘宝 oCPC 算法笔记">
+                淘宝 oCPC 算法笔记 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="davidlau" />
+          <p class="site-author-name" itemprop="name">davidlau</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">56</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">categories</span>
+              
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-name">tags</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#word-embedding"><span class="nav-number">1.</span> <span class="nav-text"> Word Embedding</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#item2vec"><span class="nav-number">1.1.</span> <span class="nav-text"> Item2vec</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#airbnb-embedding"><span class="nav-number">1.2.</span> <span class="nav-text"> Airbnb Embedding</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#graph-embedding"><span class="nav-number">2.</span> <span class="nav-text"> Graph Embedding</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#deepwalk"><span class="nav-number">2.1.</span> <span class="nav-text"> DeepWalk</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#line"><span class="nav-number">2.2.</span> <span class="nav-text"> LINE</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#node2vec"><span class="nav-number">2.3.</span> <span class="nav-text"> Node2Vec</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#eges"><span class="nav-number">2.4.</span> <span class="nav-text"> EGES</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sdne"><span class="nav-number">2.5.</span> <span class="nav-text"> SDNE</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#simrank"><span class="nav-number">2.6.</span> <span class="nav-text"> SimRank</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#user2vec-lstm"><span class="nav-number">2.7.</span> <span class="nav-text"> User2vec LSTM</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#reference"><span class="nav-number">3.</span> <span class="nav-text"> Reference</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">davidlau</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

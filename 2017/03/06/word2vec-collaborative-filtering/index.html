@@ -105,7 +105,7 @@
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://davidlau.me/img/word2vec-fig1.png">
 <meta property="og:image" content="https://miro.medium.com/max/410/1*g8cLA2GQG6OUhYzlD7F5ug.png">
-<meta property="og:updated_time" content="2019-09-24T09:53:39.987Z">
+<meta property="og:updated_time" content="2020-01-09T06:45:58.262Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="基于word2vec协同过滤推荐">
 <meta name="twitter:description" content="引言 在文章 学习协同过滤推荐 \w 100行Python代码 中，介绍了基于物品的协同过滤推荐，根据 user-item 评分矩阵，找出与给定 item 评分最接近的物品，作为推荐结果。 在本文中，把书籍名称看作单词，以用户喜欢的书籍看作句子，利用 word2vec 模型构建了一个书籍的向量空间。对给定书籍，找出与其距离最近的书籍，作为推荐结果。 本文用 Python 60 行代码实现了一个">
@@ -371,6 +371,7 @@
 <p>在本文中，把书籍名称看作单词，以用户喜欢的书籍看作句子，利用 word2vec 模型构建了一个书籍的向量空间。对给定书籍，找出与其距离最近的书籍，作为推荐结果。</p>
 <p>本文用 Python 60 行代码实现了一个 Demo，得到每本书籍在向量空间的表示，输出基于书籍的协同过滤推荐结果。</p>
 <a id="more"></a>
+<p>TODO: <a href="https://shomy.top/2017/07/28/word2vec-all/" target="_blank" rel="noopener">https://shomy.top/2017/07/28/word2vec-all/</a></p>
 <h2 id="word2vec"><a class="markdownIt-Anchor" href="#word2vec"></a> word2vec</h2>
 <h3 id="简介"><a class="markdownIt-Anchor" href="#简介"></a> 简介</h3>
 <p>word2vec，是 Google 的 Mikolov 等人在 NIPS2013 发表的论文 <a href="https://arxiv.org/pdf/1301.3781.pdf" target="_blank" rel="noopener">Efficient Estimation of Word Representations in Vector Space</a> / <a href="https://papers.nips.cc/paper/5021-distributed-representations-of-words-and-phrases-and-their-compositionality.pdf" target="_blank" rel="noopener">Distributed Representations of Words and Phrases and their Compositionality</a> 提出的模型，包括 Skip-gram 和 CBOW (Continuous Bag-of-Words) ，如下图所示。</p>
@@ -385,7 +386,7 @@ vector("浪潮之巅") + vector("从0到1") - vector("寻路中国") ≈ vector(
 <h2 id=""><a class="markdownIt-Anchor" href="#"></a> </h2>
 <h3 id="cbow"><a class="markdownIt-Anchor" href="#cbow"></a> CBOW</h3>
 <h4 id="输入层"><a class="markdownIt-Anchor" href="#输入层"></a> 输入层</h4>
-<p>假设窗口=5，对输入单词向量求和</p>
+<p>假设窗口=5，对输入单词查询词向量、求和</p>
 <p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi><mo>=</mo><msub><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mo>−</mo><mn>2</mn><mo separator="true">,</mo><mo>−</mo><mn>1</mn><mo separator="true">,</mo><mn>1</mn><mo separator="true">,</mo><mn>2</mn></mrow></msub><mrow><msub><mi>x</mi><mi>i</mi></msub></mrow></mrow><annotation encoding="application/x-tex">x = \sum_{i=-2,-1,1,2}{x_i}
 </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:1.050005em;"></span><span class="strut bottom" style="height:2.463782em;vertical-align:-1.413777em;"></span><span class="base displaystyle textstyle uncramped"><span class="mord mathit">x</span><span class="mrel">=</span><span class="mop op-limits"><span class="vlist"><span style="top:1.177669em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit">i</span><span class="mrel">=</span><span class="mord">−</span><span class="mord mathrm">2</span><span class="mpunct">,</span><span class="mord">−</span><span class="mord mathrm">1</span><span class="mpunct">,</span><span class="mord mathrm">1</span><span class="mpunct">,</span><span class="mord mathrm">2</span></span></span></span><span style="top:-0.000005000000000032756em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span><span class="op-symbol large-op mop">∑</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mord displaystyle textstyle uncramped"><span class="mord"><span class="mord mathit">x</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span></span></span></p>
 <p>结果输入全连接隐藏层，再到输出层</p>
@@ -716,7 +717,7 @@ L &= \arg\max_\theta \prod_{(w,c)\in D} P(D=1|c,w;\theta) \prod_{(w,c)\in D'} P(
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2019</span>
+  <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

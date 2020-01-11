@@ -102,7 +102,7 @@
 <meta property="og:site_name" content="davidlau&#39;s blog">
 <meta property="og:description" content="Factorization Machine [1] 是一种预测模型，广泛用于推荐系统，优点有：  适用于 SVM 无法应付的稀疏数据 FM (2-way) 比 LR 多了二阶 kernel，适用于大数据，线性复杂度，可以用 primal objective 而不是 dual objective 优化（如 SVM） 通用的预测模型，适用于任何实数特征。  下面是 [1] 的学习笔记。">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-10-16T11:13:40.428Z">
+<meta property="og:updated_time" content="2020-01-10T08:53:14.998Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Factorization Machine">
 <meta name="twitter:description" content="Factorization Machine [1] 是一种预测模型，广泛用于推荐系统，优点有：  适用于 SVM 无法应付的稀疏数据 FM (2-way) 比 LR 多了二阶 kernel，适用于大数据，线性复杂度，可以用 primal objective 而不是 dual objective 优化（如 SVM） 通用的预测模型，适用于任何实数特征。  下面是 [1] 的学习笔记。">
@@ -361,7 +361,9 @@
 <p>FM 模型定义（多项式拟合 logit）</p>
 \begin{align}
 \hat y(x) &= w_0 + \sum_{i=1}^{n} w_i x_i + \sum_{i=1}^{n} \sum_{j=i+1}^n w_{ij} x_i x_j \\
-\hat y(x) &= w_0 + \sum_{i=1}^{n} w_i x_i + \sum_{i=1}^{n} \sum_{j=i+1}^n \langle v_i , v_j \rangle x_i x_j
+          &= w_0 + \sum_{i=1}^{n} w_i x_i + \sum_{i=1}^{n} \sum_{j=i+1}^n \langle v_i , v_j \rangle x_i x_j \\
+          &= w_0 + \sum_{i=1}^{n} w_i x_i + \frac{1}{2} \sum_{f=1}^{k} \bigg( \bigg(\sum_{i=1}^{n} v_{i,f} x_i \bigg)^2-\sum_{i=1}^{n} v_{i,f}^2 x_i^2
+ \bigg)
 \end{align}
 
 <p>其中</p>
@@ -720,7 +722,7 @@
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2019</span>
+  <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

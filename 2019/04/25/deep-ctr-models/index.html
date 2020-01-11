@@ -95,12 +95,12 @@
 
 
 
-<meta name="description" content="常见的 CTR 预估模型有：  LR / 决策树系列 FM / DeepFM 和变种 W&amp;amp;D / DCN 系列 加入 Attention 的 DIN / DIIN / DIEN 联合建模、迁移学习的 ESMM / DUPN 双塔模型 DSSM 系列   XGB 优化瓶颈  树型结构导致无法增量训练（FTRL） 稀疏的类别特征无法有效学习，onehot 后增加计算开销，且每个分类上数据量小">
+<meta name="description" content="常见的 CTR 预估模型有：  LR / 决策树系列 FM / DeepFM / NFM / xDeepFM 系列 W&amp;amp;D / DCN / FNN 系列 加入 Attention 的 DIN / DIIN / DIEN 多任务联合建模、迁移学习的 ESMM / DUPN 双塔模型 DSSM 系列  深度 CTR 预估模型有：   Wide&amp;amp;Deep 16 兼具泛化性和记忆性的联合优">
 <meta property="og:type" content="article">
 <meta property="og:title" content="deep-ctr-models">
 <meta property="og:url" content="http://davidlau.me/2019/04/25/deep-ctr-models/index.html">
 <meta property="og:site_name" content="davidlau&#39;s blog">
-<meta property="og:description" content="常见的 CTR 预估模型有：  LR / 决策树系列 FM / DeepFM 和变种 W&amp;amp;D / DCN 系列 加入 Attention 的 DIN / DIIN / DIEN 联合建模、迁移学习的 ESMM / DUPN 双塔模型 DSSM 系列   XGB 优化瓶颈  树型结构导致无法增量训练（FTRL） 稀疏的类别特征无法有效学习，onehot 后增加计算开销，且每个分类上数据量小">
+<meta property="og:description" content="常见的 CTR 预估模型有：  LR / 决策树系列 FM / DeepFM / NFM / xDeepFM 系列 W&amp;amp;D / DCN / FNN 系列 加入 Attention 的 DIN / DIIN / DIEN 多任务联合建模、迁移学习的 ESMM / DUPN 双塔模型 DSSM 系列  深度 CTR 预估模型有：   Wide&amp;amp;Deep 16 兼具泛化性和记忆性的联合优">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://2.bp.blogspot.com/-wkrmRibw_GM/V3Mg3O3Q0-I/AAAAAAAABG0/Jm3Nl4-VcYIJ44dA5nSz6vpTyCKF2KWQgCKgB/s1600/image03.png">
 <meta property="og:image" content="http://xudongyang.coding.me/dcn/dcn.png">
@@ -129,10 +129,10 @@
 <meta property="og:image" content="https://camo.githubusercontent.com/e330757cabd23dc23b86af76fe017630f53fc6db/687474703a2f2f617461322d696d672e636e2d68616e677a686f752e696d672d7075622e616c6979756e2d696e632e636f6d2f33353531393330373030353164393665626463653033383738376564396439332e706e67">
 <meta property="og:image" content="https://pic1.zhimg.com/80/v2-107eed8fcd5b72f0bbe8464bd2471fc4_hd.jpg">
 <meta property="og:image" content="http://www.semocean.com/wp-content/uploads/2019/08/Screenshot_20190818_114444-1024x359.jpg">
-<meta property="og:updated_time" content="2019-10-16T07:47:55.427Z">
+<meta property="og:updated_time" content="2020-01-11T05:18:10.748Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="deep-ctr-models">
-<meta name="twitter:description" content="常见的 CTR 预估模型有：  LR / 决策树系列 FM / DeepFM 和变种 W&amp;amp;D / DCN 系列 加入 Attention 的 DIN / DIIN / DIEN 联合建模、迁移学习的 ESMM / DUPN 双塔模型 DSSM 系列   XGB 优化瓶颈  树型结构导致无法增量训练（FTRL） 稀疏的类别特征无法有效学习，onehot 后增加计算开销，且每个分类上数据量小">
+<meta name="twitter:description" content="常见的 CTR 预估模型有：  LR / 决策树系列 FM / DeepFM / NFM / xDeepFM 系列 W&amp;amp;D / DCN / FNN 系列 加入 Attention 的 DIN / DIIN / DIEN 多任务联合建模、迁移学习的 ESMM / DUPN 双塔模型 DSSM 系列  深度 CTR 预估模型有：   Wide&amp;amp;Deep 16 兼具泛化性和记忆性的联合优">
 <meta name="twitter:image" content="https://2.bp.blogspot.com/-wkrmRibw_GM/V3Mg3O3Q0-I/AAAAAAAABG0/Jm3Nl4-VcYIJ44dA5nSz6vpTyCKF2KWQgCKgB/s1600/image03.png">
 
 
@@ -371,17 +371,67 @@
         <p>常见的 CTR 预估模型有：</p>
 <ul>
 <li>LR / 决策树系列</li>
-<li>FM / DeepFM 和变种</li>
-<li>W&amp;D / DCN 系列</li>
+<li>FM / DeepFM / NFM / xDeepFM 系列</li>
+<li>W&amp;D / DCN / FNN 系列</li>
 <li>加入 Attention 的 <a href="https://github.com/alibaba/x-deeplearning/wiki/%E6%B7%B1%E5%BA%A6%E5%85%B4%E8%B6%A3%E7%BD%91%E7%BB%9C(DIN)" target="_blank" rel="noopener">DIN</a> / DIIN / <a href="https://github.com/alibaba/x-deeplearning/wiki/%E7%94%A8%E6%88%B7%E5%85%B4%E8%B6%A3%E6%BC%94%E5%8C%96%E6%A8%A1%E5%9E%8B(DIEN)" target="_blank" rel="noopener">DIEN</a></li>
-<li>联合建模、迁移学习的 ESMM / <a href="https://arxiv.org/pdf/1805.10727.pdf" target="_blank" rel="noopener">DUPN</a></li>
+<li>多任务联合建模、迁移学习的 ESMM / <a href="https://arxiv.org/pdf/1805.10727.pdf" target="_blank" rel="noopener">DUPN</a></li>
 <li>双塔模型 DSSM 系列</li>
+</ul>
+<p>深度 CTR 预估模型有：</p>
+<ul>
+<li>
+<p>Wide&amp;Deep 16 兼具泛化性和记忆性的联合优化，cross product 进行特征交叉</p>
+</li>
+<li>
+<p>DCN 17 使用 CrossNet 拟合任意高阶元素级交互</p>
+</li>
+<li>
+<p>DeepFM 17 使用 FM 拟合 emb 向量的二阶交互</p>
+<ul>
+<li>
+<p>NFM 17 在 FM 层后增加了 DNN 层</p>
+</li>
+<li>
+<p>AFM 17 在 NFM 结构增加 attention 机制学习交互特征的权重</p>
+</li>
+<li>
+<p>AutoInt</p>
+</li>
+<li>
+<p>xDeepFM 18 使用 CIN 进行向量级别、高阶元素的交互</p>
+</li>
+</ul>
+</li>
+<li>
+<p>FNN 07 用 FM 预训练 emb 向量 + DNN 结构</p>
+<ul>
+<li>CCPM</li>
+<li>PNN SNN</li>
+<li>FGCNN</li>
+<li>FiBiNet 19 结合特征重要性和双线性特征交互</li>
+</ul>
+</li>
+<li>
+<p>YouTubeNet 16 通过 pooling 引入用户历史行为序列</p>
+<ul>
+<li>DIN 通过 attention pooling  引入带权重的用户历史行为序列</li>
+<li>DIIN 在 DIN 基础上增加图片特征
+<ul>
+<li>DIEN 19 引入循环网络和辅助 loss 捕获用户兴趣的动态变化</li>
+<li><a href="https://arxiv.org/pdf/1905.06482.pdf" target="_blank" rel="noopener">DSIN</a> 19 基于用户行为序列同构 / 异构差异的建模</li>
+<li><a href="https://arxiv.org/abs/1906.03776" target="_blank" rel="noopener">DSTN</a> 19 引入上下文展示广告和历史点击、为点击广告辅助预测</li>
+<li><a href="https://arxiv.org/pdf/1905.09248.pdf" target="_blank" rel="noopener">MIMN</a> 19 超长历史行为序列建模</li>
+<li>ESSM 18 通过 pCTR pCVR 联合模型共享权制，解决转化样本有偏、稀疏问题</li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 <h2 id="xgb"><a class="markdownIt-Anchor" href="#xgb"></a> XGB</h2>
 <p>优化瓶颈</p>
 <ol>
 <li>树型结构导致无法增量训练（FTRL）</li>
-<li>稀疏的类别特征无法有效学习，onehot 后增加计算开销，且每个分类上数据量小</li>
+<li>稀疏的类别特征无法有效学习，onehot 后增加计算开销，且每个分类上数据量小（LR 记忆性）</li>
 <li>特征交叉能力有限</li>
 </ol>
 <h2 id="gbdt-lr"><a class="markdownIt-Anchor" href="#gbdt-lr"></a> GBDT + LR</h2>
@@ -419,7 +469,7 @@ c_{ki}\in \{0,1\}, \mathbb{x} = [x_1,x_2,...,x_d]
 <p><img src="https://pic2.zhimg.com/80/v2-e54f2488dd071ae026aee04d6f261a65_hd.jpg" alt="img"></p>
 <p><img src="https://www.researchgate.net/profile/Gang_Fu19/publication/321379962/figure/fig1/AS:566843195826177@1512157357850/Visualization-of-a-cross-layer.png" alt="img"></p>
 <h2 id="fnn-snn-pnn"><a class="markdownIt-Anchor" href="#fnn-snn-pnn"></a> FNN &amp; SNN &amp; PNN</h2>
-<p>Feedforward Neural Network, ANN 2007，FM + DNN 结构，无 embedding</p>
+<p>Feedforward Neural Network, ANN 2007，FM 预训练 emb 向量 + DNN 结构，无 embedding</p>
 <p>Self-Normalizing Neural Network, NIPS 2017</p>
 <p><img src="https://pic2.zhimg.com/80/v2-1c7cf8fe8fed03bdf5e8740b9334f491_hd.jpg" alt="img"></p>
 <p><img src="https://pic3.zhimg.com/80/v2-96bfc6e3739c465e4bc7d125c96e9bee_hd.jpg" alt="img"></p>
@@ -431,7 +481,7 @@ c_{ki}\in \{0,1\}, \mathbb{x} = [x_1,x_2,...,x_d]
 <p>Neral Factorization Machine, arxiv 2017 <a href="https://arxiv.org/pdf/1708.05027v1.pdf" target="_blank" rel="noopener">PDF</a></p>
 <p>基于 FM 改进，在FM 层后增加了 DNN层 <a href="https://zhuanlan.zhihu.com/p/40135103" target="_blank" rel="noopener">NFM与AFM用于CTR预估</a></p>
 <p><img src="https://pic1.zhimg.com/80/v2-e3f4ee9d263aaffedb19a9953639a870_hd.jpg" alt="img"></p>
-<p>Bi-Interaction 池化计算</p>
+<p>与 YoutubeDNN 的 AVG Pooling 不同，NFM 通过 <strong>Bi-Interaction Pooling</strong> 完成池化和特征交叉：</p>
 <p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>f</mi><mrow><mi>B</mi><mi>I</mi></mrow></msub><mo>(</mo><msub><mi>V</mi><mi>x</mi></msub><mo>)</mo><mo>=</mo><msubsup><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mrow><mi>n</mi></mrow></msubsup><msubsup><mo>∑</mo><mrow><mi>j</mi><mo>=</mo><mi>i</mi><mo>+</mo><mn>1</mn></mrow><mrow><mi>n</mi></mrow></msubsup><msub><mi>x</mi><mi>i</mi></msub><msub><mi>v</mi><mi>i</mi></msub><mo>⊙</mo><msub><mi>x</mi><mi>j</mi></msub><msub><mi>v</mi><mi>j</mi></msub></mrow><annotation encoding="application/x-tex">f_{BI}(V_x)=\sum_{i=1}^{n} \sum_{j=i+1}^{n} x_i v_i \odot x_j v_j
 </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:1.6513970000000007em;"></span><span class="strut bottom" style="height:3.0651740000000007em;vertical-align:-1.4137769999999998em;"></span><span class="base displaystyle textstyle uncramped"><span class="mord"><span class="mord mathit" style="margin-right:0.10764em;">f</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.10764em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit" style="margin-right:0.05017em;">B</span><span class="mord mathit" style="margin-right:0.07847em;">I</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mopen">(</span><span class="mord"><span class="mord mathit" style="margin-right:0.22222em;">V</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.22222em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">x</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mclose">)</span><span class="mrel">=</span><span class="mop op-limits"><span class="vlist"><span style="top:1.1776689999999999em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit">i</span><span class="mrel">=</span><span class="mord mathrm">1</span></span></span></span><span style="top:-0.000005000000000143778em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span><span class="op-symbol large-op mop">∑</span></span></span><span style="top:-1.2500050000000003em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mord mathit">n</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mop op-limits"><span class="vlist"><span style="top:1.1776689999999999em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit" style="margin-right:0.05724em;">j</span><span class="mrel">=</span><span class="mord mathit">i</span><span class="mbin">+</span><span class="mord mathrm">1</span></span></span></span><span style="top:-0.000005000000000254801em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span><span class="op-symbol large-op mop">∑</span></span></span><span style="top:-1.2500050000000005em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mord mathit">n</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mord"><span class="mord mathit">x</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mord"><span class="mord mathit" style="margin-right:0.03588em;">v</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.03588em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mbin">⊙</span><span class="mord"><span class="mord mathit">x</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit" style="margin-right:0.05724em;">j</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mord"><span class="mord mathit" style="margin-right:0.03588em;">v</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.03588em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit" style="margin-right:0.05724em;">j</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span></span></p>
 <p>其中 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>x</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">x_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit">x</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span> 是第 i 维特征，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>v</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">v_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit" style="margin-right:0.03588em;">v</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.03588em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span> 是对应 embedding 矩阵，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>⊙</mo></mrow><annotation encoding="application/x-tex">\odot</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.58333em;"></span><span class="strut bottom" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="base textstyle uncramped"><span class="mord">⊙</span></span></span></span> 是 element-wise product (outer product)。</p>
@@ -482,7 +532,7 @@ c_{ki}\in \{0,1\}, \mathbb{x} = [x_1,x_2,...,x_d]
 <p>MV-DSSM 模型加入 user temporal feature，引入 attention 机制，学习用户的短期兴趣。</p>
 <p>难点在于时序特征的设计和训练，使用前应权衡业务对时间序列预测的需求。</p>
 <p><img src="http://fanding.xyz/img/ZH11.jpg" alt="img"></p>
-<p><strong>Youtube DNN</strong></p>
+<p><strong>YoutubeNet</strong></p>
 <p>Recsys 2017</p>
 <p><img src="http://fanding.xyz/img/ZH14.jpg" alt="img"></p>
 <p>相对于双塔结构，Youtube DNN 对物品 embedding、用户embedding 求平均然后 concat，用统一的（用户，物品）向量空间替代了原来的两个向量空间。</p>
@@ -496,12 +546,13 @@ c_{ki}\in \{0,1\}, \mathbb{x} = [x_1,x_2,...,x_d]
 <p>广告预估场景中存在多个训练任务，比如CTR、CVR、交易额等。既考虑到多个任务之间的联系，又考虑到任务之间的差别，我们利用 Multi-Task Learning的思想，同时预估点击率、下单率，模型结构如下图所示：</p>
 <p><img src="https://awps-assets.meituan.net/mit-x/blog-images-bundle-2018a/25c00d5c.png" alt="img"></p>
 <h3 id="din"><a class="markdownIt-Anchor" href="#din"></a> DIN</h3>
+<p>阿里 KDD 2018 《Deep Interest Network for Click-Through Rate Prediction》</p>
 <p>特点</p>
 <ol>
 <li>引入用户购-商品历史的 Attention 机制</li>
 <li>dice 激活函数</li>
 </ol>
-<p>对 用户 - ad 有特征：</p>
+<p>对 用户 - 广告 有特征：</p>
 <p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>V</mi><mi>u</mi></msub><mo>(</mo><mi>A</mi><mo>)</mo><mo>=</mo><mi>f</mi><mo>(</mo><msub><mi>v</mi><mrow><mi>a</mi></mrow></msub><mo separator="true">,</mo><msub><mi>e</mi><mn>1</mn></msub><mo separator="true">,</mo><msub><mi>e</mi><mn>2</mn></msub><mo separator="true">,</mo><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mo separator="true">,</mo><msub><mi>e</mi><mi>H</mi></msub><mo>)</mo><mo>=</mo><msubsup><mo>∑</mo><mrow><mi>j</mi><mo>=</mo><mn>1</mn></mrow><mi>H</mi></msubsup><mi>a</mi><mo>(</mo><msub><mi>e</mi><mi>j</mi></msub><mo separator="true">,</mo><msub><mi>v</mi><mi>a</mi></msub><mo>)</mo><msub><mi>e</mi><mi>j</mi></msub><mo>=</mo><msubsup><mo>∑</mo><mrow><mi>j</mi><mo>=</mo><mn>1</mn></mrow><mi>H</mi></msubsup><msub><mi>w</mi><mi>j</mi></msub><msub><mi>e</mi><mi>j</mi></msub></mrow><annotation encoding="application/x-tex">V_u (A) = f(v_{a},e_1,e_2,...,e_H)=\sum_{j=1}^H a(e_j,v_a)e_j=\sum_{j=1}^Hw_j e_j
 </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:1.8283360000000006em;"></span><span class="strut bottom" style="height:3.2421130000000007em;vertical-align:-1.4137769999999998em;"></span><span class="base displaystyle textstyle uncramped"><span class="mord"><span class="mord mathit" style="margin-right:0.22222em;">V</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.22222em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">u</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mopen">(</span><span class="mord mathit">A</span><span class="mclose">)</span><span class="mrel">=</span><span class="mord mathit" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord"><span class="mord mathit" style="margin-right:0.03588em;">v</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.03588em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit">a</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mpunct">,</span><span class="mord"><span class="mord mathit">e</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathrm">1</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mpunct">,</span><span class="mord"><span class="mord mathit">e</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathrm">2</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mpunct">,</span><span class="mord mathrm">.</span><span class="mord mathrm">.</span><span class="mord mathrm">.</span><span class="mpunct">,</span><span class="mord"><span class="mord mathit">e</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit" style="margin-right:0.08125em;">H</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mclose">)</span><span class="mrel">=</span><span class="mop op-limits"><span class="vlist"><span style="top:1.1776689999999999em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit" style="margin-right:0.05724em;">j</span><span class="mrel">=</span><span class="mord mathrm">1</span></span></span></span><span style="top:-0.000005000000000254801em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span><span class="op-symbol large-op mop">∑</span></span></span><span style="top:-1.2500050000000005em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord mathit" style="margin-right:0.08125em;">H</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mord mathit">a</span><span class="mopen">(</span><span class="mord"><span class="mord mathit">e</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit" style="margin-right:0.05724em;">j</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mpunct">,</span><span class="mord"><span class="mord mathit" style="margin-right:0.03588em;">v</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.03588em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">a</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mclose">)</span><span class="mord"><span class="mord mathit">e</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit" style="margin-right:0.05724em;">j</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mrel">=</span><span class="mop op-limits"><span class="vlist"><span style="top:1.1776689999999999em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit" style="margin-right:0.05724em;">j</span><span class="mrel">=</span><span class="mord mathrm">1</span></span></span></span><span style="top:-0.000005000000000254801em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span><span class="op-symbol large-op mop">∑</span></span></span><span style="top:-1.2500050000000005em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord mathit" style="margin-right:0.08125em;">H</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mord"><span class="mord mathit" style="margin-right:0.02691em;">w</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.02691em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit" style="margin-right:0.05724em;">j</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mord"><span class="mord mathit">e</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit" style="margin-right:0.05724em;">j</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span></span></p>
 <p>其中 A 是广告，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>V</mi><mi>u</mi></msub></mrow><annotation encoding="application/x-tex">V_u</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit" style="margin-right:0.22222em;">V</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.22222em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">u</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span> 是用户特征，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>e</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">e_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit">e</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span> 是用户-商品序列。</p>
@@ -509,12 +560,18 @@ c_{ki}\in \{0,1\}, \mathbb{x} = [x_1,x_2,...,x_d]
 <p><img src="https://camo.githubusercontent.com/f7aa2ff476e75c0a7f4f53686f6f0767ce495d63/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f6c61726b2f302f323031382f706e672f33363135342f313534313939343933383138362d36356637656562632d623234362d346661312d396433352d3563616439653232613038642e706e67" alt="img"></p>
 <p>Activation unit 可以针对候选广告，对相关度较高的用户行为商品embedding，给出较高的权重，如下图所示：</p>
 <p><img src="https://camo.githubusercontent.com/6aa6099c85d394dab701dc64dd658d72eaa79919/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f6c61726b2f302f323031382f706e672f363039382f313534323333373737373130312d65613934316136342d346636632d343932322d383136352d6238626364653537376239612e706e67" alt="img"></p>
+<p><a href="https://www.infoq.cn/article/XA055tpFrprUy*0UBdCb" target="_blank" rel="noopener">https://www.infoq.cn/article/XA055tpFrprUy*0UBdCb</a></p>
 <h3 id="spatiotemporal-net"><a class="markdownIt-Anchor" href="#spatiotemporal-net"></a> Spatio&amp;Temporal Net</h3>
 <p><img src="http://www.semocean.com/wp-content/uploads/2018/08/Screenshot_20190713_234455-1024x438.jpg" alt="img"></p>
 <h3 id="dien"><a class="markdownIt-Anchor" href="#dien"></a> DIEN</h3>
-<p>阿里 AAAI 2019 兴趣演化模型</p>
+<p>阿里 AAAI 2019 《Deep Interest Evolution Network》</p>
+<ol>
+<li>引入循环网络（双层GRU），对用户历史事件序列建模，捕获用户兴趣演化</li>
+<li>引入辅助 loss 帮助 GRU 学习</li>
+</ol>
 <p><img src="https://camo.githubusercontent.com/914b722021ba8f2c017add753a85744c15ff4365/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f6c61726b2f302f323031382f706e672f33363135342f313534313939363430363830372d33376361326662332d373765312d346330352d396437312d3739313665643936646136322e706e67" alt="img"></p>
 <h3 id="esmm"><a class="markdownIt-Anchor" href="#esmm"></a> ESMM</h3>
+<p>阿里 KDD2018</p>
 <p>特点：</p>
 <ol>
 <li>pCTR pCVR 模型共享权制，解决 pCVR 样本有偏、稀疏问题</li>
@@ -527,6 +584,7 @@ L(\theta_{cvr}, \theta_{ctr}) = &\sum_{i=1}^N l(y_i, f(\textbf{x}_i;\theta_{ctr}
 <p><img src="https://camo.githubusercontent.com/e330757cabd23dc23b86af76fe017630f53fc6db/687474703a2f2f617461322d696d672e636e2d68616e677a686f752e696d672d7075622e616c6979756e2d696e632e636f6d2f33353531393330373030353164393665626463653033383738376564396439332e706e67" alt="img"></p>
 <h3 id="tdm"><a class="markdownIt-Anchor" href="#tdm"></a> TDM</h3>
 <h3 id="crossmedia"><a class="markdownIt-Anchor" href="#crossmedia"></a> CrossMedia</h3>
+<p>a.k.a. Deep Image CTR Model</p>
 <p>CIKM 2017 Image Matters: Visually modeling user behaviors using Advanced Model Server 阿里  <a href="https://arxiv.org/pdf/1711.06505.pdf" target="_blank" rel="noopener">PDF</a></p>
 <p><img src="https://pic1.zhimg.com/80/v2-107eed8fcd5b72f0bbe8464bd2471fc4_hd.jpg" alt="img"></p>
 <p>创新点：</p>
@@ -535,7 +593,7 @@ L(\theta_{cvr}, \theta_{ctr}) = &\sum_{i=1}^N l(y_i, f(\textbf{x}_i;\theta_{ctr}
 <li></li>
 <li>AMS 架构解决计算瓶颈</li>
 </ol>
-<p>RNN CTR</p>
+<h3 id="rnn-ctr"><a class="markdownIt-Anchor" href="#rnn-ctr"></a> RNN CTR</h3>
 <p>KDD19 Click-Through Rate Prediction with the User Memory Network</p>
 <p><img src="http://www.semocean.com/wp-content/uploads/2019/08/Screenshot_20190818_114444-1024x359.jpg" alt="img"></p>
 <p><a href="http://www.semocean.com/tag/embedding/" target="_blank" rel="noopener">http://www.semocean.com/tag/embedding/</a></p>
@@ -544,10 +602,15 @@ L(\theta_{cvr}, \theta_{ctr}) = &\sum_{i=1}^N l(y_i, f(\textbf{x}_i;\theta_{ctr}
 <p><a href="http://fanding.xyz/2018/05/01/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E4%B8%8ECTR%E9%A2%84%E4%BC%B0,%E5%9F%BA%E4%BA%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-%E4%B8%80-%E5%8F%AC%E5%9B%9E%E6%80%9D%E8%B7%AF%E5%8F%8A%E6%A8%A1%E5%9E%8B%E4%B8%B2%E8%AE%B2/" target="_blank" rel="noopener">fanding.xyz</a></p>
 <p>深度学习在美团搜索广告排序的应用实践 <a href="https://tech.meituan.com/2018/06/07/searchads-dnn.html" target="_blank" rel="noopener">https://tech.meituan.com/2018/06/07/searchads-dnn.html</a></p>
 <p>远程监督 <a href="https://blog.csdn.net/m0_38031488/article/details/79852238" target="_blank" rel="noopener">https://blog.csdn.net/m0_38031488/article/details/79852238</a></p>
-<p>2019 腾讯广告冠军方案 <a href="https://zhuanlan.zhihu.com/p/73062485" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/73062485</a></p>
-<p>DIN <a href="https://zhuanlan.zhihu.com/p/51623339" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/51623339</a></p>
+<p>2019 腾讯广告冠军方案 <a href="https://zhuanlan.zhihu.com/p/73062485" target="_blank" rel="noopener">知乎</a></p>
+<p>推荐系统中的注意力机制——阿里深度兴趣网络（DIN）<a href="https://zhuanlan.zhihu.com/p/51623339" target="_blank" rel="noopener">知乎</a></p>
 <p><a href="http://www.semocean.com/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%EF%BC%8C%E5%8F%98%E7%8E%B0%E7%B3%BB%E7%BB%9Fctrcvr%E9%A2%84%E4%BC%B0%E7%AE%97%E6%B3%95%E6%BC%94%E8%BF%9B/" target="_blank" rel="noopener">semocean’s blog</a></p>
 <p><a href="https://github.com/alibaba/x-deeplearning/wiki/XDL%E7%AE%97%E6%B3%95%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88" target="_blank" rel="noopener">阿里 XDL 算法解决方案</a></p>
+<p>DeepCTR：易用可扩展的深度学习点击率预测算法包 <a href="https://zhuanlan.zhihu.com/p/53231955" target="_blank" rel="noopener">知乎</a></p>
+<p>TODO</p>
+<p>漫谈深度学习时代点击率预估技术进展 朱小强 <a href="https://www.infoq.cn/article/XA055tpFrprUy*0UBdCb" target="_blank" rel="noopener">InfoQ</a></p>
+<p><a href="https://mp.weixin.qq.com/s/MtnHYmPVoDAid9SNHnlzUw" target="_blank" rel="noopener">MLR</a> 阿里妈妈算法团队</p>
+<p>详解阿里之Deep Interest Evolution Network(AAAI 2019) <a href="https://zhuanlan.zhihu.com/p/50758485" target="_blank" rel="noopener">知乎</a></p>
 
       
     </div>
@@ -742,7 +805,7 @@ L(\theta_{cvr}, \theta_{ctr}) = &\sum_{i=1}^N l(y_i, f(\textbf{x}_i;\theta_{ctr}
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#xgb"><span class="nav-number">1.</span> <span class="nav-text"> XGB</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#gbdt-lr"><span class="nav-number">2.</span> <span class="nav-text"> GBDT + LR</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#wide-deep"><span class="nav-number">3.</span> <span class="nav-text"> Wide &amp; Deep</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dcn"><span class="nav-number">4.</span> <span class="nav-text"> DCN</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#fnn-snn-pnn"><span class="nav-number">5.</span> <span class="nav-text"> FNN &amp; SNN &amp; PNN</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#nfm"><span class="nav-number">6.</span> <span class="nav-text"> NFM</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#nffm"><span class="nav-number">6.1.</span> <span class="nav-text"> NFFM</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#afm"><span class="nav-number">7.</span> <span class="nav-text"> AFM</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#deepfm"><span class="nav-number">8.</span> <span class="nav-text"> DeepFM</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#xdeepfm"><span class="nav-number">9.</span> <span class="nav-text"> xDeepFM</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#双塔模型"><span class="nav-number">10.</span> <span class="nav-text"> 双塔模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#entire-space-multi-task-model"><span class="nav-number">11.</span> <span class="nav-text"> Entire Space Multi-Task Model</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#美团-multi-task-model"><span class="nav-number">11.1.</span> <span class="nav-text"> 美团 Multi-Task Model</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#din"><span class="nav-number">11.2.</span> <span class="nav-text"> DIN</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#spatiotemporal-net"><span class="nav-number">11.3.</span> <span class="nav-text"> Spatio&amp;Temporal Net</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dien"><span class="nav-number">11.4.</span> <span class="nav-text"> DIEN</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#esmm"><span class="nav-number">11.5.</span> <span class="nav-text"> ESMM</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tdm"><span class="nav-number">11.6.</span> <span class="nav-text"> TDM</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#crossmedia"><span class="nav-number">11.7.</span> <span class="nav-text"> CrossMedia</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#reference"><span class="nav-number">12.</span> <span class="nav-text"> Reference</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#xgb"><span class="nav-number">1.</span> <span class="nav-text"> XGB</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#gbdt-lr"><span class="nav-number">2.</span> <span class="nav-text"> GBDT + LR</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#wide-deep"><span class="nav-number">3.</span> <span class="nav-text"> Wide &amp; Deep</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dcn"><span class="nav-number">4.</span> <span class="nav-text"> DCN</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#fnn-snn-pnn"><span class="nav-number">5.</span> <span class="nav-text"> FNN &amp; SNN &amp; PNN</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#nfm"><span class="nav-number">6.</span> <span class="nav-text"> NFM</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#nffm"><span class="nav-number">6.1.</span> <span class="nav-text"> NFFM</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#afm"><span class="nav-number">7.</span> <span class="nav-text"> AFM</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#deepfm"><span class="nav-number">8.</span> <span class="nav-text"> DeepFM</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#xdeepfm"><span class="nav-number">9.</span> <span class="nav-text"> xDeepFM</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#双塔模型"><span class="nav-number">10.</span> <span class="nav-text"> 双塔模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#entire-space-multi-task-model"><span class="nav-number">11.</span> <span class="nav-text"> Entire Space Multi-Task Model</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#美团-multi-task-model"><span class="nav-number">11.1.</span> <span class="nav-text"> 美团 Multi-Task Model</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#din"><span class="nav-number">11.2.</span> <span class="nav-text"> DIN</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#spatiotemporal-net"><span class="nav-number">11.3.</span> <span class="nav-text"> Spatio&amp;Temporal Net</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dien"><span class="nav-number">11.4.</span> <span class="nav-text"> DIEN</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#esmm"><span class="nav-number">11.5.</span> <span class="nav-text"> ESMM</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tdm"><span class="nav-number">11.6.</span> <span class="nav-text"> TDM</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#crossmedia"><span class="nav-number">11.7.</span> <span class="nav-text"> CrossMedia</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rnn-ctr"><span class="nav-number">11.8.</span> <span class="nav-text"> RNN CTR</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#reference"><span class="nav-number">12.</span> <span class="nav-text"> Reference</span></a></li></ol></div>
             
 
           </div>
@@ -765,7 +828,7 @@ L(\theta_{cvr}, \theta_{ctr}) = &\sum_{i=1}^N l(y_i, f(\textbf{x}_i;\theta_{ctr}
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2019</span>
+  <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

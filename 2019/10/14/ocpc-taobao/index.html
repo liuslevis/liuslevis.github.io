@@ -103,7 +103,7 @@
 <meta property="og:description" content="背景 常见广告计费方式：   CPC：固定出价，标签定向，缺点是无法最优化广告主利益   oCPM：Facebook，微信朋友圈，优化广告主利益，广告主承担点击转化风险   oCPC：淘宝，同时优化三方利益（广告平台收入、广告主利益、用户体验），广告平台承担点击转化风险   oCPA：腾讯广告，同时优化三方利益，需要学习，更多时间起量，广告平台承担注册转化风险   淘宝广告与一般 RTB 相比：">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://storage.googleapis.com/groundai-web-prod/media/users/user_199585/project_54908/images/x3.png">
-<meta property="og:updated_time" content="2019-10-16T07:10:40.605Z">
+<meta property="og:updated_time" content="2019-10-17T02:18:11.014Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="淘宝 oCPC 算法笔记">
 <meta name="twitter:description" content="背景 常见广告计费方式：   CPC：固定出价，标签定向，缺点是无法最优化广告主利益   oCPM：Facebook，微信朋友圈，优化广告主利益，广告主承担点击转化风险   oCPC：淘宝，同时优化三方利益（广告平台收入、广告主利益、用户体验），广告平台承担点击转化风险   oCPA：腾讯广告，同时优化三方利益，需要学习，更多时间起量，广告平台承担注册转化风险   淘宝广告与一般 RTB 相比：">
@@ -363,6 +363,7 @@
 <p>淘宝使用 oCPC 原因：CPS CPA 忽视点击价值，结算效率低；CPM 对中小广告主有更高风险，因为 CPC 使广告主可以控制点击成本，而淘宝承担曝光 - 点击转化风险。综合考虑生态和效率，淘宝使用 CPC 结算。</p>
 <h2 id="建模"><a class="markdownIt-Anchor" href="#建模"></a> 建模</h2>
 <p>优化目标：GMV 或 GMV + 广告收益</p>
+<p>优化约束：出价区间与 ROI 相关</p>
 <p><strong>广告主 ROI 公式（出价约束）</strong></p>
 <p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mtable><mtr><mtd><mrow><mi>r</mi><mi>o</mi><msub><mi>i</mi><mrow><mi>u</mi><mo separator="true">,</mo><mi>a</mi></mrow></msub></mrow></mtd><mtd><mrow><mrow></mrow><mo>=</mo><mfrac><mrow><mi>p</mi><mo>(</mo><mi>c</mi><mi mathvariant="normal">∣</mi><mi>u</mi><mo separator="true">,</mo><mi>a</mi><mo>)</mo><msub><mi>v</mi><mi>a</mi></msub></mrow><mrow><msub><mi>b</mi><mi>a</mi></msub></mrow></mfrac></mrow></mtd></mtr><mtr><mtd><mrow><mi>r</mi><mi>o</mi><msub><mi>i</mi><mi>a</mi></msub></mrow></mtd><mtd><mrow><mrow></mrow><mo>=</mo><mfrac><mrow><msub><mi>v</mi><mi>a</mi></msub><msub><mo>∑</mo><mi>u</mi></msub><msub><mi>n</mi><mi>u</mi></msub><mi>p</mi><mo>(</mo><mi>c</mi><mi mathvariant="normal">∣</mi><mi>u</mi><mo separator="true">,</mo><mi>a</mi><mo>)</mo></mrow><mrow><msub><mi>b</mi><mi>a</mi></msub><msub><mo>∑</mo><mi>u</mi></msub><msub><mi>n</mi><mi>u</mi></msub></mrow></mfrac><mo>=</mo><mfrac><mrow><msub><mi>E</mi><mi>u</mi></msub><mo>[</mo><mi>p</mi><mo>(</mo><mi>c</mi><mi mathvariant="normal">∣</mi><mi>u</mi><mo separator="true">,</mo><mi>a</mi><mo>)</mo><mo>]</mo><msub><mi>v</mi><mi>a</mi></msub></mrow><mrow><msub><mi>b</mi><mi>a</mi></msub></mrow></mfrac></mrow></mtd></mtr></mtable></mrow><annotation encoding="application/x-tex">\begin{aligned}
 roi_{u,a} &amp;= \frac{p(c|u,a) v_a}{b_a} \\
@@ -455,6 +456,10 @@ f_2(b_k^*) &amp;= pctr_k \times pcvr_k \times v_k + \alpha \times pctr_k \times 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/01/08/dnn-tricks/" rel="prev" title="dnn-tricks">
+                dnn-tricks <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -611,7 +616,7 @@ f_2(b_k^*) &amp;= pctr_k \times pcvr_k \times v_k + \alpha \times pctr_k \times 
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2019</span>
+  <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

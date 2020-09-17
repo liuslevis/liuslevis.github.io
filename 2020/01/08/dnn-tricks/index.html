@@ -95,22 +95,22 @@
 
 
 
-<meta name="description" content="DNN 如何调优？  欠拟合   增加模型深度：ResNet20 -&amp;gt; ResNet50   微调结构：更小的 feature map &amp;amp; pooling size   更换复杂网络：AlexNet -&amp;gt; ResNet -&amp;gt; …   DeepCTR 模型使用高阶特征交叉（DCN、xDeepFM）   梯度弥散：BatchNorm    过拟合   数据预处理：不平衡类别；">
+<meta name="description" content="DNN 如何调优？  欠拟合   增加模型深度：ResNet20 -&amp;gt; ResNet50   微调结构：更小的 feature map &amp;amp; pooling size   更换复杂网络：AlexNet -&amp;gt; ResNet -&amp;gt; …   DeepCTR 模型使用高阶特征交叉（DCN、xDeepFM）   梯度弥散：BatchNorm    过拟合   数据预处理：不平衡类别">
 <meta property="og:type" content="article">
 <meta property="og:title" content="dnn-tricks">
 <meta property="og:url" content="http://davidlau.me/2020/01/08/dnn-tricks/index.html">
 <meta property="og:site_name" content="davidlau&#39;s blog">
-<meta property="og:description" content="DNN 如何调优？  欠拟合   增加模型深度：ResNet20 -&amp;gt; ResNet50   微调结构：更小的 feature map &amp;amp; pooling size   更换复杂网络：AlexNet -&amp;gt; ResNet -&amp;gt; …   DeepCTR 模型使用高阶特征交叉（DCN、xDeepFM）   梯度弥散：BatchNorm    过拟合   数据预处理：不平衡类别；">
+<meta property="og:description" content="DNN 如何调优？  欠拟合   增加模型深度：ResNet20 -&amp;gt; ResNet50   微调结构：更小的 feature map &amp;amp; pooling size   更换复杂网络：AlexNet -&amp;gt; ResNet -&amp;gt; …   DeepCTR 模型使用高阶特征交叉（DCN、xDeepFM）   梯度弥散：BatchNorm    过拟合   数据预处理：不平衡类别">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://t.hengwei.me/assets/img/post/lp_ball.png">
 <meta property="og:image" content="https://pic1.zhimg.com/80/v2-3c6aa9626ee8e4609b0d7c5712baf624_hd.jpg">
 <meta property="og:image" content="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/Huber_loss.svg/193px-Huber_loss.svg.png">
 <meta property="og:image" content="http://davidlau.me/img/l1vsl2.png">
 <meta property="og:image" content="https://qph.fs.quoracdn.net/main-qimg-f8bb694285eec807426c1d9eb11b318e.webp">
-<meta property="og:updated_time" content="2020-01-11T04:53:31.712Z">
+<meta property="og:updated_time" content="2020-08-07T10:23:10.100Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="dnn-tricks">
-<meta name="twitter:description" content="DNN 如何调优？  欠拟合   增加模型深度：ResNet20 -&amp;gt; ResNet50   微调结构：更小的 feature map &amp;amp; pooling size   更换复杂网络：AlexNet -&amp;gt; ResNet -&amp;gt; …   DeepCTR 模型使用高阶特征交叉（DCN、xDeepFM）   梯度弥散：BatchNorm    过拟合   数据预处理：不平衡类别；">
+<meta name="twitter:description" content="DNN 如何调优？  欠拟合   增加模型深度：ResNet20 -&amp;gt; ResNet50   微调结构：更小的 feature map &amp;amp; pooling size   更换复杂网络：AlexNet -&amp;gt; ResNet -&amp;gt; …   DeepCTR 模型使用高阶特征交叉（DCN、xDeepFM）   梯度弥散：BatchNorm    过拟合   数据预处理：不平衡类别">
 <meta name="twitter:image" content="http://t.hengwei.me/assets/img/post/lp_ball.png">
 
 
@@ -346,7 +346,7 @@
       
 
       
-        <p>DNN 如何调优？</p>
+        <h1 id="dnn-如何调优"><a class="markdownIt-Anchor" href="#dnn-如何调优"></a> DNN 如何调优？</h1>
 <h2 id="欠拟合"><a class="markdownIt-Anchor" href="#欠拟合"></a> 欠拟合</h2>
 <ul>
 <li>
@@ -669,7 +669,7 @@ d = \lim_{p \to \infty}\sum_{i=1}^{n}\bigg(|x_i-y_i|^{p}\bigg)^{\frac {1}{p}} = 
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">60</span>
+                <span class="site-state-item-count">64</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -726,7 +726,7 @@ d = \lim_{p \to \infty}\sum_{i=1}^{n}\bigg(|x_i-y_i|^{p}\bigg)^{\frac {1}{p}} = 
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#欠拟合"><span class="nav-number">1.</span> <span class="nav-text"> 欠拟合</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#过拟合"><span class="nav-number">2.</span> <span class="nav-text"> 过拟合</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#精度提升"><span class="nav-number">3.</span> <span class="nav-text"> 精度提升</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#附录"><span class="nav-number">4.</span> <span class="nav-text"> 附录</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#范数"><span class="nav-number">4.1.</span> <span class="nav-text"> 范数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#l0-范数"><span class="nav-number">4.1.1.</span> <span class="nav-text"> L0-范数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#l1-范数"><span class="nav-number">4.1.2.</span> <span class="nav-text"> L1-范数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#l2-范数"><span class="nav-number">4.1.3.</span> <span class="nav-text"> L2-范数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#lp-范数"><span class="nav-number">4.1.4.</span> <span class="nav-text"> Lp-范数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#无限范数距离"><span class="nav-number">4.1.5.</span> <span class="nav-text"> 无限范数距离</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#损失函数"><span class="nav-number">4.2.</span> <span class="nav-text"> 损失函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#0-1-损失函数"><span class="nav-number">4.2.1.</span> <span class="nav-text"> 0 - 1 损失函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#对数损失函数"><span class="nav-number">4.2.2.</span> <span class="nav-text"> 对数损失函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#平方损失函数"><span class="nav-number">4.2.3.</span> <span class="nav-text"> 平方损失函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#指数损失函数"><span class="nav-number">4.2.4.</span> <span class="nav-text"> 指数损失函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#合页损失"><span class="nav-number">4.2.5.</span> <span class="nav-text"> 合页损失</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#huber-损失"><span class="nav-number">4.2.6.</span> <span class="nav-text"> Huber 损失</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#正则化"><span class="nav-number">4.3.</span> <span class="nav-text"> 正则化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#batch-norm"><span class="nav-number">4.4.</span> <span class="nav-text"> Batch Norm</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编辑距离"><span class="nav-number">4.5.</span> <span class="nav-text"> 编辑距离</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#jaccard-距离"><span class="nav-number">4.6.</span> <span class="nav-text"> Jaccard 距离</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#余弦相似性"><span class="nav-number">4.7.</span> <span class="nav-text"> 余弦相似性</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#dnn-如何调优"><span class="nav-number">1.</span> <span class="nav-text"> DNN 如何调优？</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#欠拟合"><span class="nav-number">1.1.</span> <span class="nav-text"> 欠拟合</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#过拟合"><span class="nav-number">1.2.</span> <span class="nav-text"> 过拟合</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#精度提升"><span class="nav-number">1.3.</span> <span class="nav-text"> 精度提升</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#附录"><span class="nav-number">1.4.</span> <span class="nav-text"> 附录</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#范数"><span class="nav-number">1.4.1.</span> <span class="nav-text"> 范数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#l0-范数"><span class="nav-number">1.4.1.1.</span> <span class="nav-text"> L0-范数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#l1-范数"><span class="nav-number">1.4.1.2.</span> <span class="nav-text"> L1-范数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#l2-范数"><span class="nav-number">1.4.1.3.</span> <span class="nav-text"> L2-范数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#lp-范数"><span class="nav-number">1.4.1.4.</span> <span class="nav-text"> Lp-范数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#无限范数距离"><span class="nav-number">1.4.1.5.</span> <span class="nav-text"> 无限范数距离</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#损失函数"><span class="nav-number">1.4.2.</span> <span class="nav-text"> 损失函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#0-1-损失函数"><span class="nav-number">1.4.2.1.</span> <span class="nav-text"> 0 - 1 损失函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#对数损失函数"><span class="nav-number">1.4.2.2.</span> <span class="nav-text"> 对数损失函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#平方损失函数"><span class="nav-number">1.4.2.3.</span> <span class="nav-text"> 平方损失函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#指数损失函数"><span class="nav-number">1.4.2.4.</span> <span class="nav-text"> 指数损失函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#合页损失"><span class="nav-number">1.4.2.5.</span> <span class="nav-text"> 合页损失</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#huber-损失"><span class="nav-number">1.4.2.6.</span> <span class="nav-text"> Huber 损失</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#正则化"><span class="nav-number">1.4.3.</span> <span class="nav-text"> 正则化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#batch-norm"><span class="nav-number">1.4.4.</span> <span class="nav-text"> Batch Norm</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编辑距离"><span class="nav-number">1.4.5.</span> <span class="nav-text"> 编辑距离</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#jaccard-距离"><span class="nav-number">1.4.6.</span> <span class="nav-text"> Jaccard 距离</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#余弦相似性"><span class="nav-number">1.4.7.</span> <span class="nav-text"> 余弦相似性</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>

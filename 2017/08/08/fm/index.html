@@ -95,17 +95,17 @@
 
 
 
-<meta name="description" content="Factorization Machine [1] 是一种预测模型，广泛用于推荐系统，优点有：  适用于 SVM 无法应付的稀疏数据 FM (2-way) 比 LR 多了二阶 kernel，适用于大数据，线性复杂度，可以用 primal objective 而不是 dual objective 优化（如 SVM） 通用的预测模型，适用于任何实数特征。  下面是 [1] 的学习笔记。">
+<meta name="description" content="对 LR 最朴素的特征组合就是二阶笛卡尔乘机，但是特征组合存在如下问题：  两两组合导致特征维度灾难 组合后的特征不见得都有效，事实上大部分可能无效 组合后的特征样本非常稀疏，意思就是组合容易，但是并不能在样本中找到对应的组合出现，也就没有办法在训练时更新参数。  Factorization Machine [1] 应运而生，优点有：  适用于稀疏数据 FM (2-way) 比 LR 多了二阶 k">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Factorization Machine">
 <meta property="og:url" content="http://davidlau.me/2017/08/08/fm/index.html">
 <meta property="og:site_name" content="davidlau&#39;s blog">
-<meta property="og:description" content="Factorization Machine [1] 是一种预测模型，广泛用于推荐系统，优点有：  适用于 SVM 无法应付的稀疏数据 FM (2-way) 比 LR 多了二阶 kernel，适用于大数据，线性复杂度，可以用 primal objective 而不是 dual objective 优化（如 SVM） 通用的预测模型，适用于任何实数特征。  下面是 [1] 的学习笔记。">
+<meta property="og:description" content="对 LR 最朴素的特征组合就是二阶笛卡尔乘机，但是特征组合存在如下问题：  两两组合导致特征维度灾难 组合后的特征不见得都有效，事实上大部分可能无效 组合后的特征样本非常稀疏，意思就是组合容易，但是并不能在样本中找到对应的组合出现，也就没有办法在训练时更新参数。  Factorization Machine [1] 应运而生，优点有：  适用于稀疏数据 FM (2-way) 比 LR 多了二阶 k">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2020-03-27T07:37:23.357Z">
+<meta property="og:updated_time" content="2020-09-16T13:03:42.257Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Factorization Machine">
-<meta name="twitter:description" content="Factorization Machine [1] 是一种预测模型，广泛用于推荐系统，优点有：  适用于 SVM 无法应付的稀疏数据 FM (2-way) 比 LR 多了二阶 kernel，适用于大数据，线性复杂度，可以用 primal objective 而不是 dual objective 优化（如 SVM） 通用的预测模型，适用于任何实数特征。  下面是 [1] 的学习笔记。">
+<meta name="twitter:description" content="对 LR 最朴素的特征组合就是二阶笛卡尔乘机，但是特征组合存在如下问题：  两两组合导致特征维度灾难 组合后的特征不见得都有效，事实上大部分可能无效 组合后的特征样本非常稀疏，意思就是组合容易，但是并不能在样本中找到对应的组合出现，也就没有办法在训练时更新参数。  Factorization Machine [1] 应运而生，优点有：  适用于稀疏数据 FM (2-way) 比 LR 多了二阶 k">
 
 
 
@@ -340,9 +340,15 @@
       
 
       
-        <p>Factorization Machine [1] 是一种预测模型，广泛用于推荐系统，优点有：</p>
+        <p>对 LR 最朴素的特征组合就是二阶笛卡尔乘机，但是特征组合存在如下问题：</p>
 <ol>
-<li>适用于 SVM 无法应付的稀疏数据</li>
+<li>两两组合导致特征维度灾难</li>
+<li>组合后的特征不见得都有效，事实上大部分可能无效</li>
+<li>组合后的特征样本非常稀疏，意思就是组合容易，但是并不能在样本中找到对应的组合出现，也就没有办法在训练时更新参数。</li>
+</ol>
+<p>Factorization Machine [1] 应运而生，优点有：</p>
+<ol>
+<li>适用于稀疏数据</li>
 <li>FM (2-way) 比 LR 多了二阶 kernel，适用于大数据，线性复杂度，可以用 primal objective 而不是 dual objective 优化（如 SVM）</li>
 <li>通用的预测模型，适用于任何实数特征。</li>
 </ol>
@@ -642,7 +648,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">60</span>
+                <span class="site-state-item-count">64</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>

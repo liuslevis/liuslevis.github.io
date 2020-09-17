@@ -95,18 +95,18 @@
 
 
 
-<meta name="description" content="背景 常见广告计费方式：   CPC：固定出价，标签定向，缺点是无法最优化广告主利益   oCPM：Facebook，微信朋友圈，优化广告主利益，广告主承担点击转化风险   oCPC：淘宝，同时优化三方利益（广告平台收入、广告主利益、用户体验），广告平台承担点击转化风险   oCPA：腾讯广告，同时优化三方利益，需要学习，更多时间起量，广告平台承担注册转化风险   淘宝广告与一般 RTB 相比：">
+<meta name="description" content="背景 常见广告计费方式：   CPM / CPC：固定出价，标签定向，缺点是无法最优化广告主利益   oCPM：Facebook，微信朋友圈，优化广告主利益，广告主承担点击转化风险   oCPC：淘宝，同时优化三方利益（广告平台收入、广告主利益、用户体验），广告平台承担点击转化风险   oCPA：腾讯广告，同时优化三方利益，需要学习，更多时间起量，广告平台承担注册转化风险   淘宝广告与一般 R">
 <meta property="og:type" content="article">
 <meta property="og:title" content="淘宝 oCPC 算法笔记">
 <meta property="og:url" content="http://davidlau.me/2019/10/14/ocpc-taobao/index.html">
 <meta property="og:site_name" content="davidlau&#39;s blog">
-<meta property="og:description" content="背景 常见广告计费方式：   CPC：固定出价，标签定向，缺点是无法最优化广告主利益   oCPM：Facebook，微信朋友圈，优化广告主利益，广告主承担点击转化风险   oCPC：淘宝，同时优化三方利益（广告平台收入、广告主利益、用户体验），广告平台承担点击转化风险   oCPA：腾讯广告，同时优化三方利益，需要学习，更多时间起量，广告平台承担注册转化风险   淘宝广告与一般 RTB 相比：">
+<meta property="og:description" content="背景 常见广告计费方式：   CPM / CPC：固定出价，标签定向，缺点是无法最优化广告主利益   oCPM：Facebook，微信朋友圈，优化广告主利益，广告主承担点击转化风险   oCPC：淘宝，同时优化三方利益（广告平台收入、广告主利益、用户体验），广告平台承担点击转化风险   oCPA：腾讯广告，同时优化三方利益，需要学习，更多时间起量，广告平台承担注册转化风险   淘宝广告与一般 R">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://storage.googleapis.com/groundai-web-prod/media/users/user_199585/project_54908/images/x3.png">
-<meta property="og:updated_time" content="2020-05-13T02:41:30.121Z">
+<meta property="og:updated_time" content="2020-09-04T09:39:40.473Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="淘宝 oCPC 算法笔记">
-<meta name="twitter:description" content="背景 常见广告计费方式：   CPC：固定出价，标签定向，缺点是无法最优化广告主利益   oCPM：Facebook，微信朋友圈，优化广告主利益，广告主承担点击转化风险   oCPC：淘宝，同时优化三方利益（广告平台收入、广告主利益、用户体验），广告平台承担点击转化风险   oCPA：腾讯广告，同时优化三方利益，需要学习，更多时间起量，广告平台承担注册转化风险   淘宝广告与一般 RTB 相比：">
+<meta name="twitter:description" content="背景 常见广告计费方式：   CPM / CPC：固定出价，标签定向，缺点是无法最优化广告主利益   oCPM：Facebook，微信朋友圈，优化广告主利益，广告主承担点击转化风险   oCPC：淘宝，同时优化三方利益（广告平台收入、广告主利益、用户体验），广告平台承担点击转化风险   oCPA：腾讯广告，同时优化三方利益，需要学习，更多时间起量，广告平台承担注册转化风险   淘宝广告与一般 R">
 <meta name="twitter:image" content="https://storage.googleapis.com/groundai-web-prod/media/users/user_199585/project_54908/images/x3.png">
 
 
@@ -346,7 +346,7 @@
 <p>常见广告计费方式：</p>
 <ul>
 <li>
-<p>CPC：固定出价，标签定向，缺点是无法最优化广告主利益</p>
+<p>CPM / CPC：固定出价，标签定向，缺点是无法最优化广告主利益</p>
 </li>
 <li>
 <p>oCPM：<a href="https://www.facebook.com/business/help/494633817315490" target="_blank" rel="noopener">Facebook</a>，<a href="https://ad.weixin.qq.com/guide/117" target="_blank" rel="noopener">微信朋友圈</a>，优化广告主利益，广告主承担点击转化风险</p>
@@ -358,8 +358,7 @@
 <p>oCPA：<a href="https://e.qq.com/ads/learning/data/optimization/skill/005/" target="_blank" rel="noopener">腾讯广告</a>，同时优化三方利益，需要学习，更多时间起量，广告平台承担注册转化风险</p>
 </li>
 </ul>
-<p>淘宝广告与一般 RTB 相比：有用户全生命周期的数据；大部分中小广告主，关注收入而不是品牌曝光，因此提升 GMV 可以惠及广告主；统一 CPC 结算；以 GMV 为优化指标，同时满足三者的利益，达到多赢局面</p>
-<p>。</p>
+<p>淘宝广告与一般 RTB 相比：有用户全生命周期的数据；大部分中小广告主，关注收入而不是品牌曝光，因此提升 GMV 可以惠及广告主；统一 CPC 结算；以 GMV 为优化指标，同时满足三者的利益，达到多赢局面。</p>
 <p>淘宝使用 oCPC 原因：CPS CPA 忽视点击价值，结算效率低；CPM 对中小广告主有更高风险，因为 CPC 使广告主可以控制点击成本，而淘宝承担曝光 - 点击转化风险。综合考虑生态和效率，淘宝使用 CPC 结算。</p>
 <h2 id="建模"><a class="markdownIt-Anchor" href="#建模"></a> 建模</h2>
 <p>优化目标：GMV 或 GMV + 广告收益</p>
@@ -536,7 +535,7 @@ f_2(b_k^*) &amp;= pctr_k \times pcvr_k \times v_k + \alpha \times pctr_k \times 
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">60</span>
+                <span class="site-state-item-count">64</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>

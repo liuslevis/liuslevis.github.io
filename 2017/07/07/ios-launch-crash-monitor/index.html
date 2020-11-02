@@ -98,18 +98,18 @@
 <meta name="description" content="摘要 在 iOS 11 Beta 刚刚发布时，有用户在微博反馈：升级到 iOS 11 Beta 后，微信读书 App 遇到启动必 crash 的绝境，无法使用。  用户看到的界面，是我们开源的  iOS 启动连续闪退保护方案 提示。 调试发现，是一段 iOS 11 不兼容的代码引发的问题。我们通过修改不兼容代码，解决了问题。 等到现网用户反馈，为时太晚，如何把启动必 crash 问题纳入监控？">
 <meta property="og:type" content="article">
 <meta property="og:title" content="iOS App 启动必 crash 监控">
-<meta property="og:url" content="http://davidlau.me/2017/07/07/ios-launch-crash-monitor/index.html">
+<meta property="og:url" content="http://liuslevis.github.io/2017/07/07/ios-launch-crash-monitor/index.html">
 <meta property="og:site_name" content="davidlau&#39;s blog">
 <meta property="og:description" content="摘要 在 iOS 11 Beta 刚刚发布时，有用户在微博反馈：升级到 iOS 11 Beta 后，微信读书 App 遇到启动必 crash 的绝境，无法使用。  用户看到的界面，是我们开源的  iOS 启动连续闪退保护方案 提示。 调试发现，是一段 iOS 11 不兼容的代码引发的问题。我们通过修改不兼容代码，解决了问题。 等到现网用户反馈，为时太晚，如何把启动必 crash 问题纳入监控？">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://davidlau.me/img/crash_feedback.png">
-<meta property="og:image" content="http://davidlau.me/img/crash_stack.png">
-<meta property="og:image" content="http://davidlau.me/img/crash_report.png">
+<meta property="og:image" content="http://liuslevis.github.io/img/crash_feedback.png">
+<meta property="og:image" content="http://liuslevis.github.io/img/crash_stack.png">
+<meta property="og:image" content="http://liuslevis.github.io/img/crash_report.png">
 <meta property="og:updated_time" content="2018-01-02T02:02:24.316Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS App 启动必 crash 监控">
 <meta name="twitter:description" content="摘要 在 iOS 11 Beta 刚刚发布时，有用户在微博反馈：升级到 iOS 11 Beta 后，微信读书 App 遇到启动必 crash 的绝境，无法使用。  用户看到的界面，是我们开源的  iOS 启动连续闪退保护方案 提示。 调试发现，是一段 iOS 11 不兼容的代码引发的问题。我们通过修改不兼容代码，解决了问题。 等到现网用户反馈，为时太晚，如何把启动必 crash 问题纳入监控？">
-<meta name="twitter:image" content="http://davidlau.me/img/crash_feedback.png">
+<meta name="twitter:image" content="http://liuslevis.github.io/img/crash_feedback.png">
 
 
 
@@ -138,7 +138,7 @@
 
 
 
-  <link rel="canonical" href="http://davidlau.me/2017/07/07/ios-launch-crash-monitor/"/>
+  <link rel="canonical" href="http://liuslevis.github.io/2017/07/07/ios-launch-crash-monitor/"/>
 
 
 
@@ -277,7 +277,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2017/07/07/ios-launch-crash-monitor/">
+    <link itemprop="mainEntityOfPage" href="http://liuslevis.github.io/2017/07/07/ios-launch-crash-monitor/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="davidlau">
@@ -369,7 +369,7 @@
         <h2 id="摘要"><a class="markdownIt-Anchor" href="#摘要"></a> 摘要</h2>
 <p>在 iOS 11 Beta 刚刚发布时，有用户在微博反馈：升级到 iOS 11 Beta 后，微信读书 App 遇到启动必 crash 的绝境，无法使用。</p>
 <p><img src="/img/crash_feedback.png" alt="feed_back"></p>
-<p>用户看到的界面，是我们开源的  <a href="http://davidlau.me/2016/05/20/ios-launch-crash-protection/">iOS 启动连续闪退保护方案</a> 提示。</p>
+<p>用户看到的界面，是我们开源的  <a href="http://davidlau.me/2016/05/20/ios-launch-crash-protection/" target="_blank" rel="noopener">iOS 启动连续闪退保护方案</a> 提示。</p>
 <p>调试发现，是一段 iOS 11 不兼容的代码引发的问题。我们通过修改不兼容代码，解决了问题。</p>
 <p>等到现网用户反馈，为时太晚，如何把启动必 crash 问题纳入监控？</p>
 <p>我们设计了一个<strong>特征值</strong>以判断这个问题，并扩展了 <a href="https://wereadteam.github.io/2016/05/23/GYBootingProtection/" target="_blank" rel="noopener">iOS 启动连续闪退保护方案</a>，提供了日志上报接口，帮助开发者在第一时间发现启动必 crash 问题。</p>

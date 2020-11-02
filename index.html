@@ -97,7 +97,7 @@
 
 <meta property="og:type" content="website">
 <meta property="og:title" content="davidlau&#39;s blog">
-<meta property="og:url" content="http://davidlau.me/index.html">
+<meta property="og:url" content="http://liuslevis.github.io/index.html">
 <meta property="og:site_name" content="davidlau&#39;s blog">
 <meta property="og:locale" content="default">
 <meta name="twitter:card" content="summary">
@@ -130,7 +130,7 @@
 
 
 
-  <link rel="canonical" href="http://davidlau.me/"/>
+  <link rel="canonical" href="http://liuslevis.github.io/"/>
 
 
 
@@ -271,7 +271,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2020/09/17/pltv/">
+    <link itemprop="mainEntityOfPage" href="http://liuslevis.github.io/2020/09/17/pltv/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="davidlau">
@@ -472,7 +472,7 @@ L_\text{lognormal}(y;\mu(x), \sigma(x))&amp;= -\prod_{x_i,y_i} PDF_\text{lognorm
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2020/08/07/deep-nlp-models/">
+    <link itemprop="mainEntityOfPage" href="http://liuslevis.github.io/2020/08/07/deep-nlp-models/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="davidlau">
@@ -544,9 +544,12 @@ L_\text{lognormal}(y;\mu(x), \sigma(x))&amp;= -\prod_{x_i,y_i} PDF_\text{lognorm
         
           
             <p><a href="https://zhuanlan.zhihu.com/p/56176647" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/56176647</a></p>
-<h2 id="one-hot表示"><a class="markdownIt-Anchor" href="#one-hot表示"></a> One-hot表示</h2>
+<p><a href="https://tech.meituan.com/2019/11/14/nlp-bert-practice.html" target="_blank" rel="noopener">https://tech.meituan.com/2019/11/14/nlp-bert-practice.html</a></p>
+<p><img src="https://p0.meituan.net/travelcube/a67aa6b0b1fb153de0051e7eb3e8c632130233.png" alt="img"></p>
+<h2 id="独热编码语言模型"><a class="markdownIt-Anchor" href="#独热编码语言模型"></a> 独热编码语言模型</h2>
+<p>要点：用 one-hot 向量表示词，用 Bag-of-Words multi-hot 向量表示句子。</p>
 <p>问题：维度灾难，语义鸿沟</p>
-<h2 id="矩阵分解"><a class="markdownIt-Anchor" href="#矩阵分解"></a> 矩阵分解</h2>
+<h2 id="矩阵分解语言模型"><a class="markdownIt-Anchor" href="#矩阵分解语言模型"></a> 矩阵分解语言模型</h2>
 <h3 id="基于svd"><a class="markdownIt-Anchor" href="#基于svd"></a> 基于SVD</h3>
 <p>对共现矩阵（Window based Co-occurrence Matrix / Word-Doc Matrix）A 分解</p>
 <p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>A</mi><mo>=</mo><mi>U</mi><mi mathvariant="normal">Σ</mi><msup><mi>V</mi><mi>T</mi></msup></mrow><annotation encoding="application/x-tex">A=U\Sigma V^T
@@ -554,13 +557,14 @@ L_\text{lognormal}(y;\mu(x), \sigma(x))&amp;= -\prod_{x_i,y_i} PDF_\text{lognorm
 <p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>A</mi><mo>∈</mo><msup><mi mathvariant="double-struck">R</mi><mrow><mi>m</mi><mo>∗</mo><mi>n</mi></mrow></msup><mo separator="true">,</mo><mi>U</mi><mo>∈</mo><msup><mi mathvariant="double-struck">R</mi><mrow><mi>m</mi><mo>∗</mo><mi>m</mi></mrow></msup><mo separator="true">,</mo><mi mathvariant="normal">Σ</mi><mo>∈</mo><msup><mi mathvariant="double-struck">R</mi><mrow><mi>m</mi><mo>∗</mo><mi>n</mi></mrow></msup><mo separator="true">,</mo><mi>V</mi><mo>∈</mo><msup><mi mathvariant="double-struck">R</mi><mrow><mi>n</mi><mo>∗</mo><mi>n</mi></mrow></msup></mrow><annotation encoding="application/x-tex">A\in\mathbb R^{m*n}, U\in\mathbb R^{m*m}, \Sigma \in\mathbb R^{m*n}, V\in\mathbb R^{n*n}
 </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.738696em;"></span><span class="strut bottom" style="height:0.933136em;vertical-align:-0.19444em;"></span><span class="base displaystyle textstyle uncramped"><span class="mord mathit">A</span><span class="mrel">∈</span><span class=""><span class="mord mathbb">R</span><span class="vlist"><span style="top:-0.413em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mord mathit">m</span><span class="mbin">∗</span><span class="mord mathit">n</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mpunct">,</span><span class="mord mathit" style="margin-right:0.10903em;">U</span><span class="mrel">∈</span><span class=""><span class="mord mathbb">R</span><span class="vlist"><span style="top:-0.413em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mord mathit">m</span><span class="mbin">∗</span><span class="mord mathit">m</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mpunct">,</span><span class="mord mathrm">Σ</span><span class="mrel">∈</span><span class=""><span class="mord mathbb">R</span><span class="vlist"><span style="top:-0.413em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mord mathit">m</span><span class="mbin">∗</span><span class="mord mathit">n</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mpunct">,</span><span class="mord mathit" style="margin-right:0.22222em;">V</span><span class="mrel">∈</span><span class=""><span class="mord mathbb">R</span><span class="vlist"><span style="top:-0.413em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mord mathit">n</span><span class="mbin">∗</span><span class="mord mathit">n</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span></span></p>
 <p>问题：矩阵稀疏，计算复杂度高，高频词影响结果，一词多意问题。</p>
-<h2 id="语言模型"><a class="markdownIt-Anchor" href="#语言模型"></a> 语言模型</h2>
+<h2 id="统计语言模型"><a class="markdownIt-Anchor" href="#统计语言模型"></a> 统计语言模型</h2>
 <p>对于语言序列 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>w</mi><mn>1</mn></msub><mo separator="true">,</mo><msub><mi>w</mi><mn>2</mn></msub><mo separator="true">,</mo><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mo separator="true">,</mo><msub><mi>w</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">w_1,w_2,...,w_n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit" style="margin-right:0.02691em;">w</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.02691em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathrm">1</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mpunct">,</span><span class="mord"><span class="mord mathit" style="margin-right:0.02691em;">w</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.02691em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathrm">2</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mpunct">,</span><span class="mord mathrm">.</span><span class="mord mathrm">.</span><span class="mord mathrm">.</span><span class="mpunct">,</span><span class="mord"><span class="mord mathit" style="margin-right:0.02691em;">w</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.02691em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">n</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span>，语言模型用于计算序列出现的概率 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>P</mi><mo>(</mo><msub><mi>w</mi><mn>1</mn></msub><mo separator="true">,</mo><msub><mi>w</mi><mn>2</mn></msub><mo separator="true">,</mo><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mo separator="true">,</mo><msub><mi>w</mi><mi>n</mi></msub><mo>)</mo></mrow><annotation encoding="application/x-tex">P(w_1,w_2,...,w_n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord"><span class="mord mathit" style="margin-right:0.02691em;">w</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.02691em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathrm">1</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mpunct">,</span><span class="mord"><span class="mord mathit" style="margin-right:0.02691em;">w</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.02691em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathrm">2</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mpunct">,</span><span class="mord mathrm">.</span><span class="mord mathrm">.</span><span class="mord mathrm">.</span><span class="mpunct">,</span><span class="mord"><span class="mord mathit" style="margin-right:0.02691em;">w</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.02691em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">n</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mclose">)</span></span></span></span></p>
 <h3 id="n-gram"><a class="markdownIt-Anchor" href="#n-gram"></a> N-gram</h3>
 <p>假设第n个词出现仅与n-1个词有关（马尔可夫假设）。</p>
 <p>当 n = 2 有</p>
 <p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>P</mi><mo>(</mo><msub><mi>w</mi><mn>1</mn></msub><mo separator="true">,</mo><msub><mi>w</mi><mn>2</mn></msub><mo separator="true">,</mo><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mo separator="true">,</mo><msub><mi>w</mi><mi>n</mi></msub><mo>)</mo><mo>=</mo><mi>P</mi><mo>(</mo><msub><mi>w</mi><mn>1</mn></msub><mi mathvariant="normal">∣</mi><mi>s</mi><mi>t</mi><mi>a</mi><mi>r</mi><mi>t</mi><mo>)</mo><mi>P</mi><mo>(</mo><msub><mi>w</mi><mn>2</mn></msub><mi mathvariant="normal">∣</mi><mi>w</mi><mn>1</mn><mo>)</mo><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi>P</mi><mo>(</mo><msub><mi>w</mi><mi>n</mi></msub><mi mathvariant="normal">∣</mi><msub><mi>w</mi><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></msub><mo>)</mo></mrow><annotation encoding="application/x-tex">P(w_1,w_2,...,w_n) = P(w_1|start) P(w_2|w1) ... P(w_n|w_{n-1})
 </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base displaystyle textstyle uncramped"><span class="mord mathit" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord"><span class="mord mathit" style="margin-right:0.02691em;">w</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.02691em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathrm">1</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mpunct">,</span><span class="mord"><span class="mord mathit" style="margin-right:0.02691em;">w</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.02691em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathrm">2</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mpunct">,</span><span class="mord mathrm">.</span><span class="mord mathrm">.</span><span class="mord mathrm">.</span><span class="mpunct">,</span><span class="mord"><span class="mord mathit" style="margin-right:0.02691em;">w</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.02691em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">n</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mclose">)</span><span class="mrel">=</span><span class="mord mathit" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord"><span class="mord mathit" style="margin-right:0.02691em;">w</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.02691em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathrm">1</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mord mathrm">∣</span><span class="mord mathit">s</span><span class="mord mathit">t</span><span class="mord mathit">a</span><span class="mord mathit" style="margin-right:0.02778em;">r</span><span class="mord mathit">t</span><span class="mclose">)</span><span class="mord mathit" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord"><span class="mord mathit" style="margin-right:0.02691em;">w</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.02691em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathrm">2</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mord mathrm">∣</span><span class="mord mathit" style="margin-right:0.02691em;">w</span><span class="mord mathrm">1</span><span class="mclose">)</span><span class="mord mathrm">.</span><span class="mord mathrm">.</span><span class="mord mathrm">.</span><span class="mord mathit" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord"><span class="mord mathit" style="margin-right:0.02691em;">w</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.02691em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">n</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mord mathrm">∣</span><span class="mord"><span class="mord mathit" style="margin-right:0.02691em;">w</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.02691em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit">n</span><span class="mbin">−</span><span class="mord mathrm">1</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mclose">)</span></span></span></span></span></p>
+<h2 id="浅层神经网络语言模型"><a class="markdownIt-Anchor" href="#浅层神经网络语言模型"></a> 浅层神经网络语言模型</h2>
 <h3 id="nnlm"><a class="markdownIt-Anchor" href="#nnlm"></a> NNLM</h3>
 <p>《A Neural Probabilistic Language Model》<a href="https://www.jmlr.org/papers/volume3/bengio03a/bengio03a.pdf" target="_blank" rel="noopener">PDF</a> Bengio 2003 提出，用 NN 代替 N-gram 基于统计预估模型的方法。</p>
 <img src="https://mmbiz.qpic.cn/mmbiz_png/xP3FzHyaDyxZVA89k1of8nWZmBu2lnx9l039gDLN6iaQTSWnv3JhKwvQcktRxAa0JAmhY4bCeKRHibBT6tPfMqMQ/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img" style="zoom:33%;">
@@ -624,6 +628,18 @@ P(w_t |w_{t−1},···w_{t−n+1}) = \frac{e^{y_{w_t}}}{\sum_i e^{y_i}}
 </tr>
 </tbody>
 </table>
+<h2 id="自回归语言模型"><a class="markdownIt-Anchor" href="#自回归语言模型"></a> 自回归语言模型</h2>
+<p>Autogressive LM，通过上文预测下一个字，或者反之。</p>
+<h3 id="seq2seq"><a class="markdownIt-Anchor" href="#seq2seq"></a> Seq2Seq</h3>
+<p>论文：</p>
+<p>《Learning Phrase Representations using RNN Encoder–Decoder for Statistical Machine Translation》<a href="https://papers.nips.cc/paper/5346-sequence-to-sequence-learning-with-neural-networks.pdf" target="_blank" rel="noopener">PDF</a> Bengio Google 2014，RNN ENcoder-Decoder</p>
+<p>《Sequence to Sequence Learning with Neural Networks》<a href="https://papers.nips.cc/paper/5346-sequence-to-sequence-learning-with-neural-networks.pdf" target="_blank" rel="noopener">PDF</a> Quoc V. Le Google 2014，LSTM ENcoder-Decoder</p>
+<p>要点：</p>
+<img src="https://3.bp.blogspot.com/-3Pbj_dvt0Vo/V-qe-Nl6P5I/AAAAAAAABQc/z0_6WtVWtvARtMk0i9_AtLeyyGyV6AI4wCLcB/s1600/nmt-model-fast.gif" alt="img" style="zoom:50%;">
+<p>实现：<a href="https://google.github.io/seq2seq/" target="_blank" rel="noopener">https://google.github.io/seq2seq/</a> <a href="https://github.com/google/seq2seq" target="_blank" rel="noopener">https://github.com/google/seq2seq</a></p>
+<h3 id="convs2s"><a class="markdownIt-Anchor" href="#convs2s"></a> ConvS2S</h3>
+<p>论文：《Convolutional Sequence to Sequence Learning》<a href="https://arxiv.org/pdf/1705.03122.pdf" target="_blank" rel="noopener">PDF</a> FAIR 2017</p>
+<p>参考：<a href="https://zhuanlan.zhihu.com/p/60524073" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/60524073</a></p>
 <h3 id="transformer"><a class="markdownIt-Anchor" href="#transformer"></a> Transformer</h3>
 <p>论文：《Attention is All You Need》<a href="https://arxiv.org/pdf/1706.03762.pdf" target="_blank" rel="noopener">PDF</a> 2017</p>
 <p>要点：与 LSTM GRU 等循环网络相比，通过 Self-Attention 机制能够高效学习长距离 token emb 交互，并行性好，计算复杂度低。BLEU 41 SNLI 89.3</p>
@@ -668,15 +684,39 @@ head_i &amp;= Attention(QW_i^Q,KW_i^K,VW_i^V,)
 <p>得到预训练的模型，然后在这样的模型后面再次接上下游任务。与ELMo只提供向量不同，这里预训练的模型一同提供给下游的任务。这里模型的向量是可以随着新的下游任务发生微小的调整，也就是fine-tune。</p>
 <img src="https://pic2.zhimg.com/80/v2-5c13f8905279a3042540794ab8d18b47_1440w.jpg" alt="img" style="zoom: 33%;">
 <p><img src="https://pic1.zhimg.com/80/v2-c5827cc45369496804906ede2a599764_1440w.jpg" alt="img"></p>
+<h2 id="自编码语言模型"><a class="markdownIt-Anchor" href="#自编码语言模型"></a> 自编码语言模型</h2>
+<p>Autoencoder LM，区别于自回归 LM，根据上下文预测中间词。</p>
+<p>如 BERT 输入随机 mask 一部分词对其预测，类似 Denoising Autoencoder（输入噪音图片，输出去噪图片）。</p>
+<p>优点是可以利用上下文进行预测，缺点输入侧引入 Mask 标记，导致预训练阶段和 Fine-tuning 阶段（无 Mask 标记）不一致问题。BERT 这个方法缓解这个问题：对 15% 需要 Mask 词汇，80% 概率用 Mask、10% 用其他词替换、10% 维持不替换。</p>
 <h3 id="bert"><a class="markdownIt-Anchor" href="#bert"></a> BERT</h3>
 <p>论文：《BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding》<a href="https://arxiv.org/pdf/1810.04805.pdf" target="_blank" rel="noopener">PDF</a> 2019</p>
-<p>要点：Transformer 双向编码器 + 掩码语言模型；</p>
-<p>意义：a) 真正双向多层语言模型 词语义建模+上下文同时建模，b) 显式对句子关系建模</p>
-<p>预训练：1）Masked LM的任务。就是随便盖住一个单词来预测。2）是否是下一句。判断两句时候相连的二分类问题。</p>
+<p>要点：Transformer 双向编码器 + 掩码语言模型；先用两个任务预训练模型，再接入任务塔进行 fine-tune。</p>
+<p>数据：BooksCorpus、Wiki，大小13G。</p>
+<p><img src="https://p0.meituan.net/travelcube/890083d95e1dc89888296e0991437dc7646898.png" alt="img"></p>
+<p>意义：</p>
+<ul>
+<li>真正双向多层语言模型，词语义建模+上下文同时建模</li>
+<li>显式对句子关系建模</li>
+</ul>
+<p>预训练：</p>
+<ul>
+<li>MLM, Masked Language Model：对输入词，构建完形填空任务。改善以往模型自左向右，或浅层拼接自左向右、自右向左模型的上下文学习能力</li>
+<li>NSP, Next Sentence Prediction：判断两句时候相连的二分类问题，用于 QA 任务；最近研究发现，去掉 NSP 影响不大。</li>
+</ul>
 <p>网络结构：全连的网络结构（与 GPT 比较）。</p>
-<p>输入向量：词向量，段落（segment）向量与位置（position）向量。与transformer不同的是，这些向量都要模型学习。</p>
-<p>输入的格式：输入的格式xuewei的变化。增加了[cls]与[sep]。</p>
+<p>输入向量：词向量（<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>E</mi><mrow><mi>w</mi><mi>o</mi><mi>r</mi><mi>d</mi></mrow></msub></mrow><annotation encoding="application/x-tex">E_{word}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit" style="margin-right:0.05764em;">E</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.05764em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit" style="margin-right:0.02691em;">w</span><span class="mord mathit">o</span><span class="mord mathit" style="margin-right:0.02778em;">r</span><span class="mord mathit">d</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span> / <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>E</mi><mrow><mi>C</mi><mi>L</mi><mi>S</mi></mrow></msub></mrow><annotation encoding="application/x-tex">E_{CLS}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit" style="margin-right:0.05764em;">E</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.05764em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit" style="margin-right:0.07153em;">C</span><span class="mord mathit">L</span><span class="mord mathit" style="margin-right:0.05764em;">S</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span> / <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>E</mi><mrow><mi>S</mi><mi>E</mi><mi>P</mi></mrow></msub></mrow><annotation encoding="application/x-tex">E_{SEP}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit" style="margin-right:0.05764em;">E</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.05764em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit" style="margin-right:0.05764em;">S</span><span class="mord mathit" style="margin-right:0.05764em;">E</span><span class="mord mathit" style="margin-right:0.13889em;">P</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span>），段落向量（segment embedding, <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>E</mi><mi>A</mi></msub></mrow><annotation encoding="application/x-tex">E_A</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit" style="margin-right:0.05764em;">E</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.05764em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">A</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span> / <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>E</mi><mi>B</mi></msub></mrow><annotation encoding="application/x-tex">E_B</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit" style="margin-right:0.05764em;">E</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.05764em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit" style="margin-right:0.05017em;">B</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span>）与位置向量（position embedding, <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>E</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">E_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit" style="margin-right:0.05764em;">E</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.05764em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span>），都需要模型学习。</p>
+<p>输入的格式：增加了 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>[</mo><mi>C</mi><mi>L</mi><mi>S</mi><mo>]</mo><mo separator="true">,</mo><mo>[</mo><mi>S</mi><mi>E</mi><mi>P</mi><mo>]</mo></mrow><annotation encoding="application/x-tex">[CLS],[SEP]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mopen">[</span><span class="mord mathit" style="margin-right:0.07153em;">C</span><span class="mord mathit">L</span><span class="mord mathit" style="margin-right:0.05764em;">S</span><span class="mclose">]</span><span class="mpunct">,</span><span class="mopen">[</span><span class="mord mathit" style="margin-right:0.05764em;">S</span><span class="mord mathit" style="margin-right:0.05764em;">E</span><span class="mord mathit" style="margin-right:0.13889em;">P</span><span class="mclose">]</span></span></span></span>，为了能同时表达 <单句> 和 <问题句, 答案句="">，给下游各种任务。</问题句,></单句></p>
 <p><img src="https://pic2.zhimg.com/80/v2-91e1105fca0a774236be61886437aa72_1440w.jpg" alt="img"></p>
+<h3 id="mt-bert"><a class="markdownIt-Anchor" href="#mt-bert"></a> MT-BERT</h3>
+<p>文章：<a href="https://tech.meituan.com/2019/11/14/nlp-bert-practice.html" target="_blank" rel="noopener">https://tech.meituan.com/2019/11/14/nlp-bert-practice.html</a></p>
+<p>要点：</p>
+<ul>
+<li>模型轻量化 &amp; 分布式训练 &amp; 推导加速</li>
+<li>领域自适应：在 Google 中文BERT模型上加入领域数据</li>
+<li>知识融入：Knowledge-aware Masking，融入实体知识，避免如 “宫保鸡丁”和“宫保鸡丁酱料” 距离相近的问题</li>
+<li>单句分类——细粒度情感分析，Share Layers (多路并行的Attention) + Task-specific Layers，对文本在各个属性上的情感倾向进行分类预测（环境、服务、口味多分类）</li>
+<li>介绍其他任务应用，如推荐理由场景化分类、Query意图分类</li>
+</ul>
 <h3 id="roberta"><a class="markdownIt-Anchor" href="#roberta"></a> RoBERTa</h3>
 <p>论文：《RoBERTa: A Robustly optimized BERT approach》PDF ACL19</p>
 <p>要点：更多的数据，采取更精妙的训练技巧，训练更久一些</p>
@@ -690,7 +730,55 @@ head_i &amp;= Attention(QW_i^Q,KW_i^K,VW_i^V,)
 <li>Cross-layer parameter sharing</li>
 <li>Inter-sentence coherence loss</li>
 </ul>
-<p><a href="https://zhuanlan.zhihu.com/p/84273154" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/84273154</a></p>
+<p>《美团BERT的探索和实践》<a href="https://zhuanlan.zhihu.com/p/84273154" target="_blank" rel="noopener">URL</a> 模型裁剪</p>
+<h2 id="排列语言模型"><a class="markdownIt-Anchor" href="#排列语言模型"></a> 排列语言模型</h2>
+<p>Permutation LM，基于自回归 LM，通过 Attention Mask 实现双流自注意力，融入双向语言模型。</p>
+<h3 id="xlnet"><a class="markdownIt-Anchor" href="#xlnet"></a> XLNet</h3>
+<p>论文：《XLNet: Generalized Autoregressive Pretraining for Language Understanding》<a href="https://arxiv.org/pdf/1906.08237.pdf" target="_blank" rel="noopener">PDF</a> Google 2019</p>
+<p>参考：《XLNet:运行机制及和Bert的异同比较》<a href="https://zhuanlan.zhihu.com/p/70257427" target="_blank" rel="noopener">URL</a></p>
+<p>数据：BooksCorpus、Wiki、Giga5、CluWeb、CommonCrawl，大小16G、19G、78G。</p>
+<p>要点：</p>
+<ul>
+<li>
+<p>解决自回归 LM 如 ELMO 的问题：只编码单向语意</p>
+</li>
+<li>
+<p>解决自编码 LM 如  BERT 的问题： (a) 预测 Mask 词之间互相独立的假设 (b) 训练使用 Mask 预测中不用造成的误差</p>
+</li>
+<li>
+<p>提出排列 LM，通过 Attention Mask 随机排列输入句子、预测某个位置的词。</p>
+</li>
+</ul>
+<h2 id="最新进展"><a class="markdownIt-Anchor" href="#最新进展"></a> 最新进展</h2>
+<h3 id="mt-dnn"><a class="markdownIt-Anchor" href="#mt-dnn"></a> MT-DNN</h3>
+<p>论文：《Multi-Task Deep Neural Networks for Natural Language Understanding》<a href="https://arxiv.org/abs/1901.11504" target="_blank" rel="noopener">PDF</a> MSR 2019</p>
+<img src="https://pic3.zhimg.com/80/v2-41f5c74a8dce25ef2f6b4b2a095d7f6b_1440w.jpg" alt="img" style="zoom:50%;">
+<h2 id="t5"><a class="markdownIt-Anchor" href="#t5"></a> T5</h2>
+<p>论文：《Exploring the Limits of Transfer Learning with a Unified Text-to-Text Transformer》<a href="https://arxiv.org/abs/1910.10683" target="_blank" rel="noopener">PDF</a> Google 2020</p>
+<p>介绍：<a href="https://ai.googleblog.com/2020/02/exploring-transfer-learning-with-t5.html" target="_blank" rel="noopener">https://ai.googleblog.com/2020/02/exploring-transfer-learning-with-t5.html</a></p>
+<p>要点：提出 T5 框架，涵盖所有 NLP 任务到单一 text-to-text 模型。</p>
+<img src="https://1.bp.blogspot.com/-o4oiOExxq1s/Xk26XPC3haI/AAAAAAAAFU8/NBlvOWB84L0PTYy9TzZBaLf6fwPGJTR0QCLcBGAsYHQ/s1600/image3.gif" alt="img" style="zoom: 33%;">
+<h2 id="附录"><a class="markdownIt-Anchor" href="#附录"></a> 附录</h2>
+<p>NLP可以分为自然语言理解（NLU）和自然语言生成（NLG）。</p>
+<p>NLU 较流行的是 <a href="https://gluebenchmark.com/tasks" target="_blank" rel="noopener">GLUE</a>(General Language Understanding Evaluation) ，集合了九项NLU的任务：</p>
+<ul>
+<li><a href="https://nyu-mll.github.io/CoLA/" target="_blank" rel="noopener">CoLA</a>(The Corpus of Linguistic Acceptability):纽约大学发布的有关语法的数据集，该任务主要是对一个给定句子，判定其是否语法正确，因此CoLA属于单个句子的文本二分类任务；</li>
+<li><a href="https://nlp.stanford.edu/sentiment/index.html" target="_blank" rel="noopener">SST</a>(The Stanford Sentiment Treebank)，是斯坦福大学发布的一个情感分析数据集，主要针对电影评论来做情感分类，因此SST属于单个句子的文本分类任务（其中SST-2是二分类，SST-5是五分类，SST-5的情感极性区分的更细致）；</li>
+<li><a href="https://www.microsoft.com/en-us/download/details.aspx?id=52398" target="_blank" rel="noopener">MRPC</a>(Microsoft Research Paraphrase Corpus)，由微软发布，判断两个给定句子，是否具有相同的语义，属于句子对的文本二分类任务；</li>
+<li><a href="http://ixa2.si.ehu.es/stswiki/index.php/STSbenchmark" target="_blank" rel="noopener">STS-B</a>(Semantic Textual Similarity Benchmark)，主要是来自于历年<a href="https://en.wikipedia.org/wiki/SemEval" target="_blank" rel="noopener">SemEval</a>中的一个任务（同时该数据集也包含在了<a href="https://github.com/facebookresearch/SentEval" target="_blank" rel="noopener">SentEval</a>），具体来说是用1到5的分数来表征两个句子的语义相似性，本质上是一个回归问题，但依然可以用分类的方法做，因此可以归类为句子对的文本五分类任务；</li>
+<li><a href="https://data.quora.com/First-Quora-Dataset-Release-Question-Pairs" target="_blank" rel="noopener">QQP</a>(Quora Question Pairs)，是由Quora发布的两个句子是否语义一致的数据集，属于句子对的文本二分类任务；</li>
+<li><a href="http://www.nyu.edu/projects/bowman/multinli/" target="_blank" rel="noopener">MNLI</a>(Multi-Genre Natural Language Inference)，同样由纽约大学发布，是一个文本蕴含的任务，在给定前提（Premise）下，需要判断假设（Hypothesis）是否成立，其中因为MNLI特点是集合了许多不同领域风格的文本，因此又分为matched和mismatched两个版本的MNLI数据集，前者指训练集和测试集的数据来源一致，而后者指来源不一致。该任务属于句子对的文本三分类问题。</li>
+<li><a href="https://arxiv.org/abs/1606.05250" target="_blank" rel="noopener">QNLI</a>（Question Natural Language Inference)，其前身是SQuAD 1.0数据集，给定一个问句，需要判断给定文本中是否包含该问句的正确答案。属于句子对的文本二分类任务；</li>
+<li><a href="https://aclweb.org/aclwiki/Recognizing_Textual_Entailment" target="_blank" rel="noopener">RTE</a>(Recognizing Textual Entailment)，和MNLI类似，也是一个文本蕴含任务，不同的是MNLI是三分类，RTE只需要判断两个句子是否能够推断或对齐，属于句子对的文本二分类任务；</li>
+<li><a href="https://cs.nyu.edu/faculty/davise/papers/WinogradSchemas/WS.html" target="_blank" rel="noopener">WNLI</a>(Winograd Natural Language Inference)，也是一个文本蕴含任务，不过似乎GLUE上这个数据集还有些问题；</li>
+</ul>
+<p>NLG 常见的数据集：</p>
+<ul>
+<li>BLEU（机器翻译）《BLEU: a Method for Automatic Evaluation of Machine Translation》<a href="https://link.zhihu.com/?target=http%3A//www.aclweb.org/anthology/P02-1040.pdf" target="_blank" rel="noopener">PDF</a> IBM 2002</li>
+<li>ROUGE（自动摘要）、Rouge-N、Rouge-L、Rouge-W、Rouge-S</li>
+<li>METEOR（机器翻译、自动文摘），《METEOR: An automatic metric for mt evaluation with improved correlation with human judgments》<a href="https://www.aclweb.org/anthology/W05-0909.pdf" target="_blank" rel="noopener">PDF</a> CMU 2005</li>
+<li>CIDEr（图像）《CIDEr: Consensus-Based Image Description Evaluation》<a href="https://www.cv-foundation.org/openaccess/content_cvpr_2015/papers/Vedantam_CIDEr_Consensus-Based_Image_2015_CVPR_paper.pdf" target="_blank" rel="noopener">PDF</a> CVPR 2015</li>
+</ul>
 
           
         
@@ -739,7 +827,7 @@ head_i &amp;= Attention(QW_i^Q,KW_i^K,VW_i^V,)
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2020/07/14/delay-feedback/">
+    <link itemprop="mainEntityOfPage" href="http://liuslevis.github.io/2020/07/14/delay-feedback/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="davidlau">
@@ -1020,7 +1108,7 @@ L_{DF}(w_c, w_d)=&amp;-\sum_{x,y=1} \log p(x)+\log\lambda(x)-\lambda(x)d \\
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2020/07/06/kdd2020/">
+    <link itemprop="mainEntityOfPage" href="http://liuslevis.github.io/2020/07/06/kdd2020/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="davidlau">
@@ -1144,7 +1232,7 @@ L_{DF}(w_c, w_d)=&amp;-\sum_{x,y=1} \log p(x)+\log\lambda(x)-\lambda(x)d \\
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2020/05/26/knowledge-distillation/">
+    <link itemprop="mainEntityOfPage" href="http://liuslevis.github.io/2020/05/26/knowledge-distillation/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="davidlau">
@@ -1268,7 +1356,7 @@ L_{DF}(w_c, w_d)=&amp;-\sum_{x,y=1} \log p(x)+\log\lambda(x)-\lambda(x)d \\
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2020/05/08/graph-nerual-network/">
+    <link itemprop="mainEntityOfPage" href="http://liuslevis.github.io/2020/05/08/graph-nerual-network/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="davidlau">
@@ -1407,7 +1495,7 @@ L_{DF}(w_c, w_d)=&amp;-\sum_{x,y=1} \log p(x)+\log\lambda(x)-\lambda(x)d \\
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2020/02/25/bayesian-vs-frequentist/">
+    <link itemprop="mainEntityOfPage" href="http://liuslevis.github.io/2020/02/25/bayesian-vs-frequentist/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="davidlau">
@@ -1634,7 +1722,7 @@ P(\theta|X) = \frac{P(X|\theta)P(\theta)}{\int_\theta P(X|\theta)P(\theta) d\the
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2020/01/28/attention/">
+    <link itemprop="mainEntityOfPage" href="http://liuslevis.github.io/2020/01/28/attention/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="davidlau">
@@ -1730,7 +1818,7 @@ $$
 <p>增加了遗忘门，一定概率遗忘上一层隐藏层的状态：</p>
 <img src="https://segmentfault.com/img/bV9jCt?w=756&amp;h=290" alt="img" style="zoom: 67%;">
 <h3 id="gru"><a class="markdownIt-Anchor" href="#gru"></a> GRU</h3>
-<h3 id="attention-rnnencoder-decoder"><a class="markdownIt-Anchor" href="#attention-rnnencoder-decoder"></a> Attention + RNN(Encoder-decoder)</h3>
+<h3 id="rnn-attention-encoder-decoder"><a class="markdownIt-Anchor" href="#rnn-attention-encoder-decoder"></a> RNN + Attention (Encoder-decoder)</h3>
 <p>Attention机制通过在每个时间输入不同的c来解决问题</p>
 <p>下图是带有 attention 机制的 decoder</p>
 <img src="https://pic2.zhimg.com/80/v2-8da16d429d33b0f2705e47af98e66579_hd.jpg" alt="img" style="zoom: 25%;">
@@ -1741,11 +1829,26 @@ $$
 <p>输入 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>q</mi></mrow><annotation encoding="application/x-tex">q</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.03588em;">q</span></span></span></span>，Memory 中以 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mi>k</mi><mo separator="true">,</mo><mi>v</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">(k,v)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.03148em;">k</span><span class="mpunct">,</span><span class="mord mathit" style="margin-right:0.03588em;">v</span><span class="mclose">)</span></span></span></span> 形式存储需要的上下文，其中 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>k</mi></mrow><annotation encoding="application/x-tex">k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.69444em;"></span><span class="strut bottom" style="height:0.69444em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.03148em;">k</span></span></span></span> 是 question，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>v</mi></mrow><annotation encoding="application/x-tex">v</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.03588em;">v</span></span></span></span> 是 answer，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>q</mi></mrow><annotation encoding="application/x-tex">q</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.03588em;">q</span></span></span></span> 是新来的 question，根据与 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>q</mi></mrow><annotation encoding="application/x-tex">q</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.03588em;">q</span></span></span></span> 相似的历史 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>k</mi></mrow><annotation encoding="application/x-tex">k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.69444em;"></span><span class="strut bottom" style="height:0.69444em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.03148em;">k</span></span></span></span>，带权 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>v</mi></mrow><annotation encoding="application/x-tex">v</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.03588em;">v</span></span></span></span> 求和，输出 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>c</mi></mrow><annotation encoding="application/x-tex">c</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">c</span></span></span></span>。</p>
 <p>计算步骤</p>
 <ol>
-<li>在 Memory 中寻找相似 k（score function）：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>e</mi><mi>i</mi></msub><mo>=</mo><mi>a</mi><mo>(</mo><mi>q</mi><mo separator="true">,</mo><msub><mi>k</mi><mi>i</mi></msub><mo>)</mo></mrow><annotation encoding="application/x-tex">e_i = a(q,k_i)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit">e</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mrel">=</span><span class="mord mathit">a</span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.03588em;">q</span><span class="mpunct">,</span><span class="mord"><span class="mord mathit" style="margin-right:0.03148em;">k</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.03148em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mclose">)</span></span></span></span></li>
-<li>归一化（alignment function）：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>α</mi><mo>=</mo><mi>s</mi><mi>o</mi><mi>f</mi><mi>t</mi><mi>m</mi><mi>a</mi><mi>x</mi><mo>(</mo><msub><mi>e</mi><mi>i</mi></msub><mo>)</mo></mrow><annotation encoding="application/x-tex">\alpha = softmax(e_i)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.0037em;">α</span><span class="mrel">=</span><span class="mord mathit">s</span><span class="mord mathit">o</span><span class="mord mathit" style="margin-right:0.10764em;">f</span><span class="mord mathit">t</span><span class="mord mathit">m</span><span class="mord mathit">a</span><span class="mord mathit">x</span><span class="mopen">(</span><span class="mord"><span class="mord mathit">e</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mclose">)</span></span></span></span></li>
+<li>在 Memory 中寻找相似 k（score function）：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>e</mi><mi>i</mi></msub><mo>=</mo><mi>a</mi><mo>(</mo><mi>q</mi><mo separator="true">,</mo><msub><mi>k</mi><mi>i</mi></msub><mo>)</mo></mrow><annotation encoding="application/x-tex">e_i = a(q,k_i)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit">e</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mrel">=</span><span class="mord mathit">a</span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.03588em;">q</span><span class="mpunct">,</span><span class="mord"><span class="mord mathit" style="margin-right:0.03148em;">k</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.03148em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mclose">)</span></span></span></span>，其中 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>a</mi></mrow><annotation encoding="application/x-tex">a</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">a</span></span></span></span> 是打分函数（注意力分布），可选：
+<ol>
+<li>加性模型 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>a</mi><mo>(</mo><mi>q</mi><mo separator="true">,</mo><msub><mi>k</mi><mi>i</mi></msub><mo>)</mo><mo>=</mo><msup><mi>v</mi><mi>T</mi></msup><mi>tanh</mi><mo>(</mo><mi>W</mi><msub><mi>k</mi><mi>i</mi></msub><mo>+</mo><mi>U</mi><mi>q</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">a(q,k_i)=v^T\tanh (Wk_i + Uq)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.8413309999999999em;"></span><span class="strut bottom" style="height:1.0913309999999998em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit">a</span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.03588em;">q</span><span class="mpunct">,</span><span class="mord"><span class="mord mathit" style="margin-right:0.03148em;">k</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.03148em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mclose">)</span><span class="mrel">=</span><span class="mord"><span class="mord mathit" style="margin-right:0.03588em;">v</span><span class="vlist"><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord mathit" style="margin-right:0.13889em;">T</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mop">tanh</span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.13889em;">W</span><span class="mord"><span class="mord mathit" style="margin-right:0.03148em;">k</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.03148em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mbin">+</span><span class="mord mathit" style="margin-right:0.10903em;">U</span><span class="mord mathit" style="margin-right:0.03588em;">q</span><span class="mclose">)</span></span></span></span></li>
+<li>点积模型 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>a</mi><mo>(</mo><mi>q</mi><mo separator="true">,</mo><msub><mi>k</mi><mi>i</mi></msub><mo>)</mo><mo>=</mo><msubsup><mi>k</mi><mi>i</mi><mi>T</mi></msubsup><mi>q</mi></mrow><annotation encoding="application/x-tex">a(q,k_i)=k_i^Tq</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.8413309999999999em;"></span><span class="strut bottom" style="height:1.0999949999999998em;vertical-align:-0.258664em;"></span><span class="base textstyle uncramped"><span class="mord mathit">a</span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.03588em;">q</span><span class="mpunct">,</span><span class="mord"><span class="mord mathit" style="margin-right:0.03148em;">k</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.03148em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mclose">)</span><span class="mrel">=</span><span class="mord"><span class="mord mathit" style="margin-right:0.03148em;">k</span><span class="vlist"><span style="top:0.258664em;margin-left:-0.03148em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord mathit" style="margin-right:0.13889em;">T</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mord mathit" style="margin-right:0.03588em;">q</span></span></span></span></li>
+<li>缩放点积模型 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>a</mi><mo>(</mo><mi>q</mi><mo separator="true">,</mo><msub><mi>k</mi><mi>i</mi></msub><mo>)</mo><mo>=</mo><mfrac><mrow><msubsup><mi>k</mi><mi>i</mi><mi>T</mi></msubsup><mi>q</mi></mrow><mrow><msqrt><mrow><mi>d</mi></mrow></msqrt></mrow></mfrac></mrow><annotation encoding="application/x-tex">a(q,k_i)=\frac{k_i^Tq}{\sqrt{d}}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:1.0934249999999999em;"></span><span class="strut bottom" style="height:1.643425em;vertical-align:-0.55em;"></span><span class="base textstyle uncramped"><span class="mord mathit">a</span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.03588em;">q</span><span class="mpunct">,</span><span class="mord"><span class="mord mathit" style="margin-right:0.03148em;">k</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.03148em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mclose">)</span><span class="mrel">=</span><span class="mord reset-textstyle textstyle uncramped"><span class="sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span><span class="mfrac"><span class="vlist"><span style="top:0.488054em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="sqrt mord"><span class="sqrt-sign" style="top:-0.11150571428571421em;"><span class="style-wrap reset-scriptstyle scriptstyle uncramped">√</span></span><span class="vlist"><span style="top:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1.4285714285714286em;">​</span></span><span class="mord scriptstyle cramped"><span class="mord mathit">d</span></span></span><span style="top:-0.8543628571428571em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1.4285714285714286em;">​</span></span><span class="reset-scriptstyle textstyle uncramped sqrt-line"></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1.4285714285714286em;">​</span></span>​</span></span></span></span></span></span><span style="top:-0.22999999999999998em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1em;">​</span></span><span class="reset-textstyle textstyle uncramped frac-line"></span></span><span style="top:-0.49766em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mord"><span class="mord mathit" style="margin-right:0.03148em;">k</span><span class="vlist"><span style="top:0.26808571428571426em;margin-left:-0.03148em;margin-right:0.07142857142857144em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-scriptstyle scriptscriptstyle cramped"><span class="mord mathit">i</span></span></span><span style="top:-0.363em;margin-right:0.07142857142857144em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-scriptstyle scriptscriptstyle uncramped"><span class="mord mathit" style="margin-right:0.13889em;">T</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mord mathit" style="margin-right:0.03588em;">q</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1em;">​</span></span>​</span></span></span><span class="sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span></span></span></span></span></li>
+<li>双线性模型 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>a</mi><mo>(</mo><mi>q</mi><mo separator="true">,</mo><msub><mi>k</mi><mi>i</mi></msub><mo>)</mo><mo>=</mo><msubsup><mi>x</mi><mi>i</mi><mi>T</mi></msubsup><mi>W</mi><mi>q</mi></mrow><annotation encoding="application/x-tex">a(q,k_i)=x_i^TWq</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.8413309999999999em;"></span><span class="strut bottom" style="height:1.0999949999999998em;vertical-align:-0.258664em;"></span><span class="base textstyle uncramped"><span class="mord mathit">a</span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.03588em;">q</span><span class="mpunct">,</span><span class="mord"><span class="mord mathit" style="margin-right:0.03148em;">k</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.03148em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mclose">)</span><span class="mrel">=</span><span class="mord"><span class="mord mathit">x</span><span class="vlist"><span style="top:0.258664em;margin-left:0em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord mathit" style="margin-right:0.13889em;">T</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mord mathit" style="margin-right:0.13889em;">W</span><span class="mord mathit" style="margin-right:0.03588em;">q</span></span></span></span></li>
+</ol>
+</li>
+<li>归一化（alignment function）：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>α</mi><mo>=</mo><mi>s</mi><mi>o</mi><mi>f</mi><mi>t</mi><mi>m</mi><mi>a</mi><mi>x</mi><mo>(</mo><mi>e</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">\alpha = softmax(e)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.0037em;">α</span><span class="mrel">=</span><span class="mord mathit">s</span><span class="mord mathit">o</span><span class="mord mathit" style="margin-right:0.10764em;">f</span><span class="mord mathit">t</span><span class="mord mathit">m</span><span class="mord mathit">a</span><span class="mord mathit">x</span><span class="mopen">(</span><span class="mord mathit">e</span><span class="mclose">)</span></span></span></span></li>
 <li>读取内容（context vector function）：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>c</mi><mo>=</mo><msub><mo>∑</mo><mi>i</mi></msub><msub><mi>α</mi><mi>i</mi></msub><msub><mi>v</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">c = \sum_i \alpha_i v_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1.0500099999999999em;vertical-align:-0.30001em;"></span><span class="base textstyle uncramped"><span class="mord mathit">c</span><span class="mrel">=</span><span class="mop"><span class="op-symbol small-op mop" style="top:-0.0000050000000000050004em;">∑</span><span class="vlist"><span style="top:0.30001em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mord"><span class="mord mathit" style="margin-right:0.0037em;">α</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.0037em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mord"><span class="mord mathit" style="margin-right:0.03588em;">v</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.03588em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span></li>
 </ol>
-<p>Self-attention TODO</p>
+<p>数化简成一个公式：（打分函为缩放点积模型）</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>A</mi><mi>t</mi><mi>t</mi><mi>e</mi><mi>n</mi><mi>t</mi><mi>i</mi><mi>o</mi><mi>n</mi><mo>(</mo><mi>Q</mi><mo separator="true">,</mo><mi>K</mi><mo separator="true">,</mo><mi>V</mi><mo>)</mo><mo>=</mo><mi>s</mi><mi>o</mi><mi>f</mi><mi>t</mi><mi>m</mi><mi>a</mi><mi>x</mi><mo>(</mo><mfrac><mrow><mi>Q</mi><msup><mi>K</mi><mi>T</mi></msup></mrow><mrow><msub><msqrt><mi>d</mi></msqrt><mi>k</mi></msub></mrow></mfrac><mo>)</mo><mi>V</mi></mrow><annotation encoding="application/x-tex">Attention(Q,K,V)=softmax(\frac{QK^T}{\sqrt d_k})V
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:1.5183309999999999em;"></span><span class="strut bottom" style="height:2.498331em;vertical-align:-0.9800000000000001em;"></span><span class="base displaystyle textstyle uncramped"><span class="mord mathit">A</span><span class="mord mathit">t</span><span class="mord mathit">t</span><span class="mord mathit">e</span><span class="mord mathit">n</span><span class="mord mathit">t</span><span class="mord mathit">i</span><span class="mord mathit">o</span><span class="mord mathit">n</span><span class="mopen">(</span><span class="mord mathit">Q</span><span class="mpunct">,</span><span class="mord mathit" style="margin-right:0.07153em;">K</span><span class="mpunct">,</span><span class="mord mathit" style="margin-right:0.22222em;">V</span><span class="mclose">)</span><span class="mrel">=</span><span class="mord mathit">s</span><span class="mord mathit">o</span><span class="mord mathit" style="margin-right:0.10764em;">f</span><span class="mord mathit">t</span><span class="mord mathit">m</span><span class="mord mathit">a</span><span class="mord mathit">x</span><span class="mopen">(</span><span class="mord reset-textstyle displaystyle textstyle uncramped"><span class="sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span><span class="mfrac"><span class="vlist"><span style="top:0.8222200000000001em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1em;">​</span></span><span class="reset-textstyle textstyle cramped"><span class="mord textstyle cramped"><span class="mord"><span class="sqrt mord"><span class="sqrt-sign" style="top:-0.09221999999999997em;"><span class="style-wrap reset-textstyle textstyle uncramped">√</span></span><span class="vlist"><span style="top:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1em;">​</span></span><span class="mord mathit">d</span></span><span style="top:-0.85222em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1em;">​</span></span><span class="reset-textstyle textstyle uncramped sqrt-line"></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1em;">​</span></span>​</span></span></span><span class="vlist"><span style="top:0.15778000000000003em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit" style="margin-right:0.03148em;">k</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span><span style="top:-0.2300000000000001em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1em;">​</span></span><span class="reset-textstyle textstyle uncramped frac-line"></span></span><span style="top:-0.677em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1em;">​</span></span><span class="reset-textstyle textstyle uncramped"><span class="mord textstyle uncramped"><span class="mord mathit">Q</span><span class="mord"><span class="mord mathit" style="margin-right:0.07153em;">K</span><span class="vlist"><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord mathit" style="margin-right:0.13889em;">T</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1em;">​</span></span>​</span></span></span><span class="sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span></span><span class="mclose">)</span><span class="mord mathit" style="margin-right:0.22222em;">V</span></span></span></span></span></p>
+<p>其中 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>A</mi><mi>t</mi><mi>t</mi><mi>e</mi><mi>n</mi><mi>t</mi><mi>i</mi><mi>o</mi><mi>n</mi><mo>(</mo><mi>Q</mi><mo separator="true">,</mo><mi>K</mi><mo separator="true">,</mo><mi>V</mi><mo>)</mo><mo>∈</mo><msup><mi mathvariant="double-struck">R</mi><mrow><mi>n</mi><mo>×</mo><msub><mi>d</mi><mi>v</mi></msub></mrow></msup><mo separator="true">,</mo><mi>Q</mi><mo>∈</mo><msup><mi mathvariant="double-struck">R</mi><mrow><mi>n</mi><mo>×</mo><msub><mi>d</mi><mi>k</mi></msub></mrow></msup><mo separator="true">,</mo><mi>K</mi><mo>∈</mo><msup><mi mathvariant="double-struck">R</mi><mrow><mi>m</mi><mo>×</mo><msub><mi>d</mi><mi>k</mi></msub></mrow></msup><mo separator="true">,</mo><mi>V</mi><mo>∈</mo><msup><mi mathvariant="double-struck">R</mi><mrow><mi>m</mi><mo>×</mo><msub><mi>d</mi><mi>v</mi></msub></mrow></msup></mrow><annotation encoding="application/x-tex">Attention(Q,K,V)\in \mathbb R^{n\times d_v},Q\in\mathbb R^{n\times d_k},K\in\mathbb R^{m \times d_k}, V\in\mathbb R^{m\times d_v}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.849108em;"></span><span class="strut bottom" style="height:1.099108em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit">A</span><span class="mord mathit">t</span><span class="mord mathit">t</span><span class="mord mathit">e</span><span class="mord mathit">n</span><span class="mord mathit">t</span><span class="mord mathit">i</span><span class="mord mathit">o</span><span class="mord mathit">n</span><span class="mopen">(</span><span class="mord mathit">Q</span><span class="mpunct">,</span><span class="mord mathit" style="margin-right:0.07153em;">K</span><span class="mpunct">,</span><span class="mord mathit" style="margin-right:0.22222em;">V</span><span class="mclose">)</span><span class="mrel">∈</span><span class=""><span class="mord mathbb">R</span><span class="vlist"><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mord mathit">n</span><span class="mbin">×</span><span class="mord"><span class="mord mathit">d</span><span class="vlist"><span style="top:0.15em;margin-right:0.07142857142857144em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-scriptstyle scriptscriptstyle cramped"><span class="mord mathit" style="margin-right:0.03588em;">v</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mpunct">,</span><span class="mord mathit">Q</span><span class="mrel">∈</span><span class=""><span class="mord mathbb">R</span><span class="vlist"><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mord mathit">n</span><span class="mbin">×</span><span class="mord"><span class="mord mathit">d</span><span class="vlist"><span style="top:0.15122857142857138em;margin-right:0.07142857142857144em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-scriptstyle scriptscriptstyle cramped"><span class="mord mathit" style="margin-right:0.03148em;">k</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mpunct">,</span><span class="mord mathit" style="margin-right:0.07153em;">K</span><span class="mrel">∈</span><span class=""><span class="mord mathbb">R</span><span class="vlist"><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mord mathit">m</span><span class="mbin">×</span><span class="mord"><span class="mord mathit">d</span><span class="vlist"><span style="top:0.15122857142857138em;margin-right:0.07142857142857144em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-scriptstyle scriptscriptstyle cramped"><span class="mord mathit" style="margin-right:0.03148em;">k</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mpunct">,</span><span class="mord mathit" style="margin-right:0.22222em;">V</span><span class="mrel">∈</span><span class=""><span class="mord mathbb">R</span><span class="vlist"><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mord mathit">m</span><span class="mbin">×</span><span class="mord"><span class="mord mathit">d</span><span class="vlist"><span style="top:0.15em;margin-right:0.07142857142857144em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-scriptstyle scriptscriptstyle cramped"><span class="mord mathit" style="margin-right:0.03588em;">v</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span></p>
+<h4 id="self-attention"><a class="markdownIt-Anchor" href="#self-attention"></a> Self-attention</h4>
+<p>Q K V 均来自统一输入</p>
+<h4 id="traditional-attention"><a class="markdownIt-Anchor" href="#traditional-attention"></a> Traditional Attention</h4>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>A</mi><mi>t</mi><mi>t</mi><mi>e</mi><mi>n</mi><mi>t</mi><mi>i</mi><mi>o</mi><mi>n</mi><mo>(</mo><mi>Q</mi><mo>)</mo><mo>=</mo><mi>s</mi><mi>o</mi><mi>f</mi><mi>t</mi><mi>m</mi><mi>a</mi><mi>x</mi><mo>(</mo><msup><mi>W</mi><mi>T</mi></msup><msup><mi>U</mi><mi>T</mi></msup><mi>Q</mi><mo>)</mo><mo>⋅</mo><mi>Q</mi></mrow><annotation encoding="application/x-tex">Attention(Q)=softmax(W^T U^T Q)\cdot Q
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.8913309999999999em;"></span><span class="strut bottom" style="height:1.1413309999999999em;vertical-align:-0.25em;"></span><span class="base displaystyle textstyle uncramped"><span class="mord mathit">A</span><span class="mord mathit">t</span><span class="mord mathit">t</span><span class="mord mathit">e</span><span class="mord mathit">n</span><span class="mord mathit">t</span><span class="mord mathit">i</span><span class="mord mathit">o</span><span class="mord mathit">n</span><span class="mopen">(</span><span class="mord mathit">Q</span><span class="mclose">)</span><span class="mrel">=</span><span class="mord mathit">s</span><span class="mord mathit">o</span><span class="mord mathit" style="margin-right:0.10764em;">f</span><span class="mord mathit">t</span><span class="mord mathit">m</span><span class="mord mathit">a</span><span class="mord mathit">x</span><span class="mopen">(</span><span class="mord"><span class="mord mathit" style="margin-right:0.13889em;">W</span><span class="vlist"><span style="top:-0.413em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord mathit" style="margin-right:0.13889em;">T</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mord"><span class="mord mathit" style="margin-right:0.10903em;">U</span><span class="vlist"><span style="top:-0.413em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord mathit" style="margin-right:0.13889em;">T</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mord mathit">Q</span><span class="mclose">)</span><span class="mbin">⋅</span><span class="mord mathit">Q</span></span></span></span></span></p>
 <h2 id="attention-总结"><a class="markdownIt-Anchor" href="#attention-总结"></a> Attention 总结</h2>
 <p><img src="https://pic3.zhimg.com/80/v2-7dfae91f2a921fd62eb0a1845fae2b52_hd.jpg" alt="img"></p>
 <h4 id="计算区域"><a class="markdownIt-Anchor" href="#计算区域"></a> 计算区域</h4>
@@ -1772,6 +1875,7 @@ $$
 <h2 id="参考"><a class="markdownIt-Anchor" href="#参考"></a> 参考</h2>
 <p><a href="https://zhuanlan.zhihu.com/p/91839581" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/91839581</a></p>
 <p><a href="https://zhuanlan.zhihu.com/p/85038315" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/85038315</a></p>
+<p>蘑菇街推荐算法之迷——Self Attention不如Traditional Attention？ <a href="https://mp.weixin.qq.com/s/3nTevkiLLaZ6eX7nZWzvTg" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/3nTevkiLLaZ6eX7nZWzvTg</a></p>
 
           
         
@@ -1820,7 +1924,7 @@ $$
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2020/01/08/dnn-tricks/">
+    <link itemprop="mainEntityOfPage" href="http://liuslevis.github.io/2020/01/08/dnn-tricks/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="davidlau">
@@ -2125,7 +2229,7 @@ d = \lim_{p \to \infty}\sum_{i=1}^{n}\bigg(|x_i-y_i|^{p}\bigg)^{\frac {1}{p}} = 
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2019/10/14/ocpc-taobao/">
+    <link itemprop="mainEntityOfPage" href="http://liuslevis.github.io/2019/10/14/ocpc-taobao/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="davidlau">
@@ -2300,7 +2404,7 @@ f_2(b_k^*) &amp;= pctr_k \times pcvr_k \times v_k + \alpha \times pctr_k \times 
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2019/07/09/embedding/">
+    <link itemprop="mainEntityOfPage" href="http://liuslevis.github.io/2019/07/09/embedding/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="davidlau">
@@ -2602,7 +2706,7 @@ f_2(b_k^*) &amp;= pctr_k \times pcvr_k \times v_k + \alpha \times pctr_k \times 
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2019/06/12/hypothesis-test/">
+    <link itemprop="mainEntityOfPage" href="http://liuslevis.github.io/2019/06/12/hypothesis-test/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="davidlau">
@@ -2881,7 +2985,7 @@ f_2(b_k^*) &amp;= pctr_k \times pcvr_k \times v_k + \alpha \times pctr_k \times 
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2019/05/29/pctr/">
+    <link itemprop="mainEntityOfPage" href="http://liuslevis.github.io/2019/05/29/pctr/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="davidlau">
@@ -2983,7 +3087,9 @@ w&=\frac{l}{m}
 \end{align}
 
 <h3 id="isotonic-fit-保序回归"><a class="markdownIt-Anchor" href="#isotonic-fit-保序回归"></a> Isotonic fit （保序回归）</h3>
+<p><img src="https://bkimg.cdn.bcebos.com/pic/eac4b74543a98226388fe4f08482b9014b90eb98?x-bce-process=image/watermark,image_d2F0ZXIvYmFpa2U5Mg==,g_7,xp_5,yp_5" alt="img"></p>
 <p><a href="https://scikit-learn.org/stable/modules/calibration.html" target="_blank" rel="noopener">https://scikit-learn.org/stable/modules/calibration.html</a></p>
+<p><a href="https://scikit-learn.org/stable/modules/classes.html#module-sklearn.isotonic" target="_blank" rel="noopener">https://scikit-learn.org/stable/modules/classes.html#module-sklearn.isotonic</a></p>
 <h3 id="facebook-在线模型"><a class="markdownIt-Anchor" href="#facebook-在线模型"></a> Facebook 在线模型</h3>
 <p>![image-20190529201559938](/Users/david/Library/Application Support/typora-user-images/image-20190529201559938.png)</p>
 <h3 id="teg-推荐架构"><a class="markdownIt-Anchor" href="#teg-推荐架构"></a> TEG 推荐架构</h3>
@@ -3042,7 +3148,7 @@ Facebook</a></p>
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2019/04/25/deep-ctr-models/">
+    <link itemprop="mainEntityOfPage" href="http://liuslevis.github.io/2019/04/25/deep-ctr-models/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="davidlau">
@@ -3170,6 +3276,7 @@ Facebook</a></p>
 <li><a href="https://arxiv.org/abs/1906.03776" target="_blank" rel="noopener">DSTN</a> 19 引入上下文展示广告和历史点击、为点击广告辅助预测</li>
 <li><a href="https://arxiv.org/pdf/1905.09248.pdf" target="_blank" rel="noopener">MIMN</a> 19 超长历史行为序列建模</li>
 <li>ESMM 18 通过 pCTR pCVR 联合模型共享权制，多任务学习，解决转化样本有偏、稀疏问题</li>
+<li>ESM^2 18 增加加购、收藏等多目标</li>
 </ul>
 </li>
 </ul>
@@ -3193,6 +3300,13 @@ Facebook</a></p>
 <p>GBDT 叶子结点作为 LR 输入，通过 GBDT 做特征组合引入非线性。</p>
 <h2 id="fm"><a class="markdownIt-Anchor" href="#fm"></a> FM</h2>
 <p><img src="https://pic3.zhimg.com/80/v2-f42029bed447f4a628ca540b1da53eee_720w.jpg" alt="img"></p>
+<h2 id="deepfm"><a class="markdownIt-Anchor" href="#deepfm"></a> DeepFM</h2>
+<p>Huawei 2016</p>
+<p><img src="https://pic2.zhimg.com/80/v2-a893a331c3556046be1be7771b2cb1a9_1440w.jpg" alt="img"></p>
+<p>为了同时利用low-order和high-order特征，DeepFM包含FM和DNN两部分，两部分共享输入特征。对于特征i，标量wi是其1阶特征的权重，该特征和其他特征的交互影响用隐向量Vi来表示。Vi输入到FM模型获得特征的2阶表示，输入到DNN模型得到high-order高阶特征。模型联合训练，结果可表示为：</p>
+<p><img src="https://pic2.zhimg.com/80/v2-3a431f5787105e2463cd8d16295c8275_1440w.png" alt="img"></p>
+<p><img src="https://pic2.zhimg.com/80/v2-309f6d48a026e27b318f4650568c5069_1440w.png" alt="img"></p>
+<p><img src="https://pic1.zhimg.com/80/v2-7d939bff9eac9cc26d005a0c9cd76b28_1440w.png" alt="img"></p>
 <h2 id="widedeep"><a class="markdownIt-Anchor" href="#widedeep"></a> Wide&amp;Deep</h2>
 <p>Google DLRS 2016</p>
 <p><img src="https://2.bp.blogspot.com/-wkrmRibw_GM/V3Mg3O3Q0-I/AAAAAAAABG0/Jm3Nl4-VcYIJ44dA5nSz6vpTyCKF2KWQgCKgB/s1600/image03.png" alt="img"></p>
@@ -3219,7 +3333,7 @@ c_{ki}\in \{0,1\}, \mathbb{x} = [x_1,x_2,...,x_d]
 <p>与 DeepFM 相比，可以自动高阶特征：</p>
 <ol>
 <li>通过设置交叉网络深度，能够限定交叉阶数</li>
-<li>每层交叉时，做第零层与上一层的交叉 &amp; 学习残差</li>
+<li>每层交叉时，做第零层与第一层的交叉 &amp; 学习残差</li>
 </ol>
 <p><img src="http://xudongyang.coding.me/dcn/dcn.png" alt="img"></p>
 <p>其中每个 cross layer，通过学习函数 f 拟合层间残差</p>
@@ -3279,9 +3393,9 @@ c_{ki}\in \{0,1\}, \mathbb{x} = [x_1,x_2,...,x_d]
 <p>KDD18 <a href="https://arxiv.org/pdf/1803.05170.pdf" target="_blank" rel="noopener">https://arxiv.org/pdf/1803.05170.pdf</a></p>
 <p>腾讯广告比赛 19’ 冠军方案 <a href="https://zhuanlan.zhihu.com/p/73062485" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/73062485</a></p>
 <p>论文在 Criteo 数据集与 DeepFM WDL PNN DCN 做对比，是目前 AUC 最好的方法。</p>
-<p>与 DCN 不同，DCN 在 cross 层进行 bit-wise 的有限高阶特征交叉，不区分 vector field 的概念；xDeepFM 在 CIN 层以 vector-size 进行有限高阶特征交叉。例如，Age Field对应嵌入向量&lt;a1,b1,c1&gt;，Occupation Field对应嵌入向量&lt;a2,b2,c2&gt;，在Cross层，a1,b1,c1,a2,b2,c2会拼接后直接作为输入，即它意识不到Field vector的概念。Cross 以嵌入向量中的单个bit为最细粒度，而FM是以向量为最细粒度学习相关性，即<strong>vector-wise</strong>。<strong>xDeepFM的动机，正是将FM的vector-wise的思想引入Cross部分</strong>。</p>
+<p>与 DCN 不同，DCN 在 cross 层进行 bit-wise 的有限高阶特征交叉，不区分 vector field 的概念；xDeepFM 在 CIN 层以 vector-size 进行有限高阶特征交叉。例如，Age Field对应嵌入向量&lt;a1,b1,c1&gt;，Occupation Field对应嵌入向量&lt;a2,b2,c2&gt;，在Cross层，a1,b1,c1,a2,b2,c2会拼接后直接作为输入，即它意识不到Field vector的概念。Cross 以嵌入向量中的单个bit为最细粒度，而FM是以向量为最细粒度学习相关性，即 <strong>vector-wise</strong>。<strong>xDeepFM的动机，正是将FM的vector-wise的思想引入Cross部分</strong>。</p>
 <p><img src="https://pic1.zhimg.com/80/v2-3297a00ff2a0014cfcbfaaf2700f8f64_720w.jpg" alt="img"></p>
-<p>简而言之：xDeepFM 是实现 <strong>vector-wise、与上n层</strong>的高阶特征交叉，DCN 每层是 <strong>bit-wise、与上一层</strong>的高阶特征交叉。</p>
+<p>简而言之：xDeepFM 是实现 <strong>vector-wise、与上n层</strong> 的高阶特征交叉，DCN 每层是 <strong>bit-wise、与上一层</strong> 的高阶特征交叉。</p>
 <p><img src="https://pic1.zhimg.com/v2-d8cca9bb1bbe48e65a77c86451aa3e1c_b.jpg" alt="img"></p>
 <p><a href="https://zhuanlan.zhihu.com/p/57162373" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/57162373</a></p>
 <p><img src="https://pic1.zhimg.com/80/v2-59adaaf81958514ffb44af2c72251918_hd.jpg" alt="img"></p>
@@ -3396,6 +3510,7 @@ L(\theta_{cvr}, \theta_{ctr}) = &\sum_{i=1}^N l(y_i, f(\textbf{x}_i;\theta_{ctr}
 <p><img src="https://pic4.zhimg.com/80/v2-2bcd969359e25cb761e83dbe7fd74df7_720w.jpg" alt="img"></p>
 <img src="https://pic4.zhimg.com/v2-bc9273d3a93930afa65ee82265769347_b.jpg" alt="img" style="zoom:50%;">
 <img src="https://pic4.zhimg.com/80/v2-ada85658bdd40c5e19c41fd76f424c0b_720w.jpg" alt="img" style="zoom:50%;">
+<img src="https://pic1.zhimg.com/80/v2-6c6aa2c6395a51f764702cfac4403d68_1440w.jpg" alt="img" style="zoom: 50%;">
 <p>以上是 single-head self-attention 结构，multi-head 由多个以上结构派生。</p>
 <p>其中：</p>
 \begin{align}
@@ -3462,6 +3577,7 @@ L(\theta_{cvr}, \theta_{ctr}) = &\sum_{i=1}^N l(y_i, f(\textbf{x}_i;\theta_{ctr}
 </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:1.0500050000000003em;"></span><span class="strut bottom" style="height:2.327674em;vertical-align:-1.277669em;"></span><span class="base displaystyle textstyle uncramped"><span class="mord mathit">L</span><span class="mopen">(</span><span class="mord"><span class="mord mathit" style="margin-right:0.02691em;">w</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.02691em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit">c</span><span class="mord mathit">t</span><span class="mord mathit" style="margin-right:0.02778em;">r</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mpunct">,</span><span class="mord"><span class="mord mathit" style="margin-right:0.02691em;">w</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.02691em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit">c</span><span class="mord mathit" style="margin-right:0.03588em;">v</span><span class="mord mathit" style="margin-right:0.02778em;">r</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mclose">)</span><span class="mrel">=</span><span class="mop op-limits"><span class="vlist"><span style="top:1.1776689999999999em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span style="top:-0.000005000000000143778em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span><span class="op-symbol large-op mop">∑</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mord mathit">L</span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.03588em;">y</span><span class="mpunct">,</span><span class="mord mathit" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord"><span class="mord mathit">x</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mpunct">,</span><span class="mord"><span class="mord mathit" style="margin-right:0.02691em;">w</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.02691em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit">c</span><span class="mord mathit">t</span><span class="mord mathit" style="margin-right:0.02778em;">r</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mclose">)</span><span class="mclose">)</span><span class="mbin">+</span><span class="mop op-limits"><span class="vlist"><span style="top:1.1776689999999999em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span style="top:-0.000005000000000143778em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span><span class="op-symbol large-op mop">∑</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mord mathit">L</span><span class="mopen">(</span><span class="mord"><span class="mord mathit" style="margin-right:0.03588em;">y</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.03588em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mord mathrm">&amp;</span><span class="mord"><span class="mord mathit" style="margin-right:0.04398em;">z</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.04398em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mpunct">,</span><span class="mord mathit" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord"><span class="mord mathit">x</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mpunct">;</span><span class="mord"><span class="mord mathit" style="margin-right:0.02691em;">w</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.02691em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit">c</span><span class="mord mathit">t</span><span class="mord mathit" style="margin-right:0.02778em;">r</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mclose">)</span><span class="mbin">∗</span><span class="mord mathit" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord"><span class="mord mathit">x</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mpunct">;</span><span class="mord"><span class="mord mathit" style="margin-right:0.02691em;">w</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.02691em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit">c</span><span class="mord mathit" style="margin-right:0.03588em;">v</span><span class="mord mathit" style="margin-right:0.02778em;">r</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mclose">)</span><span class="mclose">)</span></span></span></span></span></p>
 <img src="https://pic1.zhimg.com/80/v2-cb6163a762b848a15bb35b24f2e1af27_720w.jpg" alt="img" style="zoom:50%;">
 <h3 id="esm2"><a class="markdownIt-Anchor" href="#esm2"></a> ESM^2</h3>
+<p>《Entire Space Multi-Task Modeling via Post-Click Behavior Decomposition for Conversion Rate Prediction》Ali arxiv2019  <a href="https://arxiv.org/pdf/1910.07099.pdf" target="_blank" rel="noopener">PDF</a></p>
 <p>更多任务</p>
 <img src="https://pic2.zhimg.com/80/v2-cb31e1f977b0e68c9df0e50019d848ce_720w.jpg" alt="img" style="zoom:50%;">
 <h3 id="mose"><a class="markdownIt-Anchor" href="#mose"></a> MoSE</h3>
@@ -3598,7 +3714,7 @@ L(W,\sigma_1,\sigma_2) &=-\log p(y_1,y_2|f^W(x)) \\
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2019/04/14/bayesian/">
+    <link itemprop="mainEntityOfPage" href="http://liuslevis.github.io/2019/04/14/bayesian/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="davidlau">
@@ -3759,7 +3875,7 @@ P(H_i|D) &amp;= \frac{P(H_i)P(D|H_i)}{\sum_i P(H_i)P(D|H_i)}
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2019/03/21/xavier/">
+    <link itemprop="mainEntityOfPage" href="http://liuslevis.github.io/2019/03/21/xavier/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="davidlau">
@@ -3891,7 +4007,7 @@ P(H_i|D) &amp;= \frac{P(H_i)P(D|H_i)}{\sum_i P(H_i)P(D|H_i)}
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2019/03/18/rtb/">
+    <link itemprop="mainEntityOfPage" href="http://liuslevis.github.io/2019/03/18/rtb/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="davidlau">
@@ -4121,7 +4237,7 @@ g(x) &amp;\le 0\\
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2018/09/11/lookalike/">
+    <link itemprop="mainEntityOfPage" href="http://liuslevis.github.io/2018/09/11/lookalike/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="davidlau">
@@ -4468,7 +4584,7 @@ p_G(x_F) \xrightarrow[y_D \rightarrow 0.5]{} p_{data}(x_R)
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2018/09/10/notes-on-quant/">
+    <link itemprop="mainEntityOfPage" href="http://liuslevis.github.io/2018/09/10/notes-on-quant/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="davidlau">
@@ -4592,7 +4708,7 @@ p_G(x_F) \xrightarrow[y_D \rightarrow 0.5]{} p_{data}(x_R)
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2018/07/06/cnn-for-mobile/">
+    <link itemprop="mainEntityOfPage" href="http://liuslevis.github.io/2018/07/06/cnn-for-mobile/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="davidlau">
@@ -4758,7 +4874,7 @@ p_G(x_F) \xrightarrow[y_D \rightarrow 0.5]{} p_{data}(x_R)
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2018/06/16/optical-flow/">
+    <link itemprop="mainEntityOfPage" href="http://liuslevis.github.io/2018/06/16/optical-flow/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="davidlau">
@@ -4882,7 +4998,7 @@ p_G(x_F) \xrightarrow[y_D \rightarrow 0.5]{} p_{data}(x_R)
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2018/05/08/video-game-highlight-detection/">
+    <link itemprop="mainEntityOfPage" href="http://liuslevis.github.io/2018/05/08/video-game-highlight-detection/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="davidlau">
@@ -5011,7 +5127,7 @@ p_G(x_F) \xrightarrow[y_D \rightarrow 0.5]{} p_{data}(x_R)
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2018/02/26/video-static-region-detection/">
+    <link itemprop="mainEntityOfPage" href="http://liuslevis.github.io/2018/02/26/video-static-region-detection/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="davidlau">
@@ -5135,7 +5251,7 @@ p_G(x_F) \xrightarrow[y_D \rightarrow 0.5]{} p_{data}(x_R)
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2018/02/24/wavelets/">
+    <link itemprop="mainEntityOfPage" href="http://liuslevis.github.io/2018/02/24/wavelets/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="davidlau">
@@ -5287,7 +5403,7 @@ p_G(x_F) \xrightarrow[y_D \rightarrow 0.5]{} p_{data}(x_R)
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2018/01/22/cnn-object-detection/">
+    <link itemprop="mainEntityOfPage" href="http://liuslevis.github.io/2018/01/22/cnn-object-detection/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="davidlau">
@@ -5533,7 +5649,7 @@ FL(p_t) &amp;= -(1-p_t)^\gamma \log(p_t) \\
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2018/01/21/cnn-fine-grained-classification/">
+    <link itemprop="mainEntityOfPage" href="http://liuslevis.github.io/2018/01/21/cnn-fine-grained-classification/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="davidlau">
@@ -5666,7 +5782,7 @@ FL(p_t) &amp;= -(1-p_t)^\gamma \log(p_t) \\
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2018/01/18/backprop/">
+    <link itemprop="mainEntityOfPage" href="http://liuslevis.github.io/2018/01/18/backprop/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="davidlau">
@@ -5864,7 +5980,7 @@ b_{i}^{(l)} &amp;= b_{i}^{(l)} - \alpha \frac{\partial}{\partial b_i^{(l)}} J(W,
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2018/01/12/cnn-saliency-maps/">
+    <link itemprop="mainEntityOfPage" href="http://liuslevis.github.io/2018/01/12/cnn-saliency-maps/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="davidlau">
@@ -6031,7 +6147,7 @@ b_{i}^{(l)} &amp;= b_{i}^{(l)} - \alpha \frac{\partial}{\partial b_i^{(l)}} J(W,
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2018/01/02/resnet/">
+    <link itemprop="mainEntityOfPage" href="http://liuslevis.github.io/2018/01/02/resnet/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="davidlau">
@@ -6186,7 +6302,7 @@ b_{i}^{(l)} &amp;= b_{i}^{(l)} - \alpha \frac{\partial}{\partial b_i^{(l)}} J(W,
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2017/10/15/generative-model/">
+    <link itemprop="mainEntityOfPage" href="http://liuslevis.github.io/2017/10/15/generative-model/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="davidlau">
@@ -6323,7 +6439,7 @@ b_{i}^{(l)} &amp;= b_{i}^{(l)} - \alpha \frac{\partial}{\partial b_i^{(l)}} J(W,
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2017/08/29/optimization/">
+    <link itemprop="mainEntityOfPage" href="http://liuslevis.github.io/2017/08/29/optimization/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="davidlau">
@@ -6447,7 +6563,7 @@ b_{i}^{(l)} &amp;= b_{i}^{(l)} - \alpha \frac{\partial}{\partial b_i^{(l)}} J(W,
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2017/08/23/ios-private-api-detection/">
+    <link itemprop="mainEntityOfPage" href="http://liuslevis.github.io/2017/08/23/ios-private-api-detection/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="davidlau">
@@ -6572,7 +6688,7 @@ b_{i}^{(l)} &amp;= b_{i}^{(l)} - \alpha \frac{\partial}{\partial b_i^{(l)}} J(W,
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2017/08/21/optimization-online/">
+    <link itemprop="mainEntityOfPage" href="http://liuslevis.github.io/2017/08/21/optimization-online/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="davidlau">
@@ -6697,7 +6813,7 @@ b_{i}^{(l)} &amp;= b_{i}^{(l)} - \alpha \frac{\partial}{\partial b_i^{(l)}} J(W,
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2017/08/18/GloVe/">
+    <link itemprop="mainEntityOfPage" href="http://liuslevis.github.io/2017/08/18/GloVe/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="davidlau">
@@ -6821,7 +6937,7 @@ b_{i}^{(l)} &amp;= b_{i}^{(l)} - \alpha \frac{\partial}{\partial b_i^{(l)}} J(W,
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2017/08/17/gbdt/">
+    <link itemprop="mainEntityOfPage" href="http://liuslevis.github.io/2017/08/17/gbdt/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="davidlau">
@@ -6945,7 +7061,7 @@ b_{i}^{(l)} &amp;= b_{i}^{(l)} - \alpha \frac{\partial}{\partial b_i^{(l)}} J(W,
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2017/08/11/reinforcelearning/">
+    <link itemprop="mainEntityOfPage" href="http://liuslevis.github.io/2017/08/11/reinforcelearning/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="davidlau">
@@ -7069,7 +7185,7 @@ b_{i}^{(l)} &amp;= b_{i}^{(l)} - \alpha \frac{\partial}{\partial b_i^{(l)}} J(W,
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2017/08/11/deeplearning/">
+    <link itemprop="mainEntityOfPage" href="http://liuslevis.github.io/2017/08/11/deeplearning/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="davidlau">
@@ -7193,7 +7309,7 @@ b_{i}^{(l)} &amp;= b_{i}^{(l)} - \alpha \frac{\partial}{\partial b_i^{(l)}} J(W,
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2017/08/11/activation/">
+    <link itemprop="mainEntityOfPage" href="http://liuslevis.github.io/2017/08/11/activation/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="davidlau">
@@ -7318,7 +7434,7 @@ b_{i}^{(l)} &amp;= b_{i}^{(l)} - \alpha \frac{\partial}{\partial b_i^{(l)}} J(W,
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2017/08/08/fm/">
+    <link itemprop="mainEntityOfPage" href="http://liuslevis.github.io/2017/08/08/fm/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="davidlau">
@@ -7454,7 +7570,7 @@ b_{i}^{(l)} &amp;= b_{i}^{(l)} - \alpha \frac{\partial}{\partial b_i^{(l)}} J(W,
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2017/08/07/mf/">
+    <link itemprop="mainEntityOfPage" href="http://liuslevis.github.io/2017/08/07/mf/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="davidlau">
@@ -7579,7 +7695,7 @@ b_{i}^{(l)} &amp;= b_{i}^{(l)} - \alpha \frac{\partial}{\partial b_i^{(l)}} J(W,
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2017/07/07/weread-book-recommend-via-ctr/">
+    <link itemprop="mainEntityOfPage" href="http://liuslevis.github.io/2017/07/07/weread-book-recommend-via-ctr/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="davidlau">
@@ -7675,7 +7791,7 @@ b_{i}^{(l)} &amp;= b_{i}^{(l)} - \alpha \frac{\partial}{\partial b_i^{(l)}} J(W,
 <p>微信读书的书籍个性化推荐包括：</p>
 <ol>
 <li>
-<p>冷启动用户的书籍推荐，如发现 tab – 新手卡片，为新注册用户推荐书籍，方法参见文章 <a href="http://davidlau.me/2016/10/15/cold-start-recommendations/">微信读书冷启动用户书籍推荐初探：一个借助微信用户画像的方法</a> <a href="http://davidlau.me/2016/12/14/cold-start-recommendations-in-action/">微信读书冷启动推荐实战：一种基于用户属性的方法<br>
+<p>冷启动用户的书籍推荐，如发现 tab – 新手卡片，为新注册用户推荐书籍，方法参见文章 <a href="http://davidlau.me/2016/10/15/cold-start-recommendations/" target="_blank" rel="noopener">微信读书冷启动用户书籍推荐初探：一个借助微信用户画像的方法</a> <a href="http://davidlau.me/2016/12/14/cold-start-recommendations-in-action/" target="_blank" rel="noopener">微信读书冷启动推荐实战：一种基于用户属性的方法<br>
 </a>。</p>
 </li>
 <li>
@@ -7737,7 +7853,7 @@ b_{i}^{(l)} &amp;= b_{i}^{(l)} - \alpha \frac{\partial}{\partial b_i^{(l)}} J(W,
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2017/07/07/ios-launch-crash-monitor/">
+    <link itemprop="mainEntityOfPage" href="http://liuslevis.github.io/2017/07/07/ios-launch-crash-monitor/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="davidlau">
@@ -7832,7 +7948,7 @@ b_{i}^{(l)} &amp;= b_{i}^{(l)} - \alpha \frac{\partial}{\partial b_i^{(l)}} J(W,
           <h2 id="摘要"><a class="markdownIt-Anchor" href="#摘要"></a> 摘要</h2>
 <p>在 iOS 11 Beta 刚刚发布时，有用户在微博反馈：升级到 iOS 11 Beta 后，微信读书 App 遇到启动必 crash 的绝境，无法使用。</p>
 <p><img src="/img/crash_feedback.png" alt="feed_back"></p>
-<p>用户看到的界面，是我们开源的  <a href="http://davidlau.me/2016/05/20/ios-launch-crash-protection/">iOS 启动连续闪退保护方案</a> 提示。</p>
+<p>用户看到的界面，是我们开源的  <a href="http://davidlau.me/2016/05/20/ios-launch-crash-protection/" target="_blank" rel="noopener">iOS 启动连续闪退保护方案</a> 提示。</p>
 <p>调试发现，是一段 iOS 11 不兼容的代码引发的问题。我们通过修改不兼容代码，解决了问题。</p>
 <p>等到现网用户反馈，为时太晚，如何把启动必 crash 问题纳入监控？</p>
 <p>我们设计了一个<strong>特征值</strong>以判断这个问题，并扩展了 <a href="https://wereadteam.github.io/2016/05/23/GYBootingProtection/" target="_blank" rel="noopener">iOS 启动连续闪退保护方案</a>，提供了日志上报接口，帮助开发者在第一时间发现启动必 crash 问题。</p>
@@ -7889,7 +8005,7 @@ b_{i}^{(l)} &amp;= b_{i}^{(l)} - \alpha \frac{\partial}{\partial b_i^{(l)}} J(W,
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2017/04/28/fitting-ios-nsrecorder-decibel-curve/">
+    <link itemprop="mainEntityOfPage" href="http://liuslevis.github.io/2017/04/28/fitting-ios-nsrecorder-decibel-curve/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="davidlau">
@@ -8034,7 +8150,7 @@ b_{i}^{(l)} &amp;= b_{i}^{(l)} - \alpha \frac{\partial}{\partial b_i^{(l)}} J(W,
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2017/03/21/html/">
+    <link itemprop="mainEntityOfPage" href="http://liuslevis.github.io/2017/03/21/html/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="davidlau">
@@ -8158,7 +8274,7 @@ b_{i}^{(l)} &amp;= b_{i}^{(l)} - \alpha \frac{\partial}{\partial b_i^{(l)}} J(W,
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2017/03/06/word2vec-collaborative-filtering/">
+    <link itemprop="mainEntityOfPage" href="http://liuslevis.github.io/2017/03/06/word2vec-collaborative-filtering/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="davidlau">
@@ -8251,7 +8367,7 @@ b_{i}^{(l)} &amp;= b_{i}^{(l)} - \alpha \frac{\partial}{\partial b_i^{(l)}} J(W,
       
         
           <h2 id="引言"><a class="markdownIt-Anchor" href="#引言"></a> 引言</h2>
-<p>在文章 <a href="http://davidlau.me/2016/12/09/learn-cf-in-python/">学习协同过滤推荐 \w 100行Python代码</a> 中，介绍了基于物品的协同过滤推荐，根据 user-item 评分矩阵，找出与给定 item 评分最接近的物品，作为推荐结果。</p>
+<p>在文章 <a href="http://davidlau.me/2016/12/09/learn-cf-in-python/" target="_blank" rel="noopener">学习协同过滤推荐 \w 100行Python代码</a> 中，介绍了基于物品的协同过滤推荐，根据 user-item 评分矩阵，找出与给定 item 评分最接近的物品，作为推荐结果。</p>
 <p>在本文中，把书籍名称看作单词，以用户喜欢的书籍看作句子，利用 word2vec 模型构建了一个书籍的向量空间。对给定书籍，找出与其距离最近的书籍，作为推荐结果。</p>
 <p>本文用 Python 60 行代码实现了一个 Demo，得到每本书籍在向量空间的表示，输出基于书籍的协同过滤推荐结果。</p>
           <!--noindex-->
@@ -8307,7 +8423,7 @@ b_{i}^{(l)} &amp;= b_{i}^{(l)} - \alpha \frac{\partial}{\partial b_i^{(l)}} J(W,
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2016/12/14/cold-start-recommendations-in-action/">
+    <link itemprop="mainEntityOfPage" href="http://liuslevis.github.io/2016/12/14/cold-start-recommendations-in-action/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="davidlau">
@@ -8401,7 +8517,7 @@ b_{i}^{(l)} &amp;= b_{i}^{(l)} - \alpha \frac{\partial}{\partial b_i^{(l)}} J(W,
         
           <h2 id="引言"><a class="markdownIt-Anchor" href="#引言"></a> 引言</h2>
 <p>在文章《微信读书冷启动书籍推荐初探：一个借助微信用户画像的方法<br>
-》<a href="http://davidlau.me/2016/10/15/cold-start-recommendations/">1</a>，我们发现用户的阅读偏好与用户属性（性别、年龄、n 线城市、公众号阅读偏好）相关。基于这个发现，我们利用用户属性，给冷启动的新注册用户做个性化推荐，效果较编辑推荐提升约 50%。</p>
+》<a href="http://davidlau.me/2016/10/15/cold-start-recommendations/" target="_blank" rel="noopener">1</a>，我们发现用户的阅读偏好与用户属性（性别、年龄、n 线城市、公众号阅读偏好）相关。基于这个发现，我们利用用户属性，给冷启动的新注册用户做个性化推荐，效果较编辑推荐提升约 50%。</p>
 <p><img src="/img/newcard_push_add.png" alt="说明图片"></p>
           <!--noindex-->
           <div class="post-button text-center">
@@ -8456,7 +8572,7 @@ b_{i}^{(l)} &amp;= b_{i}^{(l)} - \alpha \frac{\partial}{\partial b_i^{(l)}} J(W,
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2016/12/09/learn-cf-in-python/">
+    <link itemprop="mainEntityOfPage" href="http://liuslevis.github.io/2016/12/09/learn-cf-in-python/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="davidlau">
@@ -8603,7 +8719,7 @@ b_{i}^{(l)} &amp;= b_{i}^{(l)} - \alpha \frac{\partial}{\partial b_i^{(l)}} J(W,
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2016/10/23/thai-photos/">
+    <link itemprop="mainEntityOfPage" href="http://liuslevis.github.io/2016/10/23/thai-photos/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="davidlau">
@@ -8755,7 +8871,7 @@ b_{i}^{(l)} &amp;= b_{i}^{(l)} - \alpha \frac{\partial}{\partial b_i^{(l)}} J(W,
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2016/10/15/scuba-diving/">
+    <link itemprop="mainEntityOfPage" href="http://liuslevis.github.io/2016/10/15/scuba-diving/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="davidlau">
@@ -8901,7 +9017,7 @@ b_{i}^{(l)} &amp;= b_{i}^{(l)} - \alpha \frac{\partial}{\partial b_i^{(l)}} J(W,
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2016/10/15/cold-start-recommendations/">
+    <link itemprop="mainEntityOfPage" href="http://liuslevis.github.io/2016/10/15/cold-start-recommendations/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="davidlau">
@@ -9050,7 +9166,7 @@ b_{i}^{(l)} &amp;= b_{i}^{(l)} - \alpha \frac{\partial}{\partial b_i^{(l)}} J(W,
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2016/05/20/typesetter-testing-autmation/">
+    <link itemprop="mainEntityOfPage" href="http://liuslevis.github.io/2016/05/20/typesetter-testing-autmation/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="davidlau">
@@ -9197,7 +9313,7 @@ b_{i}^{(l)} &amp;= b_{i}^{(l)} - \alpha \frac{\partial}{\partial b_i^{(l)}} J(W,
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2016/05/20/ios-launch-crash-protection/">
+    <link itemprop="mainEntityOfPage" href="http://liuslevis.github.io/2016/05/20/ios-launch-crash-protection/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="davidlau">
@@ -9350,7 +9466,7 @@ b_{i}^{(l)} &amp;= b_{i}^{(l)} - \alpha \frac{\partial}{\partial b_i^{(l)}} J(W,
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2015/12/05/trying-to-fix-Xcode-7-GDCA-file-corruption/">
+    <link itemprop="mainEntityOfPage" href="http://liuslevis.github.io/2015/12/05/trying-to-fix-Xcode-7-GDCA-file-corruption/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="davidlau">
@@ -9474,7 +9590,7 @@ b_{i}^{(l)} &amp;= b_{i}^{(l)} - \alpha \frac{\partial}{\partial b_i^{(l)}} J(W,
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2015/06/30/notes-on-7-concurrency-model-in-7-weeks/">
+    <link itemprop="mainEntityOfPage" href="http://liuslevis.github.io/2015/06/30/notes-on-7-concurrency-model-in-7-weeks/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="davidlau">
@@ -9624,7 +9740,7 @@ b_{i}^{(l)} &amp;= b_{i}^{(l)} - \alpha \frac{\partial}{\partial b_i^{(l)}} J(W,
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2015/06/16/learn-haskell/">
+    <link itemprop="mainEntityOfPage" href="http://liuslevis.github.io/2015/06/16/learn-haskell/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="davidlau">
@@ -9783,7 +9899,7 @@ b_{i}^{(l)} &amp;= b_{i}^{(l)} - \alpha \frac{\partial}{\partial b_i^{(l)}} J(W,
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2015/05/30/conspiracism/">
+    <link itemprop="mainEntityOfPage" href="http://liuslevis.github.io/2015/05/30/conspiracism/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="davidlau">
@@ -9990,7 +10106,7 @@ b_{i}^{(l)} &amp;= b_{i}^{(l)} - \alpha \frac{\partial}{\partial b_i^{(l)}} J(W,
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2015/05/28/learn-SCIP/">
+    <link itemprop="mainEntityOfPage" href="http://liuslevis.github.io/2015/05/28/learn-SCIP/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="davidlau">
@@ -10138,7 +10254,7 @@ b_{i}^{(l)} &amp;= b_{i}^{(l)} - \alpha \frac{\partial}{\partial b_i^{(l)}} J(W,
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2015/05/11/learning-functional-programming-in-swift/">
+    <link itemprop="mainEntityOfPage" href="http://liuslevis.github.io/2015/05/11/learning-functional-programming-in-swift/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="davidlau">
@@ -10284,7 +10400,7 @@ b_{i}^{(l)} &amp;= b_{i}^{(l)} - \alpha \frac{\partial}{\partial b_i^{(l)}} J(W,
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2015/05/11/notes-on-The-Free-Launch-Is-Over/">
+    <link itemprop="mainEntityOfPage" href="http://liuslevis.github.io/2015/05/11/notes-on-The-Free-Launch-Is-Over/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="davidlau">
@@ -10430,7 +10546,7 @@ b_{i}^{(l)} &amp;= b_{i}^{(l)} - \alpha \frac{\partial}{\partial b_i^{(l)}} J(W,
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2015/04/19/how-my-marxism-fundamentals-collapse/">
+    <link itemprop="mainEntityOfPage" href="http://liuslevis.github.io/2015/04/19/how-my-marxism-fundamentals-collapse/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="davidlau">
@@ -10584,7 +10700,7 @@ b_{i}^{(l)} &amp;= b_{i}^{(l)} - \alpha \frac{\partial}{\partial b_i^{(l)}} J(W,
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2015/03/04/Google-Chrome-Canary-for-CSS-Animation-Debug/">
+    <link itemprop="mainEntityOfPage" href="http://liuslevis.github.io/2015/03/04/Google-Chrome-Canary-for-CSS-Animation-Debug/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="davidlau">
@@ -10729,7 +10845,7 @@ b_{i}^{(l)} &amp;= b_{i}^{(l)} - \alpha \frac{\partial}{\partial b_i^{(l)}} J(W,
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2014/10/23/TODO/">
+    <link itemprop="mainEntityOfPage" href="http://liuslevis.github.io/2014/10/23/TODO/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="davidlau">
@@ -10899,7 +11015,7 @@ b_{i}^{(l)} &amp;= b_{i}^{(l)} - \alpha \frac{\partial}{\partial b_i^{(l)}} J(W,
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2014/08/10/sleep-less-keep-enegertic/">
+    <link itemprop="mainEntityOfPage" href="http://liuslevis.github.io/2014/08/10/sleep-less-keep-enegertic/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="davidlau">
@@ -11046,7 +11162,7 @@ b_{i}^{(l)} &amp;= b_{i}^{(l)} - \alpha \frac{\partial}{\partial b_i^{(l)}} J(W,
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2014/08/10/programming-pearls-II-C12-notes-rand-num-generator/">
+    <link itemprop="mainEntityOfPage" href="http://liuslevis.github.io/2014/08/10/programming-pearls-II-C12-notes-rand-num-generator/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="davidlau">

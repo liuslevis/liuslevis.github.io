@@ -98,12 +98,13 @@
 <meta name="description" content="Q 分布  Q 分布图：横轴 realCTR 纵轴 pCTR 保序：Q分布图是直线，样本排序正确 保距：45度，样本等距  评估指标  AUC 如果不考虑校准，AUC 是不错的指标。在生产环节，我们希望 pCTR 更接近实际 CTR，而非仅仅给出正确的 ranking order，避免 under-delivery 或者 over-dilivery。  NE Normalized Entropy">
 <meta property="og:type" content="article">
 <meta property="og:title" content="pCTR">
-<meta property="og:url" content="http://davidlau.me/2019/05/29/pctr/index.html">
+<meta property="og:url" content="http://liuslevis.github.io/2019/05/29/pctr/index.html">
 <meta property="og:site_name" content="davidlau&#39;s blog">
 <meta property="og:description" content="Q 分布  Q 分布图：横轴 realCTR 纵轴 pCTR 保序：Q分布图是直线，样本排序正确 保距：45度，样本等距  评估指标  AUC 如果不考虑校准，AUC 是不错的指标。在生产环节，我们希望 pCTR 更接近实际 CTR，而非仅仅给出正确的 ranking order，避免 under-delivery 或者 over-dilivery。  NE Normalized Entropy">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://pic2.zhimg.com/80/v2-72566b1a5446f000cb75b73676e9d5ad_hd.jpg">
-<meta property="og:updated_time" content="2020-08-25T08:24:09.992Z">
+<meta property="og:image" content="https://bkimg.cdn.bcebos.com/pic/eac4b74543a98226388fe4f08482b9014b90eb98?x-bce-process=image/watermark,image_d2F0ZXIvYmFpa2U5Mg==,g_7,xp_5,yp_5">
+<meta property="og:updated_time" content="2020-10-15T09:32:25.649Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="pCTR">
 <meta name="twitter:description" content="Q 分布  Q 分布图：横轴 realCTR 纵轴 pCTR 保序：Q分布图是直线，样本排序正确 保距：45度，样本等距  评估指标  AUC 如果不考虑校准，AUC 是不错的指标。在生产环节，我们希望 pCTR 更接近实际 CTR，而非仅仅给出正确的 ranking order，避免 under-delivery 或者 over-dilivery。  NE Normalized Entropy">
@@ -136,7 +137,7 @@
 
 
 
-  <link rel="canonical" href="http://davidlau.me/2019/05/29/pctr/"/>
+  <link rel="canonical" href="http://liuslevis.github.io/2019/05/29/pctr/"/>
 
 
 
@@ -275,7 +276,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2019/05/29/pctr/">
+    <link itemprop="mainEntityOfPage" href="http://liuslevis.github.io/2019/05/29/pctr/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="davidlau">
@@ -373,7 +374,9 @@ w&=\frac{l}{m}
 \end{align}
 
 <h3 id="isotonic-fit-保序回归"><a class="markdownIt-Anchor" href="#isotonic-fit-保序回归"></a> Isotonic fit （保序回归）</h3>
+<p><img src="https://bkimg.cdn.bcebos.com/pic/eac4b74543a98226388fe4f08482b9014b90eb98?x-bce-process=image/watermark,image_d2F0ZXIvYmFpa2U5Mg==,g_7,xp_5,yp_5" alt="img"></p>
 <p><a href="https://scikit-learn.org/stable/modules/calibration.html" target="_blank" rel="noopener">https://scikit-learn.org/stable/modules/calibration.html</a></p>
+<p><a href="https://scikit-learn.org/stable/modules/classes.html#module-sklearn.isotonic" target="_blank" rel="noopener">https://scikit-learn.org/stable/modules/classes.html#module-sklearn.isotonic</a></p>
 <h3 id="facebook-在线模型"><a class="markdownIt-Anchor" href="#facebook-在线模型"></a> Facebook 在线模型</h3>
 <p>![image-20190529201559938](/Users/david/Library/Application Support/typora-user-images/image-20190529201559938.png)</p>
 <h3 id="teg-推荐架构"><a class="markdownIt-Anchor" href="#teg-推荐架构"></a> TEG 推荐架构</h3>

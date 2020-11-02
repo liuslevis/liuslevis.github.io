@@ -99,17 +99,17 @@
 <meta name="keywords" content="recommend system">
 <meta property="og:type" content="article">
 <meta property="og:title" content="基于word2vec协同过滤推荐">
-<meta property="og:url" content="http://davidlau.me/2017/03/06/word2vec-collaborative-filtering/index.html">
+<meta property="og:url" content="http://liuslevis.github.io/2017/03/06/word2vec-collaborative-filtering/index.html">
 <meta property="og:site_name" content="davidlau&#39;s blog">
 <meta property="og:description" content="引言 在文章 学习协同过滤推荐 \w 100行Python代码 中，介绍了基于物品的协同过滤推荐，根据 user-item 评分矩阵，找出与给定 item 评分最接近的物品，作为推荐结果。 在本文中，把书籍名称看作单词，以用户喜欢的书籍看作句子，利用 word2vec 模型构建了一个书籍的向量空间。对给定书籍，找出与其距离最近的书籍，作为推荐结果。 本文用 Python 60 行代码实现了一个">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://davidlau.me/img/word2vec-fig1.png">
+<meta property="og:image" content="http://liuslevis.github.io/img/word2vec-fig1.png">
 <meta property="og:image" content="https://miro.medium.com/max/410/1*g8cLA2GQG6OUhYzlD7F5ug.png">
 <meta property="og:updated_time" content="2020-08-16T13:13:22.444Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="基于word2vec协同过滤推荐">
 <meta name="twitter:description" content="引言 在文章 学习协同过滤推荐 \w 100行Python代码 中，介绍了基于物品的协同过滤推荐，根据 user-item 评分矩阵，找出与给定 item 评分最接近的物品，作为推荐结果。 在本文中，把书籍名称看作单词，以用户喜欢的书籍看作句子，利用 word2vec 模型构建了一个书籍的向量空间。对给定书籍，找出与其距离最近的书籍，作为推荐结果。 本文用 Python 60 行代码实现了一个">
-<meta name="twitter:image" content="http://davidlau.me/img/word2vec-fig1.png">
+<meta name="twitter:image" content="http://liuslevis.github.io/img/word2vec-fig1.png">
 
 
 
@@ -138,7 +138,7 @@
 
 
 
-  <link rel="canonical" href="http://davidlau.me/2017/03/06/word2vec-collaborative-filtering/"/>
+  <link rel="canonical" href="http://liuslevis.github.io/2017/03/06/word2vec-collaborative-filtering/"/>
 
 
 
@@ -277,7 +277,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://davidlau.me/2017/03/06/word2vec-collaborative-filtering/">
+    <link itemprop="mainEntityOfPage" href="http://liuslevis.github.io/2017/03/06/word2vec-collaborative-filtering/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="davidlau">
@@ -367,7 +367,7 @@
 
       
         <h2 id="引言"><a class="markdownIt-Anchor" href="#引言"></a> 引言</h2>
-<p>在文章 <a href="http://davidlau.me/2016/12/09/learn-cf-in-python/">学习协同过滤推荐 \w 100行Python代码</a> 中，介绍了基于物品的协同过滤推荐，根据 user-item 评分矩阵，找出与给定 item 评分最接近的物品，作为推荐结果。</p>
+<p>在文章 <a href="http://davidlau.me/2016/12/09/learn-cf-in-python/" target="_blank" rel="noopener">学习协同过滤推荐 \w 100行Python代码</a> 中，介绍了基于物品的协同过滤推荐，根据 user-item 评分矩阵，找出与给定 item 评分最接近的物品，作为推荐结果。</p>
 <p>在本文中，把书籍名称看作单词，以用户喜欢的书籍看作句子，利用 word2vec 模型构建了一个书籍的向量空间。对给定书籍，找出与其距离最近的书籍，作为推荐结果。</p>
 <p>本文用 Python 60 行代码实现了一个 Demo，得到每本书籍在向量空间的表示，输出基于书籍的协同过滤推荐结果。</p>
 <a id="more"></a>

@@ -107,7 +107,7 @@
 <meta property="og:image" content="http://oc9b84kcd.bkt.clouddn.com/OffPolicy.png">
 <meta property="og:image" content="https://pic3.zhimg.com/80/v2-8d1f65414a74ae0cb71062d79eeb4922_hd.png">
 <meta property="og:image" content="https://pic3.zhimg.com/80/v2-fee178d141c219be512dc4cd9f6090c2_720w.jpg">
-<meta property="og:updated_time" content="2020-06-03T09:34:04.376Z">
+<meta property="og:updated_time" content="2021-01-04T12:11:38.206Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Reinforce Learning">
 <meta name="twitter:description" content="强化学习笔记。">
@@ -400,9 +400,9 @@ V_\gamma^\pi(x) = \mathbb E_\pi [\frac{1}{T} \sum_{t=1}^{T} \gamma^t r_t | x_0 =
 <h3 id="蒙特卡洛强化学习"><a class="markdownIt-Anchor" href="#蒙特卡洛强化学习"></a> 蒙特卡洛强化学习</h3>
 <p>蒙特卡洛方法（MC）又称模拟统计方法，通过随机数来解决计算问题，如通过洒豆子估算圆形的面积。</p>
 <p>蒙特卡洛强化学习，通过多次采样，然后求平均累计奖赏来作为期望累积奖赏的近似。然后借鉴 \epsilon - 贪心法，在下一步执行策略。</p>
-<p>同策略蒙特卡洛强化学习：</p>
+<p>On-Policy 同策略蒙特卡洛强化学习：</p>
 <img src="http://oc9b84kcd.bkt.clouddn.com/OnPolicy.png" width="60%">
-<p>异策略蒙特卡洛强化学习：（在策略评估时引入贪心策略，在策略改进时改进原始策略）</p>
+<p>Off-Policy 异策略蒙特卡洛强化学习：（在策略评估时引入贪心策略，在策略改进时改进原始策略）</p>
 <img src="http://oc9b84kcd.bkt.clouddn.com/OffPolicy.png" width="56%">
 $$
 Q(s_t,a_t) = Q(s_t,a_t) + \alpha [R - Q(s_t, a_t)]
@@ -750,7 +750,7 @@ Y_t^{DoubleQ} &\equiv r_{t+1} + \gamma Q(s_{t+1},\arg \max_{a} Q(s_{t+1},a;\thet
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2020</span>
+  <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

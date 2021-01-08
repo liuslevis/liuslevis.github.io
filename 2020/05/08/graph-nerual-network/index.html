@@ -102,10 +102,15 @@
 <meta property="og:site_name" content="davidlau&#39;s blog">
 <meta property="og:description" content="GCN Graph Convolutional Network  Transductive / Inductive Task transductive 转导任务：训练阶段与测试阶段都基于同样的图结构，如 pubmed cora 数据集。 常见算法：LabelPropagation SemiEmb ManiReg DeepWalk Inductive       归纳任务：训练阶段与测试阶段都基于">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2020-06-30T04:52:59.900Z">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-7e94e024910274eee88ab3947fd3dff4_720w.jpg">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200529131940154.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5Mzg4NDEw,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200529141639884.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5Mzg4NDEw,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200529142723658.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5Mzg4NDEw,size_16,color_FFFFFF,t_70">
+<meta property="og:updated_time" content="2020-11-22T16:53:27.877Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="graph-nerual-network">
 <meta name="twitter:description" content="GCN Graph Convolutional Network  Transductive / Inductive Task transductive 转导任务：训练阶段与测试阶段都基于同样的图结构，如 pubmed cora 数据集。 常见算法：LabelPropagation SemiEmb ManiReg DeepWalk Inductive       归纳任务：训练阶段与测试阶段都基于">
+<meta name="twitter:image" content="https://pic1.zhimg.com/80/v2-7e94e024910274eee88ab3947fd3dff4_720w.jpg">
 
 
 
@@ -340,22 +345,42 @@
       
 
       
-        <h2 id="gcn"><a class="markdownIt-Anchor" href="#gcn"></a> GCN</h2>
+        <h1 id="gcn"><a class="markdownIt-Anchor" href="#gcn"></a> GCN</h1>
 <p>Graph Convolutional Network</p>
-<h3 id="transductive-inductive-task"><a class="markdownIt-Anchor" href="#transductive-inductive-task"></a> Transductive / Inductive Task</h3>
+<h2 id="transductive-inductive-task"><a class="markdownIt-Anchor" href="#transductive-inductive-task"></a> Transductive / Inductive Task</h2>
 <p>transductive 转导任务：训练阶段与测试阶段都基于同样的图结构，如 pubmed cora 数据集。</p>
 <p>常见算法：LabelPropagation SemiEmb ManiReg DeepWalk</p>
 <p>Inductive       归纳任务：训练阶段与测试阶段都基于不同的图结构，可对未知测试点进行预测，如 protein-protein interaction 数据集</p>
 <p>常见算法：GAT，GraphSAGE-GCN/LSTM/mean，</p>
-<h3 id="spatial-domain"><a class="markdownIt-Anchor" href="#spatial-domain"></a> Spatial Domain</h3>
+<h5 id="graphsage"><a class="markdownIt-Anchor" href="#graphsage"></a> GraphSage</h5>
+<h2 id="spatial-domain"><a class="markdownIt-Anchor" href="#spatial-domain"></a> Spatial Domain</h2>
 <p>基于空域卷积的方法直接将卷积操作定义在每个结点的连接关系上，它跟传统的卷积神经网络中的卷积更相似一些。在这个类别中比较有代表性的方法有 MPNN GraphSage MoNet</p>
-<h3 id="spectral-domain"><a class="markdownIt-Anchor" href="#spectral-domain"></a> Spectral Domain</h3>
+<h2 id="spectral-domain"><a class="markdownIt-Anchor" href="#spectral-domain"></a> Spectral Domain</h2>
 <p>这就是谱域图卷积网络的理论基础了。这种思路就是希望借助图谱的理论来实现拓扑图上的卷积操作。从整个研究的时间进程来看：首先研究 GSP（graph signal processing）的学者定义了 graph 上的 Fourier Transformation，进而定义了 graph 上的 convolution，最后与深度学习结合提出了 Graph Convolutional Network。</p>
-<h3 id="gcn-2"><a class="markdownIt-Anchor" href="#gcn-2"></a> GCN</h3>
+<h2 id="gcn-2"><a class="markdownIt-Anchor" href="#gcn-2"></a> GCN</h2>
 <p>谱域，inductive 任务，拉普拉斯矩阵</p>
-<h3 id="graphsage"><a class="markdownIt-Anchor" href="#graphsage"></a> GraphSAGE</h3>
+<h2 id="graphsage-2"><a class="markdownIt-Anchor" href="#graphsage-2"></a> GraphSAGE</h2>
+<p>《Inductive Representation Learning on Large Graphs NIPS17》 <a href="https://arxiv.org/abs/1706.02216" target="_blank" rel="noopener">PDF</a></p>
 <p>空域，inductive 任务</p>
-<h3 id="gat"><a class="markdownIt-Anchor" href="#gat"></a> GAT</h3>
+<p><a href="https://zhuanlan.zhihu.com/p/62750137" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/62750137</a></p>
+<p><img src="https://pic1.zhimg.com/80/v2-7e94e024910274eee88ab3947fd3dff4_720w.jpg" alt="img"></p>
+<p>预测任务，输出：给定节点的标签，输入：采样1、2条节点的 embedding 进行聚合</p>
+<h2 id="pinsage"><a class="markdownIt-Anchor" href="#pinsage"></a> PinSage</h2>
+<p>《Graph Convolutional Neural Networks for Web-Scale Recommender Systems》<a href="https://arxiv.org/pdf/1806.01973.pdf" target="_blank" rel="noopener">PDF</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/63214411" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/63214411</a></p>
+<p><img src="https://img-blog.csdnimg.cn/20200529131940154.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5Mzg4NDEw,size_16,color_FFFFFF,t_70" alt="img"></p>
+<h2 id="eges"><a class="markdownIt-Anchor" href="#eges"></a> EGES</h2>
+<p>《Billion-scale Commodity Embedding for E-commerce Recommendation in Alibaba》KDD18</p>
+<p>可以根据用户的历史行为来构建商品图（如上图的a和b，根据用户的一些点击记录，依照连续点击应该存在关系，可以构造出如b一样的item graph），并学习图中所有商品的嵌入（如图c的带权随机游走采样，用deepwalk思想基于skip-gram训练embedding）。这一步就是作者描述的Base Graph Embedding（BGE）。</p>
+<p>为了减轻稀疏性和冷启动问题，将边信息合并到图嵌入框架中。即增加商品的属性，如品牌，价格等。然后就升级成了Graph Embedding with Side information (GES)，并且对不同的side Information加权得到Enhanced Graph Embedding with Side information (EGES)。</p>
+<p><img src="https://img-blog.csdnimg.cn/20200529141639884.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5Mzg4NDEw,size_16,color_FFFFFF,t_70" alt="img"></p>
+<p><img src="https://img-blog.csdnimg.cn/20200529142723658.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5Mzg4NDEw,size_16,color_FFFFFF,t_70" alt="img"></p>
+<h2 id="graphtr"><a class="markdownIt-Anchor" href="#graphtr"></a> GraphTR</h2>
+<p>《Graph Neural Network for Tag Ranking in Tag-enhanced Video Recommendation CIKM20》PDF</p>
+<p><a href="https://mp.weixin.qq.com/s/0Tb5t9K2V-RYb12UKL1cXg" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/0Tb5t9K2V-RYb12UKL1cXg</a></p>
+<p><a href="https://github.com/lqfarmer/GraphTR" target="_blank" rel="noopener">https://github.com/lqfarmer/GraphTR</a></p>
+<p>微信</p>
+<h2 id="gat"><a class="markdownIt-Anchor" href="#gat"></a> GAT</h2>
 <p>空域，inductive / transductive 任务</p>
 <p>GAT 注意力系数，有向</p>
 <p><a href="https://zhuanlan.zhihu.com/p/81350196" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/81350196</a></p>
@@ -554,7 +579,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#gcn"><span class="nav-number">1.</span> <span class="nav-text"> GCN</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#transductive-inductive-task"><span class="nav-number">1.1.</span> <span class="nav-text"> Transductive / Inductive Task</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#spatial-domain"><span class="nav-number">1.2.</span> <span class="nav-text"> Spatial Domain</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#spectral-domain"><span class="nav-number">1.3.</span> <span class="nav-text"> Spectral Domain</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#gcn-2"><span class="nav-number">1.4.</span> <span class="nav-text"> GCN</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#graphsage"><span class="nav-number">1.5.</span> <span class="nav-text"> GraphSAGE</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#gat"><span class="nav-number">1.6.</span> <span class="nav-text"> GAT</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#gcn"><span class="nav-number">1.</span> <span class="nav-text"> GCN</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#transductive-inductive-task"><span class="nav-number">1.1.</span> <span class="nav-text"> Transductive / Inductive Task</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#graphsage"><span class="nav-number">1.1.0.0.1.</span> <span class="nav-text"> GraphSage</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#spatial-domain"><span class="nav-number">1.2.</span> <span class="nav-text"> Spatial Domain</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#spectral-domain"><span class="nav-number">1.3.</span> <span class="nav-text"> Spectral Domain</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#gcn-2"><span class="nav-number">1.4.</span> <span class="nav-text"> GCN</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#graphsage-2"><span class="nav-number">1.5.</span> <span class="nav-text"> GraphSAGE</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pinsage"><span class="nav-number">1.6.</span> <span class="nav-text"> PinSage</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#eges"><span class="nav-number">1.7.</span> <span class="nav-text"> EGES</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#graphtr"><span class="nav-number">1.8.</span> <span class="nav-text"> GraphTR</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#gat"><span class="nav-number">1.9.</span> <span class="nav-text"> GAT</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -577,7 +602,7 @@
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2020</span>
+  <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
